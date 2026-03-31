@@ -1,0 +1,6 @@
+period,line_item,budget_usd,actual_usd,variance_usd,variance_pct
+November 2024,Revenue,100000,115000,15000,15%
+November 2024,Salaries,50000,56000,6000,12%
+November 2024,Professional Fees,8000,14000,-6000,-75%
+November 2024,Software & Subscriptions,5000,5200,200,4%
+November 2024,Office & Facilities,4000,4100,100,2.5%
