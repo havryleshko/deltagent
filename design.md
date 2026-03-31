@@ -1,19 +1,12 @@
 # Variance Commentary Agent — System Design
 
 ## Problem
-Every month-end, a finance controller spends 2–4 hours writing variance commentary
-for the management accounts pack. The numbers are in a spreadsheet. The reasons are
-in their head, in emails, in Slack, in the CRM. Writing the commentary means
-pulling all of that together manually, under deadline pressure.
-
-**This tool eliminates the blank page.** It reads the numbers, gathers the context,
-and drafts the full commentary in one run. The human reviews and exports.
+Every month-end, a finance controller spends 2–4 hours writing variance commentary for the management accounts pack. The numbers are in a spreadsheet. The problem is that the context that explains the variance is everywhere - converstaions, calendar tasks, overdues, notes in Slack, CRM etc. **This agent is for gathering as much context via from email, CRM etc. as possible and given your month-end close it explains *why* of the variance. It reads the numbers, gathers the context, and drafts the full commentary in one run. You can review and export the file**
 
 ---
 
 ## User
-Finance Controller or FP&A analyst at a £10M–£300M business.
-Runs this once a month at close. Not a developer.
+Finance Controller or FP&A analyst at a $10M–$300M business. Runs this once a month at close.
 
 ---
 
@@ -34,33 +27,31 @@ Runs this once a month at close. Not a developer.
 - Export as `.docx` (board packs) or `.md` (Notion/Confluence)
 
 **What "significant" means**
-Default: variance > 10% AND > £1,000 absolute. Configurable.
+Default: variance > 10% AND > $1,000 absolute; configurable
 
 ---
 
 ## Flow
 
-```
-1. User launches app: python main.py
-2. Textual TUI opens
+1. User launches app - terminal UI (Textual)
+2. TUI opens
 3. User selects CSV via file picker
-4. Variance table renders — user confirms period
+4. Variance table renders, user confirms period
 5. User presses Run
-6. Agent fires 4 tool calls IN PARALLEL:
-   - Slack: operational context
-   - Gmail: formal approvals and decisions
-   - Calendar: timing anomalies
-   - CRM: revenue and deal pipeline
+6. Agent assesses variance complexity, then fires tool calls IN PARALLEL:
+   - Slack: operational context (any significant line)
+   - Gmail: formal approvals and decisions (salary, headcount, large one-offs)
+   - Calendar: timing anomalies (marketing, travel, events)
+   - CRM: revenue and deal pipeline (ONLY if revenue line is significant)
+   Each tool queries broad first, narrows only if first pass returns nothing.
 7. Tool results return, agent synthesises
 8. Full commentary renders in terminal
 9. User selects export format and saves file
-```
 
 ---
 
 ## Architecture
 
-```
 main.py
 │
 ├── ui/app.py                  Textual TUI
@@ -79,18 +70,20 @@ main.py
 │   ├── calendar_tool.py       Google Calendar API
 │   └── crm_tool.py            HubSpot / Salesforce or mock
 │
+├── utils/
+│   └── csv_validator.py       Schema + type validation
+│
 └── exports/
     └── exporter.py            .docx and .md writers
-```
 
----
+
 
 ## Stack
 
 | Layer | Choice | Why |
 |---|---|---|
 | LLM | Claude via Anthropic SDK | Native tool calling, no framework needed |
-| Model | claude-opus-4-5 | Best reasoning for finance commentary |
+| Model | claude-sonnet-4-6 | Best reasoning for finance commentary |
 | TUI | Textual | Python-native, clean terminal UI |
 | Tool calling | Parallel via asyncio.gather | Speed — all 4 tools fire simultaneously |
 | Gmail + Calendar | Google API Python client | OAuth, read-only scopes |
@@ -106,13 +99,15 @@ main.py
 The Anthropic SDK handles the tool-calling loop natively.
 
 ```
+client = AsyncAnthropic()
+
 while stop_reason == "tool_use":
     tool_calls = extract_tool_calls(response)
     results = await asyncio.gather(*[execute(t) for t in tool_calls])
     messages.append(tool_results)
-    response = client.messages.create(...)
+    response = await client.messages.create(...)
 
-return response.text  # final commentary
+return response.text
 ```
 
 **Tool calling rules (in system prompt):**
@@ -225,12 +220,12 @@ SALESFORCE_SECURITY_TOKEN=
 
 | Phase | What | Done when |
 |---|---|---|
-| 1 | Agent core | CSV in → commentary out, no tools, no TUI. Just `python agent/agent.py` |
-| 2 | Mock tools | Slack + CRM return fixture data. Commentary has real reasons |
-| 3 | Real tools | Gmail + Calendar wired. Google OAuth working |
-| 4 | TUI | Textual file picker + variance table + commentary display |
-| 5 | Export | .docx and .md working |
-| 6 | Polish | Threshold config, period confirmation, error messages |
+| 1 | Agent core | CSV in → commentary out, no tools, no TUI |
+| 2 | Mock tools | All 4 tools return fixture data. Commentary has real reasons |
+| 3 | TUI | File picker + variance table + commentary display |
+| 4 | Export | .docx and .md working |
+| 5 | Polish | Threshold config, period confirmation, error messages |
+| 6 | Real tools | Gmail + Calendar OAuth, Slack, CRM |
 
 **Rule: Phase 1 must produce good commentary before touching anything else.**
 The agent prompt and tool definitions are the product. Everything else is plumbing.
