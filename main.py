@@ -2,6 +2,10 @@ from __future__ import annotations
 
 import sys
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from ui.app import run_tui
 
 
