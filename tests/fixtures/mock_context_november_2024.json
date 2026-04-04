@@ -1,0 +1,60 @@
+{
+  "period": "November 2024",
+  "line_items": [
+    "Revenue",
+    "Salaries",
+    "Professional Fees",
+    "Software & Subscriptions",
+    "Office & Facilities"
+  ],
+  "tool_responses": {
+    "search_slack": {
+      "Revenue": {
+        "broad": "Sales standup notes: enterprise expansion closed in final week of November and pulled revenue forward.",
+        "narrow": "Deal desk thread confirms two upsell orders booked before month-end close."
+      },
+      "Salaries": {
+        "broad": "People Ops update: one planned replacement started earlier than expected and overlap week increased payroll.",
+        "narrow": "Hiring channel confirms onboarding overlap for 5 business days in November."
+      },
+      "Professional Fees": {
+        "broad": "Finance channel: external counsel engaged for urgent contract remediation work.",
+        "narrow": "Legal ops message ties urgent remediation scope to November invoices."
+      }
+    },
+    "search_gmail": {
+      "Revenue": {
+        "broad": "CRO email: discount exception approved to close two at-risk deals before quarter lock.",
+        "narrow": "Approval thread references signed forms for November close acceleration."
+      },
+      "Salaries": {
+        "broad": "CFO approval email confirms interim contractor conversion and backfilled payroll line.",
+        "narrow": "Compensation approval notes prorated uplift effective mid-November."
+      },
+      "Professional Fees": {
+        "broad": "Invoice approval chain confirms one-off legal and compliance advisory spend.",
+        "narrow": "AP approval references advisory invoice batch posted in November."
+      }
+    },
+    "search_calendar": {
+      "Revenue": {
+        "broad": "Calendar shows late-month customer workshop sequence aligned with accelerated deal closure.",
+        "narrow": "Go-live milestones clustered in final week and matched booking dates."
+      },
+      "Salaries": {
+        "broad": "Payroll calendar includes off-cycle run in November for onboarding timing.",
+        "narrow": "HR operations calendar records supplemental payroll processing window."
+      },
+      "Professional Fees": {
+        "broad": "Compliance review sessions concentrated in November increased advisor utilization.",
+        "narrow": "Board prep meetings added external legal attendance blocks."
+      }
+    },
+    "search_crm": {
+      "Revenue": {
+        "broad": "CRM pipeline: two opportunities moved from Commit to Closed Won in November, total +15000 vs plan.",
+        "narrow": "Opportunity audit trail shows close dates pulled from December into November."
+      }
+    }
+  }
+}
