@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from pathlib import Path
 from typing import Any
 
@@ -12,15 +13,9 @@ from textual.widgets import Button, Checkbox, DataTable, Footer, Header, Input, 
 
 from agent.agent import run_agent
 from exports.exporter import build_export_basename, write_docx, write_markdown
-from tools import build_mock_tool_registry
+from tools import build_tool_registry
+from utils.config import load_config
 from utils.csv_validator import validate_csv
-
-CURRENCY_SYMBOL = "$"
-
-
-def _fmt_money(value: float) -> str:
-    sign = "-" if value < 0 else ""
-    return f"{sign}{CURRENCY_SYMBOL}{abs(value):,.0f}"
 
 
 class FilePickerScreen(Screen[str | None]):
@@ -63,6 +58,11 @@ class VarianceScreen(Screen[None]):
         self._significant: list[dict[str, Any]] = []
         self._insignificant: list[dict[str, Any]] = []
         self._errors: list[str] = []
+        self._currency_symbol = "$"
+
+    def _fmt_money(self, value: float) -> str:
+        sign = "-" if value < 0 else ""
+        return f"{sign}{self._currency_symbol}{abs(value):,.0f}"
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -82,11 +82,22 @@ class VarianceScreen(Screen[None]):
         yield Footer()
 
     def on_mount(self) -> None:
+        cfg = load_config()
+        self._currency_symbol = cfg.currency_symbol
         self.query_one("#path_label", Static).update(f"File: {self._csv_path}")
-        self._significant, self._insignificant, self._errors = validate_csv(self._csv_path)
+        self._significant, self._insignificant, self._errors = validate_csv(
+            self._csv_path,
+            significance_pct_threshold=cfg.significance_pct_threshold,
+            significance_abs_variance_threshold=cfg.significance_abs_variance_threshold,
+        )
         err_widget = self.query_one("#validation_errors", Static)
         if self._errors:
-            err_widget.update("\n".join(self._errors))
+            lines = list(self._errors)
+            if any(
+                line.startswith("Missing required columns") for line in self._errors
+            ):
+                lines = ["Fix the CSV and reload.", *lines]
+            err_widget.update("\n".join(lines))
         else:
             err_widget.update("")
         all_rows = self._significant + self._insignificant
@@ -98,10 +109,15 @@ class VarianceScreen(Screen[None]):
         first = self._significant[0] if self._significant else self._insignificant[0]
         period_text = first.get("period", "—")
         self.query_one("#period_label", Static).update(f"Period: {period_text}")
-        warn = ""
+        warn_parts: list[str] = []
         if len(periods) > 1:
-            warn = "Multiple periods in file — label uses first row's period."
-        self.query_one("#period_warning", Static).update(warn)
+            warn_parts.append("Multiple periods in file — label uses first row's period.")
+        if self._insignificant and not self._significant:
+            warn_parts.append(
+                "No line items exceed significance thresholds — commentary will emphasize "
+                "executive summary and insignificant lines only."
+            )
+        self.query_one("#period_warning", Static).update("\n".join(warn_parts))
         table = self.query_one("#variance_table", DataTable)
         table.clear(columns=True)
         table.add_columns(
@@ -115,18 +131,18 @@ class VarianceScreen(Screen[None]):
         for row in self._significant:
             table.add_row(
                 row["line_item"],
-                _fmt_money(row["budget_usd"]),
-                _fmt_money(row["actual_usd"]),
-                _fmt_money(row["variance_usd"]),
+                self._fmt_money(row["budget_usd"]),
+                self._fmt_money(row["actual_usd"]),
+                self._fmt_money(row["variance_usd"]),
                 f"{row['variance_pct']:+.1f}%",
                 "Y",
             )
         for row in self._insignificant:
             table.add_row(
                 row["line_item"],
-                _fmt_money(row["budget_usd"]),
-                _fmt_money(row["actual_usd"]),
-                _fmt_money(row["variance_usd"]),
+                self._fmt_money(row["budget_usd"]),
+                self._fmt_money(row["actual_usd"]),
+                self._fmt_money(row["variance_usd"]),
                 f"{row['variance_pct']:+.1f}%",
                 "N",
             )
@@ -155,6 +171,7 @@ class VarianceScreen(Screen[None]):
                     significant_rows=list(self._significant),
                     insignificant_rows=list(self._insignificant),
                     period=period,
+                    currency_symbol=self._currency_symbol,
                 )
             )
 
@@ -165,11 +182,13 @@ class CommentaryScreen(Screen[None]):
         significant_rows: list[dict[str, Any]],
         insignificant_rows: list[dict[str, Any]],
         period: str,
+        currency_symbol: str,
     ) -> None:
         super().__init__()
         self._significant_rows = significant_rows
         self._insignificant_rows = insignificant_rows
         self._period = period
+        self._currency_symbol = currency_symbol
         self._commentary_text: str | None = None
 
     def compose(self) -> ComposeResult:
@@ -221,23 +240,32 @@ class CommentaryScreen(Screen[None]):
         notes_body.update("")
         diagnostics: list[str] = []
         failed = False
+        start = time.perf_counter()
         try:
             text = await run_agent(
                 significant_rows=self._significant_rows,
                 insignificant_rows=self._insignificant_rows,
-                tool_registry=build_mock_tool_registry(),
+                tool_registry=build_tool_registry(),
                 tool_diagnostics=diagnostics,
+                currency_symbol=self._currency_symbol,
             )
         except Exception as error:
             text = f"Run failed: {error}"
             failed = True
         finally:
             run_btn.disabled = False
-        status.update("Finished with error." if failed else "Done.")
+        elapsed = time.perf_counter() - start
+        suffix = f" ({elapsed:.1f}s)"
+        status.update(
+            ("Finished with error." if failed else "Done.") + suffix
+        )
         log.write(text)
         if diagnostics:
             notes_title.update("Tool notes")
-            notes_body.update("\n".join(diagnostics))
+            summary = (
+                "Some tools returned errors; the model proceeded with remaining context."
+            )
+            notes_body.update(summary + "\n\n" + "\n".join(diagnostics))
         else:
             notes_title.update("")
             notes_body.update("")

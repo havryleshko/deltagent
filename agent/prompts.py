@@ -24,6 +24,7 @@ Rules:
 - Use search_crm only for significant Revenue variance context.
 - Execute relevant tool calls in parallel each tool-use round.
 - You may use multiple tool-use rounds until no additional tool calls are needed.
+- Monetary amounts in the user message use the currency symbol shown there; mirror that symbol in your commentary.
 """
 
 
@@ -31,13 +32,15 @@ def build_system_prompt() -> str:
     return SYSTEM_PROMPT
 
 
-def _format_money(value: float) -> str:
+def _format_money(value: float, currency_symbol: str) -> str:
     sign = "-" if value < 0 else ""
-    return f"{sign}${abs(value):,.0f}"
+    return f"{sign}{currency_symbol}{abs(value):,.0f}"
 
 
 def build_user_message(
-    significant_rows: list[dict[str, Any]], insignificant_rows: list[dict[str, Any]]
+    significant_rows: list[dict[str, Any]],
+    insignificant_rows: list[dict[str, Any]],
+    currency_symbol: str = "$",
 ) -> str:
     period = significant_rows[0]["period"] if significant_rows else (
         insignificant_rows[0]["period"] if insignificant_rows else "Unknown Period"
@@ -51,9 +54,9 @@ def build_user_message(
     for row in significant_rows:
         lines.append(
             "- "
-            f"{row['line_item']} | Budget: {_format_money(row['budget_usd'])} | "
-            f"Actual: {_format_money(row['actual_usd'])} | "
-            f"Variance: {_format_money(row['variance_usd'])} ({row['variance_pct']:+.1f}%)"
+            f"{row['line_item']} | Budget: {_format_money(row['budget_usd'], currency_symbol)} | "
+            f"Actual: {_format_money(row['actual_usd'], currency_symbol)} | "
+            f"Variance: {_format_money(row['variance_usd'], currency_symbol)} ({row['variance_pct']:+.1f}%)"
         )
     lines.append("")
     lines.append("Insignificant variances:")
@@ -62,7 +65,7 @@ def build_user_message(
     for row in insignificant_rows:
         lines.append(
             "- "
-            f"{row['line_item']} | Variance: {_format_money(row['variance_usd'])} "
+            f"{row['line_item']} | Variance: {_format_money(row['variance_usd'], currency_symbol)} "
             f"({row['variance_pct']:+.1f}%)"
         )
     return "\n".join(lines)

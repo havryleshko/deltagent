@@ -54,6 +54,7 @@ async def run_agent(
     model: str = "claude-sonnet-4-6",
     max_rounds: int = 8,
     tool_diagnostics: list[str] | None = None,
+    currency_symbol: str = "$",
 ) -> str:
     tool_registry = tool_registry or {}
     if client is None:
@@ -67,6 +68,7 @@ async def run_agent(
             "content": build_user_message(
                 significant_rows=significant_rows,
                 insignificant_rows=insignificant_rows,
+                currency_symbol=currency_symbol,
             ),
         }
     ]

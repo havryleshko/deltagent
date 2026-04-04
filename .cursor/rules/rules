@@ -15,10 +15,10 @@
 
 ## File structure
 - agent/ — LLM logic only
-- tools/ — one file per tool, plus definitions.py
+- tools/ — one file per tool, plus definitions.py, mock_data.py, tool_mode.py, google_oauth.py, period_parse.py, optional *_live.py
 - ui/ — Textual screens only, no business logic
 - exports/ — file writers only
-- utils/ — csv_validator.py only for now
+- utils/ — csv_validator.py, config.py (env-driven thresholds and display currency)
 - tests/fixtures/ — all mock data and sample CSVs live here
 
 ## Build order — respect this
