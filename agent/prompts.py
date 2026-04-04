@@ -17,6 +17,13 @@ Rules:
 - If reason is inferred, add: (inferred — no source found)
 - Keep tone professional and concise for executive readers.
 - Do not omit any significant line item.
+- Assess variance complexity first, then choose relevant tools.
+- Use tools only for significant variance lines.
+- Use broad queries first for each selected tool.
+- If broad search returns no useful context, run one narrower follow-up query.
+- Use search_crm only for significant Revenue variance context.
+- Execute relevant tool calls in parallel each tool-use round.
+- You may use multiple tool-use rounds until no additional tool calls are needed.
 """
 
 

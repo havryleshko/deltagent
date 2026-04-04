@@ -4,6 +4,7 @@ import asyncio
 from typing import Any, Awaitable, Callable
 
 from agent.prompts import build_system_prompt, build_user_message
+from tools.definitions import TOOL_DEFINITIONS
 
 
 ToolHandler = Callable[[dict[str, Any]], Awaitable[str]]
@@ -52,6 +53,7 @@ async def run_agent(
     tool_registry: dict[str, ToolHandler] | None = None,
     model: str = "claude-sonnet-4-6",
     max_rounds: int = 8,
+    tool_diagnostics: list[str] | None = None,
 ) -> str:
     tool_registry = tool_registry or {}
     if client is None:
@@ -69,15 +71,11 @@ async def run_agent(
         }
     ]
 
-    tools: list[dict[str, Any]] = []
-    for tool_name in tool_registry.keys():
-        tools.append(
-            {
-                "name": tool_name,
-                "description": f"{tool_name} tool",
-                "input_schema": {"type": "object", "properties": {}},
-            }
-        )
+    tools: list[dict[str, Any]] = [
+        definition
+        for definition in TOOL_DEFINITIONS
+        if definition["name"] in tool_registry
+    ]
 
     rounds = 0
     while True:
@@ -110,4 +108,13 @@ async def run_agent(
         tool_results = await asyncio.gather(
             *[_execute_tool_call(tool_call, tool_registry) for tool_call in tool_calls]
         )
+        if tool_diagnostics is not None:
+            for tool_call, result in zip(tool_calls, tool_results):
+                content = result.get("content", "")
+                if isinstance(content, str) and (
+                    content.startswith("Tool error")
+                    or content.startswith("Tool not found")
+                ):
+                    name = _block_value(tool_call, "name", "unknown")
+                    tool_diagnostics.append(f"{name}: {content}")
         messages.append({"role": "user", "content": tool_results})

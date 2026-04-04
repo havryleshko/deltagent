@@ -1,0 +1,36 @@
+## Stack
+- Python 3.11+
+- Anthropic SDK (AsyncAnthropic — always async)
+- Textual for TUI
+- asyncio.gather for parallel tool calls
+- python-docx for export
+
+## Code rules
+- Always use AsyncAnthropic, never the sync client
+- Tool calls always fire in parallel via asyncio.gather — never sequential
+- Every tool function must return a plain string — Claude reads it directly
+- Tools never raise exceptions — catch all errors and return an error string
+- agent.py and prompts.py are the core product — change these carefully
+- definitions.py tool descriptions must include what the tool does NOT find
+
+## File structure
+- agent/ — LLM logic only
+- tools/ — one file per tool, plus definitions.py
+- ui/ — Textual screens only, no business logic
+- exports/ — file writers only
+- utils/ — csv_validator.py only for now
+- tests/fixtures/ — all mock data and sample CSVs live here
+
+## Build order — respect this
+Phase 1 (agent core) must work before any other phase is touched.
+Do not build TUI or export until commentary output is good.
+
+## Naming
+Project is called DeltAgent. Agent function is run_agent(). Tools are search_slack, search_gmail, search_calendar, search_crm.
+
+## Do not
+- Add LangGraph or any orchestration framework
+- Add synchronous Anthropic API calls
+- Add new tools without a definitions.py entry
+- Hardcode currency symbols — use a currency variable
+- Store secrets anywhere except .env
