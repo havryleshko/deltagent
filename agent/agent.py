@@ -1,8 +1,12 @@
 from __future__ import annotations
 
 import asyncio
+import json
+from datetime import datetime, timezone
 from typing import Any, Awaitable, Callable
 
+from agent.models import AgentRun, ToolTrace
+from agent.parser import parse_agent_output
 from agent.prompts import build_system_prompt, build_user_message
 from tools.definitions import TOOL_DEFINITIONS
 
@@ -18,10 +22,10 @@ def _block_value(block: Any, key: str, default: Any = None) -> Any:
 
 async def _execute_tool_call(
     tool_call: Any, tool_registry: dict[str, ToolHandler]
-) -> dict[str, Any]:
+) -> tuple[dict[str, Any], ToolTrace]:
     tool_name = _block_value(tool_call, "name", "")
     tool_use_id = _block_value(tool_call, "id", "")
-    tool_input = _block_value(tool_call, "input", {}) or {}
+    tool_input = dict(_block_value(tool_call, "input", {}) or {})
     handler = tool_registry.get(tool_name)
     if handler is None:
         content = f"Tool not found: {tool_name}"
@@ -32,7 +36,15 @@ async def _execute_tool_call(
                 content = str(content)
         except Exception as error:
             content = f"Tool error ({tool_name}): {error}"
-    return {"type": "tool_result", "tool_use_id": tool_use_id, "content": content}
+    return (
+        {"type": "tool_result", "tool_use_id": tool_use_id, "content": content},
+        ToolTrace(
+            tool_name=tool_name,
+            tool_use_id=tool_use_id,
+            input_payload=tool_input,
+            output_text=content,
+        ),
+    )
 
 
 def _extract_text(response: Any) -> str:
@@ -46,6 +58,51 @@ def _extract_text(response: Any) -> str:
     return "\n".join(text_blocks).strip()
 
 
+def _tool_result_error(content: str) -> str | None:
+    if content.startswith("Tool error") or content.startswith("Tool not found"):
+        return content
+    try:
+        payload = json.loads(content)
+    except json.JSONDecodeError:
+        return None
+    error = payload.get("error")
+    summary = payload.get("summary_for_model", "")
+    if error:
+        return f"{error}: {summary}"
+    return None
+
+
+def _new_run_id() -> str:
+    return datetime.now(timezone.utc).strftime("run_%Y%m%d_%H%M%S")
+
+
+def _fallback_run(
+    *,
+    period_label: str,
+    period_start: str,
+    period_end: str,
+    currency_symbol: str,
+    raw_text: str,
+    tool_diagnostics: list[str],
+    tool_traces: list[ToolTrace],
+) -> AgentRun:
+    executive_summary, line_items, insignificant, gaps = parse_agent_output(raw_text)
+    return AgentRun(
+        run_id=_new_run_id(),
+        period_label=period_label,
+        period_start=period_start,
+        period_end=period_end,
+        currency_symbol=currency_symbol,
+        raw_text=raw_text,
+        executive_summary=executive_summary,
+        line_items=line_items,
+        insignificant=insignificant,
+        gaps=gaps,
+        tool_diagnostics=list(tool_diagnostics),
+        tool_traces=list(tool_traces),
+    )
+
+
 async def run_agent(
     significant_rows: list[dict[str, Any]],
     insignificant_rows: list[dict[str, Any]],
@@ -55,8 +112,29 @@ async def run_agent(
     max_rounds: int = 8,
     tool_diagnostics: list[str] | None = None,
     currency_symbol: str = "$",
-) -> str:
+    period_bounds: tuple[str, str] | None = None,
+    dry_run: bool = False,
+) -> AgentRun:
     tool_registry = tool_registry or {}
+    diagnostics = tool_diagnostics if tool_diagnostics is not None else []
+    period_label = (
+        significant_rows[0]["period"]
+        if significant_rows
+        else (insignificant_rows[0]["period"] if insignificant_rows else "Unknown Period")
+    )
+    period_start = period_bounds[0] if period_bounds else ""
+    period_end = period_bounds[1] if period_bounds else ""
+    tool_traces: list[ToolTrace] = []
+    if dry_run:
+        return _fallback_run(
+            period_label=period_label,
+            period_start=period_start,
+            period_end=period_end,
+            currency_symbol=currency_symbol,
+            raw_text="Dry run only.",
+            tool_diagnostics=list(diagnostics),
+            tool_traces=tool_traces,
+        )
     if client is None:
         from anthropic import AsyncAnthropic
 
@@ -69,6 +147,8 @@ async def run_agent(
                 significant_rows=significant_rows,
                 insignificant_rows=insignificant_rows,
                 currency_symbol=currency_symbol,
+                period_start=period_start,
+                period_end=period_end,
             ),
         }
     ]
@@ -83,7 +163,15 @@ async def run_agent(
     while True:
         rounds += 1
         if rounds > max_rounds:
-            return "No context found — recommend review"
+            return _fallback_run(
+                period_label=period_label,
+                period_start=period_start,
+                period_end=period_end,
+                currency_symbol=currency_symbol,
+                raw_text="No context found — recommend review",
+                tool_diagnostics=list(diagnostics),
+                tool_traces=tool_traces,
+            )
 
         response = await client.messages.create(
             model=model,
@@ -99,24 +187,41 @@ async def run_agent(
         stop_reason = getattr(response, "stop_reason", None)
         if stop_reason != "tool_use":
             text = _extract_text(response)
-            return text or "No context found — recommend review"
+            raw_text = text or "No context found — recommend review"
+            return _fallback_run(
+                period_label=period_label,
+                period_start=period_start,
+                period_end=period_end,
+                currency_symbol=currency_symbol,
+                raw_text=raw_text,
+                tool_diagnostics=list(diagnostics),
+                tool_traces=tool_traces,
+            )
 
         tool_calls = [
             block for block in assistant_content if _block_value(block, "type") == "tool_use"
         ]
         if not tool_calls:
-            return "No context found — recommend review"
+            return _fallback_run(
+                period_label=period_label,
+                period_start=period_start,
+                period_end=period_end,
+                currency_symbol=currency_symbol,
+                raw_text="No context found — recommend review",
+                tool_diagnostics=list(diagnostics),
+                tool_traces=tool_traces,
+            )
 
-        tool_results = await asyncio.gather(
+        tool_batches = await asyncio.gather(
             *[_execute_tool_call(tool_call, tool_registry) for tool_call in tool_calls]
         )
+        tool_results = [item[0] for item in tool_batches]
+        tool_traces.extend(item[1] for item in tool_batches)
         if tool_diagnostics is not None:
             for tool_call, result in zip(tool_calls, tool_results):
                 content = result.get("content", "")
-                if isinstance(content, str) and (
-                    content.startswith("Tool error")
-                    or content.startswith("Tool not found")
-                ):
+                error_message = _tool_result_error(content) if isinstance(content, str) else None
+                if error_message:
                     name = _block_value(tool_call, "name", "unknown")
-                    tool_diagnostics.append(f"{name}: {content}")
+                    tool_diagnostics.append(f"{name}: {error_message}")
         messages.append({"role": "user", "content": tool_results})

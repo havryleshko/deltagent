@@ -81,6 +81,6 @@ async def test_run_agent_tool_diagnostics_tool_not_found():
         tool_registry={},
         tool_diagnostics=diagnostics,
     )
-    assert "EXECUTIVE SUMMARY" in text
+    assert "EXECUTIVE SUMMARY" in text.raw_text
     assert diagnostics
-    assert any("Tool not found" in entry for entry in diagnostics)
+    assert any("search_slack" in entry for entry in diagnostics)

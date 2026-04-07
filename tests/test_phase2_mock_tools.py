@@ -66,8 +66,9 @@ async def test_mock_tools_return_strings_and_do_not_raise():
     for handler in tools.values():
         value = await handler(payload)
         assert isinstance(value, str)
+        assert '"evidence"' in value
     error_value = await tools["search_slack"]({"period": "November 2024"})
-    assert "Tool error (search_slack)" in error_value
+    assert "missing required fields" in error_value
 
 
 @pytest.mark.asyncio
@@ -119,7 +120,7 @@ async def test_run_agent_supports_multiple_tool_rounds_without_loop_rewrite():
         client=client,
         tool_registry=build_mock_tool_registry(),
     )
-    assert "EXECUTIVE SUMMARY" in output
+    assert "EXECUTIVE SUMMARY" in output.raw_text
     assert len(client.messages.calls) == 3
 
 

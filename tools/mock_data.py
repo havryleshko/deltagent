@@ -4,6 +4,10 @@ import json
 from pathlib import Path
 from typing import Any
 
+from agent.models import Evidence
+from tools.base import envelope_to_text
+from tools.period_parse import resolve_period
+
 
 FIXTURE_PATH = (
     Path(__file__).resolve().parents[1]
@@ -22,6 +26,39 @@ def load_context() -> dict[str, Any]:
         return json.load(file)
 
 
+def _mock_timestamp(tool_name: str, line_item: str, search_scope: str | None) -> str:
+    tool_order = {
+        "search_slack": 12,
+        "search_gmail": 18,
+        "search_calendar": 22,
+        "search_crm": 26,
+    }
+    day = min(28, max(1, len(line_item)))
+    hour = tool_order.get(tool_name, 9)
+    minute = 45 if search_scope == "narrow" else 15
+    return f"2024-11-{day:02d}T{hour:02d}:{minute:02d}:00Z"
+
+
+def _build_mock_evidence(
+    *,
+    tool_name: str,
+    line_item: str,
+    search_scope: str | None,
+    snippet: str,
+) -> list[Evidence]:
+    suffix = search_scope or "broad"
+    source_type = tool_name.removeprefix("search_")
+    return [
+        Evidence(
+            id=f"{source_type}-{line_item.lower().replace(' ', '_')}-{suffix}",
+            source_type=source_type,
+            timestamp=_mock_timestamp(tool_name, line_item, search_scope),
+            snippet=snippet,
+            ref=f"{line_item} fixture",
+        )
+    ]
+
+
 def lookup_context(
     *,
     tool_name: str,
@@ -31,19 +68,75 @@ def lookup_context(
 ) -> str:
     fixture = load_context()
     canonical_period = fixture.get("period", "")
+    window = resolve_period(period) or resolve_period(canonical_period)
+    date_start = window.start_iso if window else ""
+    date_end = window.end_iso if window else ""
     if _normalize(period) != _normalize(canonical_period):
-        return f"No context found in fixtures for period '{period}'."
+        return envelope_to_text(
+            tool_name=tool_name,
+            period=period,
+            date_start=date_start,
+            date_end=date_end,
+            summary_for_model=f"No context found in fixtures for period '{period}'.",
+            error="period_not_found",
+        )
     tool_payload = fixture.get("tool_responses", {}).get(tool_name, {})
     line_payload = tool_payload.get(line_item)
     if not line_payload:
-        return (
-            f"No {tool_name} context found for line item '{line_item}' in {canonical_period}."
+        return envelope_to_text(
+            tool_name=tool_name,
+            period=canonical_period,
+            date_start=date_start,
+            date_end=date_end,
+            summary_for_model=(
+                f"No {tool_name} context found for line item '{line_item}' in {canonical_period}."
+            ),
+            error="line_item_not_found",
         )
     if search_scope and search_scope in line_payload:
-        return str(line_payload[search_scope])
+        summary = str(line_payload[search_scope])
+        return envelope_to_text(
+            tool_name=tool_name,
+            period=canonical_period,
+            date_start=date_start,
+            date_end=date_end,
+            summary_for_model=summary,
+            evidence=_build_mock_evidence(
+                tool_name=tool_name,
+                line_item=line_item,
+                search_scope=search_scope,
+                snippet=summary,
+            ),
+        )
     if "broad" in line_payload:
-        return str(line_payload["broad"])
+        summary = str(line_payload["broad"])
+        return envelope_to_text(
+            tool_name=tool_name,
+            period=canonical_period,
+            date_start=date_start,
+            date_end=date_end,
+            summary_for_model=summary,
+            evidence=_build_mock_evidence(
+                tool_name=tool_name,
+                line_item=line_item,
+                search_scope="broad",
+                snippet=summary,
+            ),
+        )
     values = [str(value) for value in line_payload.values()]
-    return " ".join(values).strip() or (
+    summary = " ".join(values).strip() or (
         f"No {tool_name} context found for line item '{line_item}' in {canonical_period}."
+    )
+    return envelope_to_text(
+        tool_name=tool_name,
+        period=canonical_period,
+        date_start=date_start,
+        date_end=date_end,
+        summary_for_model=summary,
+        evidence=_build_mock_evidence(
+            tool_name=tool_name,
+            line_item=line_item,
+            search_scope=search_scope,
+            snippet=summary,
+        ),
     )

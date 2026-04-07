@@ -25,6 +25,10 @@ Rules:
 - Execute relevant tool calls in parallel each tool-use round.
 - You may use multiple tool-use rounds until no additional tool calls are needed.
 - Monetary amounts in the user message use the currency symbol shown there; mirror that symbol in your commentary.
+- Every tool result is a JSON envelope with summary_for_model, evidence IDs, and timestamps.
+- For each significant line item, render a Sources subsection immediately after the commentary.
+- Each source line must be in the format: - SourceType - Timestamp - EvidenceID - Snippet
+- If a tool fails or returns no evidence, keep going and mention the visible gap in the commentary.
 """
 
 
@@ -41,12 +45,16 @@ def build_user_message(
     significant_rows: list[dict[str, Any]],
     insignificant_rows: list[dict[str, Any]],
     currency_symbol: str = "$",
+    period_start: str = "",
+    period_end: str = "",
 ) -> str:
     period = significant_rows[0]["period"] if significant_rows else (
         insignificant_rows[0]["period"] if insignificant_rows else "Unknown Period"
     )
     lines: list[str] = []
     lines.append(f"Period: {period}")
+    if period_start and period_end:
+        lines.append(f"Hard date bounds: {period_start} to {period_end}")
     lines.append("")
     lines.append("Significant variances:")
     if not significant_rows:

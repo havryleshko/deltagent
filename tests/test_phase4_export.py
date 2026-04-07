@@ -4,7 +4,13 @@ from pathlib import Path
 
 from docx import Document
 
-from exports.exporter import build_export_basename, write_docx, write_markdown
+from agent.models import AgentRun, Evidence, ParsedLineItem
+from exports.exporter import (
+    build_export_basename,
+    export_from_run,
+    write_docx,
+    write_markdown,
+)
 
 FIXTURE_COMMENTARY = """EXECUTIVE SUMMARY
 One line summary.
@@ -48,3 +54,42 @@ def test_write_docx_contains_section_headings(tmp_path: Path) -> None:
     assert "LINE COMMENTARY" in texts
     assert "INSIGNIFICANT VARIANCES" in texts
     assert any("Overperformance" in t for t in texts)
+
+
+def test_export_from_run_uses_reviewed_lines_only(tmp_path: Path) -> None:
+    agent_run = AgentRun(
+        run_id="run_20240101_000000",
+        period_label="November 2024",
+        period_start="2024-11-01T00:00:00Z",
+        period_end="2024-11-30T23:59:59Z",
+        currency_symbol="$",
+        raw_text=FIXTURE_COMMENTARY,
+        executive_summary="One line summary.",
+        line_items=[
+            ParsedLineItem(
+                header="Revenue | Budget: $100 | Actual: $115",
+                commentary="Original commentary.",
+                review_status="edited",
+                edited_commentary="Edited commentary.",
+                sources=[
+                    Evidence(
+                        id="gmail-1",
+                        source_type="gmail",
+                        timestamp="2024-11-10T10:00:00Z",
+                        snippet="Approval thread",
+                    )
+                ],
+            ),
+            ParsedLineItem(
+                header="Professional Fees | Budget: $10 | Actual: $16",
+                commentary="Flagged item.",
+                review_status="flagged",
+            ),
+        ],
+        insignificant=["Software: small."],
+    )
+    dest = export_from_run(agent_run, "md", tmp_path)
+    text = dest.read_text(encoding="utf-8")
+    assert "Edited commentary." in text
+    assert "Flagged item." not in text
+    assert "gmail-1" in text

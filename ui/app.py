@@ -14,6 +14,7 @@ from textual.widgets import Button, Checkbox, DataTable, Footer, Header, Input, 
 from agent.agent import run_agent
 from exports.exporter import build_export_basename, write_docx, write_markdown
 from tools import build_tool_registry
+from tools.period_parse import resolve_period
 from utils.config import load_config
 from utils.csv_validator import validate_csv
 
@@ -242,12 +243,18 @@ class CommentaryScreen(Screen[None]):
         failed = False
         start = time.perf_counter()
         try:
+            period_window = resolve_period(self._period)
             text = await run_agent(
                 significant_rows=self._significant_rows,
                 insignificant_rows=self._insignificant_rows,
-                tool_registry=build_tool_registry(),
+                tool_registry=build_tool_registry(period_window=period_window),
                 tool_diagnostics=diagnostics,
                 currency_symbol=self._currency_symbol,
+                period_bounds=(
+                    (period_window.start_iso, period_window.end_iso)
+                    if period_window is not None
+                    else None
+                ),
             )
         except Exception as error:
             text = f"Run failed: {error}"
@@ -259,7 +266,7 @@ class CommentaryScreen(Screen[None]):
         status.update(
             ("Finished with error." if failed else "Done.") + suffix
         )
-        log.write(text)
+        log.write(text.raw_text)
         if diagnostics:
             notes_title.update("Tool notes")
             summary = (
@@ -269,8 +276,8 @@ class CommentaryScreen(Screen[None]):
         else:
             notes_title.update("")
             notes_body.update("")
-        self._commentary_text = text
-        can_export = (not failed) and bool(text.strip())
+        self._commentary_text = text.raw_text
+        can_export = (not failed) and bool(self._commentary_text.strip())
         self.query_one("#export_md", Button).disabled = not can_export
         self.query_one("#export_docx", Button).disabled = not can_export
 

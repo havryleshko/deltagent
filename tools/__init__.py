@@ -5,6 +5,7 @@ from typing import Any, Awaitable, Callable
 from tools.calendar_tool import search_calendar
 from tools.crm_tool import search_crm
 from tools.gmail_tool import search_gmail
+from tools.period_parse import PeriodWindow
 from tools.slack_tool import search_slack
 
 ToolHandler = Callable[[dict[str, Any]], Awaitable[str]]
@@ -19,6 +20,25 @@ def build_mock_tool_registry() -> dict[str, ToolHandler]:
     }
 
 
-def build_tool_registry() -> dict[str, ToolHandler]:
-    """Same handlers as mock registry; each tool branches on DELTAGENT_TOOL_MODE internally."""
-    return build_mock_tool_registry()
+def _with_period_bounds(
+    handler: ToolHandler, period_window: PeriodWindow | None
+) -> ToolHandler:
+    if period_window is None:
+        return handler
+
+    async def wrapped(payload: dict[str, Any]) -> str:
+        next_payload = dict(payload)
+        next_payload.setdefault("period", period_window.label)
+        next_payload["date_start"] = period_window.start_iso
+        next_payload["date_end"] = period_window.end_iso
+        return await handler(next_payload)
+
+    return wrapped
+
+
+def build_tool_registry(period_window: PeriodWindow | None = None) -> dict[str, ToolHandler]:
+    """Each tool branches on DELTAGENT_TOOL_MODE internally."""
+    return {
+        name: _with_period_bounds(handler, period_window)
+        for name, handler in build_mock_tool_registry().items()
+    }

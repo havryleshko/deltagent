@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deltaagent"
+version = "0.1.0"
+description = "Finance variance commentary agent"
+requires-python = ">=3.11"
+dependencies = [
+  "anthropic",
+  "python-dotenv>=1.0.0,<2",
+  "typer>=0.12.0,<1",
+  "textual>=0.74.0,<2.0.0",
+  "python-docx>=1.1.0,<2.0.0",
+  "google-api-python-client>=2.100.0,<3",
+  "google-auth-httplib2>=0.2.0,<1",
+  "google-auth-oauthlib>=1.2.0,<2",
+  "slack-sdk>=3.27.0,<4",
+  "httpx>=0.27.0,<1",
+]
+
+[project.scripts]
+deltaagent = "cli:main"

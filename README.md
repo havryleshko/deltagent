@@ -1,6 +1,7 @@
 # Variance Commentary Agent
 
 ## Problem
+
 **Every month-end a variance commentary for the management accounts. To explain the *why* of the variance numbers are not enough because the context is everywhere - converstaions, calendar tasks, overdues, notes in Slack, CRM etc. reads the numbers, gathers the context, and drafts the full commentary in one run. You can review and export the file. Run in TUI** 
 
 ## Requirements
@@ -47,11 +48,13 @@ Full list of environment variables, tool backends, and export behaviour: **[desi
 
 Short version:
 
-| Topic | Notes |
-| --- | --- |
-| LLM | Default model is `claude-sonnet-4-6` (see `run_agent` in `agent/agent.py`). |
-| Tools | Default `DELTAGENT_TOOL_MODE=mock` uses fixture data under `tests/fixtures/`. Set `DELTAGENT_TOOL_MODE=live` and provider credentials for real Gmail, Calendar, Slack, HubSpot (see `design.md`). |
-| Thresholds / currency | Optional: `DELTAGENT_SIGNIFICANCE_PCT`, `DELTAGENT_SIGNIFICANCE_ABS`, `DELTAGENT_CURRENCY_SYMBOL` (see `design.md`). |
+
+| Topic                 | Notes                                                                                                                                                                                             |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| LLM                   | Default model is `claude-sonnet-4-6` (see `run_agent` in `agent/agent.py`).                                                                                                                       |
+| Tools                 | Default `DELTAGENT_TOOL_MODE=mock` uses fixture data under `tests/fixtures/`. Set `DELTAGENT_TOOL_MODE=live` and provider credentials for real Gmail, Calendar, Slack, HubSpot (see `design.md`). |
+| Thresholds / currency | Optional: `DELTAGENT_SIGNIFICANCE_PCT`, `DELTAGENT_SIGNIFICANCE_ABS`, `DELTAGENT_CURRENCY_SYMBOL` (see `design.md`).                                                                              |
+
 
 ## Tests
 
@@ -63,12 +66,15 @@ Optional live API checks: set `DELTAGENT_RUN_LIVE_INTEGRATION_TESTS=1` and the r
 
 ## Project layout
 
-| Path | Role |
-| --- | --- |
-| `main.py` | Entry: Textual TUI |
+
+| Path        | Role                                                    |
+| ----------- | ------------------------------------------------------- |
+| `main.py`   | Entry: Textual TUI                                      |
 | `ui/app.py` | Screens (file pick, variance table, commentary, export) |
-| `agent/` | Anthropic tool loop and prompts |
-| `tools/` | `search_*` tools (mock or live) |
-| `utils/` | CSV validation and env config |
-| `exports/` | Markdown / `.docx` writers |
-| `design.md` | Product and architecture source of truth |
+| `agent/`    | Anthropic tool loop and prompts                         |
+| `tools/`    | `search_*` tools (mock or live)                         |
+| `utils/`    | CSV validation and env config                           |
+| `exports/`  | Markdown / `.docx` writers                              |
+| `design.md` | Product and architecture source of truth                |
+
+

@@ -1,8 +1,10 @@
 # Variance Commentary Agent — System Design
 
+---
+
 ## Problem
 
-Every month-end, a finance controller spends 2–4 hours writing variance commentary for the management accounts pack. The numbers are in a spreadsheet. The problem is that the context that explains the variance is everywhere - converstaions, calendar tasks, overdues, notes in Slack, CRM etc. **This agent is for gathering as much context via from email, CRM etc. as possible and given your month-end close it explains *why* of the variance. It reads the numbers, gathers the context, and drafts the full commentary in one run. You can review and export the file**
+Every month-end, a finance controller spends 2–4 hours writing variance commentary for the management accounts pack. The numbers are in a spreadsheet. The problem is that the context that explains the variance is everywhere — conversations, calendar tasks, overdues, notes in Slack, CRM etc. This agent gathers as much context as possible from email, CRM, and comms, and given your month-end close it explains the *why* of the variance. It reads the numbers, gathers the context, and drafts the full commentary in one run. You review and export the file.
 
 ---
 
@@ -14,95 +16,125 @@ Finance Controller or FP&A analyst at a $10M–$300M business. Runs this once a 
 
 ## Input / Output
 
-**Input (required)**
+### Input (required)
 
-- CSV file with columns:
-  - `period` — e.g. "November 2024"
-  - `line_item` — e.g. "Revenue", "Salaries", "Professional Fees"
-  - `budget_gbp` — budgeted figure
-  - `actual_gbp` — actual figure
-  - `variance_gbp` — actual minus budget
-  - `variance_pct` — percentage variance
+CSV file with columns:
 
-**Output**
 
-- Plain English commentary per significant line item
+| Column         | Description                                           |
+| -------------- | ----------------------------------------------------- |
+| `period`       | e.g. `"November 2024"`                                |
+| `line_item`    | e.g. `"Revenue"`, `"Salaries"`, `"Professional Fees"` |
+| `budget_usd`   | Budgeted figure                                       |
+| `actual_usd`   | Actual figure                                         |
+| `variance_usd` | Actual minus budget                                   |
+| `variance_pct` | Percentage variance                                   |
+
+
+### Output
+
+- Plain English commentary per significant line item, with traceable sources per line
 - Executive summary paragraph for the full period
-- Export as `.docx` (board packs) or `.md` (Notion/Confluence)
+- Export as `.docx` (board packs) or `.md` (Notion/Confluence)
 
-**What "significant" means**
-Default: variance > 10% AND > $1,000 absolute; configurable
+### What "significant" means
+
+Default: variance > 10% AND > $1,000 absolute. Configurable via `--threshold` flag.
 
 ---
 
 ## Flow
 
-1. User launches app - terminal UI (Textual)
+Two entry points — CLI and TUI — both call the same agent core.
+
+### CLI (primary)
+
+```bash
+deltaagent validate report.csv
+deltaagent run report.csv --period 2025-11 --output md
+deltaagent review runs/run_20251130_143022.json
+deltaagent export runs/run_20251130_143022.json
+
+```
+
+### TUI (interactive wrapper)
+
+1. User launches app
 2. TUI opens
 3. User selects CSV via file picker
 4. Variance table renders, user confirms period
-5. User presses Run
-6. Agent assesses variance complexity, then fires tool calls IN PARALLEL:
-  - Slack: operational context (any significant line)
-  - Gmail: formal approvals and decisions (salary, headcount, large one-offs)
-  - Calendar: timing anomalies (marketing, travel, events)
-  - CRM: revenue and deal pipeline (ONLY if revenue line is significant)
-   Each tool queries broad first, narrows only if first pass returns nothing.
+5. User presses Run — calls `run_agent()` directly, same as CLI
+6. Agent fires tool calls in parallel for significant lines
 7. Tool results return, agent synthesises
-8. Full commentary renders in terminal
-9. User selects export format and saves file
+8. Full commentary renders with sources per line
+9. User reviews (Accept / Edit / Regenerate / Flag) and exports
 
 ---
 
 ## Architecture
 
+```
 main.py
 │
-├── ui/app.py                  Textual TUI
+├── cli.py                     Typer CLI — all commands
+│
+├── ui/app.py                  Textual TUI — calls run_agent(), same as CLI
 │   ├── FilePickerScreen       Select CSV
 │   ├── VarianceScreen         Show table, confirm period, run
 │   └── CommentaryScreen       Display output, export
 │
 ├── agent/
-│   ├── agent.py               Anthropic SDK tool-calling loop
+│   ├── agent.py               run_agent() — plain async fn, no Textual deps
+│   ├── parser.py              Tolerant parser — model text → AgentResult dataclass
 │   └── prompts.py             System prompt + message builder
 │
 ├── tools/
-│   ├── definitions.py         Tool schemas (critical for accuracy)
-│   ├── slack_tool.py          Slack SDK or mock
-│   ├── gmail_tool.py          Gmail API
-│   ├── calendar_tool.py       Google Calendar API
-│   └── crm_tool.py            HubSpot / Salesforce or mock
+│   ├── definitions.py         Tool schemas
+│   ├── base.py                ToolResult + Evidence dataclasses
+│   ├── slack_tool.py          Mock (fixture-backed)
+│   ├── gmail_tool.py          Gmail API — date-bounded queries
+│   ├── calendar_tool.py       Google Calendar API — date-bounded queries
+│   └── crm_tool.py            Mock (fixture-backed)
+│
+├── auth/
+│   ├── gmail.py               login(), status(), test(), refresh()
+│   └── calendar.py            login(), status(), test(), refresh()
 │
 ├── utils/
 │   └── csv_validator.py       Schema + type validation
 │
+├── runs/                      Persisted AgentResult JSON files
+│
 └── exports/
-    └── exporter.py            .docx and .md writers
+    └── exporter.py            Renders from AgentResult dataclass — not raw string
+
+```
+
+---
 
 ## Stack
 
 
-| Layer            | Choice                      | Why                                      |
-| ---------------- | --------------------------- | ---------------------------------------- |
-| LLM              | Claude via Anthropic SDK    | Native tool calling, no framework needed |
-| Model            | claude-sonnet-4-6           | Best reasoning for finance commentary    |
-| TUI              | Textual                     | Python-native, clean terminal UI         |
-| Tool calling     | Parallel via asyncio.gather | Speed — all 4 tools fire simultaneously  |
-| Gmail + Calendar | Google API Python client    | OAuth, read-only scopes                  |
-| Slack            | Slack SDK                   | search_messages API                      |
-| CRM              | HubSpot API or mock         | Deal pipeline for revenue lines          |
-| Export           | python-docx + markdown      | .docx for board packs, .md for wikis     |
+| Layer            | Choice                   | Why                                      |
+| ---------------- | ------------------------ | ---------------------------------------- |
+| LLM              | Claude via Anthropic SDK | Native tool calling, no framework needed |
+| Model            | `claude-sonnet-4-6`      | Best reasoning for finance commentary    |
+| CLI              | Typer                    | Clean command surface, composable output |
+| TUI              | Textual                  | Python-native, clean terminal UI         |
+| Tool calling     | `asyncio.gather`         | Speed — all 4 tools fire simultaneously  |
+| Gmail + Calendar | Google API Python client | OAuth, read-only scopes                  |
+| Slack            | Mock (fixtures)          | Until real credentials available         |
+| CRM              | Mock (fixtures)          | Until real credentials available         |
+| Export           | python-docx + markdown   | `.docx` for board packs, `.md` for wikis |
 
 
 ---
 
 ## Agent Design
 
-**Single agent. No orchestration framework.**
-The Anthropic SDK handles the tool-calling loop natively.
+Single agent. No orchestration framework. The Anthropic SDK handles the tool-calling loop natively.
 
-```
+```python
 client = AsyncAnthropic()
 
 while stop_reason == "tool_use":
@@ -111,10 +143,15 @@ while stop_reason == "tool_use":
     messages.append(tool_results)
     response = await client.messages.create(...)
 
-return response.text
+return AgentResult  # structured dataclass, not raw string
+
 ```
 
-**Tool calling rules (in system prompt):**
+All tool calls are hard date-bounded to the reporting period. No tool infers dates.
+
+---
+
+## Tool Calling Rules (system prompt)
 
 - Only call tools for significant variances
 - CRM: revenue lines only
@@ -122,14 +159,11 @@ return response.text
 - Slack: operational context on any line
 - Calendar: timing variances (marketing, travel, events)
 - Fire all relevant tools in parallel, never sequentially
-- If a tool returns an error, proceed without it
+- If a tool returns an error, proceed without it — mark the gap visibly
 
 ---
 
-## Tool Definitions (summary)
-
-Each tool has a precise description telling Claude what it is AND what it is not for.
-Vague descriptions = wrong tool calls = wrong commentary.
+## Tool Definitions
 
 
 | Tool              | Finds                                              | Does NOT find                      |
@@ -142,6 +176,24 @@ Vague descriptions = wrong tool calls = wrong commentary.
 
 ---
 
+## Output Structure
+
+```
+AgentResult
+├── period, currency, run_id
+├── executive_summary
+├── line_items: list[LineItem]
+│   ├── header, delta, delta_pct, commentary
+│   ├── sources: list[Evidence]      ← message ID, timestamp, snippet per hit
+│   ├── review_status                ← pending | accepted | edited | flagged
+│   └── edited_commentary
+├── insignificant: list[str]
+└── gaps: list[str]                  ← lines with no supporting evidence
+
+```
+
+---
+
 ## Commentary Format
 
 ```
@@ -150,45 +202,60 @@ EXECUTIVE SUMMARY
 
 LINE COMMENTARY
 
-Revenue | Budget: £100,000 | Actual: £115,000 | Variance: +£15,000 (+15%)
+Revenue | Budget: $100,000 | Actual: $115,000 | Variance: +$15,000 (+15%)
 [Paragraph explaining why]
 
----
-
-Professional Fees | Budget: £8,000 | Actual: £14,000 | Variance: -£6,000 (-75%)
-[Paragraph explaining why]
+Sources
+- Slack #finance-ops — 2025-11-14 09:32 — "Q4 campaign approved..."
+- Gmail: "RE: November revenue" — 2025-11-28
 
 ---
 
 INSIGNIFICANT VARIANCES
-Software & Subscriptions: £200 over (4%) — within normal range
-Office & Facilities: £100 over (2.5%) — within normal range
+Software & Subscriptions: $200 over (4%) — within normal range
+
 ```
 
-**Style rules (in system prompt):**
+### Style rules (system prompt)
 
 - State variance amount and direction first
 - Give reason second
-- Mark inferred reasons: "(inferred — no source found)"
-- Never fabricate a reason — say "No context found — recommend review" if blank
+- Mark inferred reasons: `(inferred — no source found)`
+- Never fabricate a reason — say `"No context found — recommend review"` if blank
 - Professional tone, written for a CEO not an accountant
 
 ---
 
-## Mock Data Strategy (for development)
+## Review Workflow
 
-Slack and CRM are mocked until real credentials are available.
-Mocks return fixtures that align with `sample_november_2024.csv`.
+After run completes, state persists to `runs/run_YYYYMMDD_HHMMSS.json`.
+
+`deltaagent review runs/run_001.json` opens a per-line loop:
+
+```
+LINE: Marketing Spend | Δ +$42,000 | +18.4%
+Commentary: Increase driven by Q4 campaign spend approved 14 Nov...
+Sources: Slack #finance-ops 2025-11-14, Gmail "RE: Q4 budget" 2025-11-09
+
+[A]ccept  [E]dit  [R]egenerate  [F]lag  [S]kip
+
+```
+
+Sessions survive interruption. Re-running `review` resumes from the first non-decided item. `deltaagent export` assembles the final doc from accepted and edited lines only.
+
+---
+
+## Mock Data Strategy
+
+Slack and CRM are mocked until real credentials are available. Mocks return `ToolResult` envelopes with plausible fixture IDs and timestamps. Gmail and Calendar are wired to real APIs with hard date-bounded queries.
 
 ```
 tests/fixtures/
-├── mock_slack_responses.json     # Messages explaining salary + professional fees variance
-├── mock_crm_responses.json       # Deals explaining revenue overperformance
-└── sample_november_2024.csv      # The numbers
-```
+├── mock_slack_responses.json
+├── mock_crm_responses.json
+└── sample_november_2024.csv
 
-Mock files match the CSV so commentary is coherent end-to-end.
-Gmail + Calendar are wired to real APIs from day one.
+```
 
 ---
 
@@ -201,42 +268,29 @@ Gmail + Calendar are wired to real APIs from day one.
 | `.md`   | Notion, Confluence, internal wikis | Plain text write |
 
 
-Output filename: `variance_commentary_November_2024.docx`
+Output filename: `variance_commentary_November_2024.docx` Rendered from `AgentResult` dataclass, not raw model string.
 
 ---
 
 ## Environment Variables
 
-```
+```bash
 ANTHROPIC_API_KEY=
 
-# Tool backends: mock (default) uses tests/fixtures; live calls real APIs when credentials are set
-DELTAGENT_TOOL_MODE=mock
-# DELTAGENT_TOOL_MODE=live
-
-# Phase 5 — significance and display (optional)
+DELTAGENT_TOOL_MODE=mock        # mock | live
 DELTAGENT_SIGNIFICANCE_PCT=10
 DELTAGENT_SIGNIFICANCE_ABS=1000
 DELTAGENT_CURRENCY_SYMBOL=$
 
-# Google (Gmail + Calendar — same OAuth flow, read-only scopes)
 GOOGLE_CREDENTIALS_PATH=credentials.json
 GOOGLE_TOKEN_PATH=token.json
 
-# Slack (live: search.messages; often needs a user token with search:read)
 SLACK_BOT_TOKEN=
-
-# CRM — HubSpot private app token preferred (live lists deals, filters by close month)
 HUBSPOT_PRIVATE_APP_TOKEN=
 HUBSPOT_API_KEY=
 
-# Optional Salesforce env (not implemented; use HubSpot for live CRM)
-SALESFORCE_USERNAME=
-SALESFORCE_PASSWORD=
-SALESFORCE_SECURITY_TOKEN=
-
-# Run tests/test_phase6_integration.py only when set to 1
 DELTAGENT_RUN_LIVE_INTEGRATION_TESTS=
+
 ```
 
 ---
@@ -244,23 +298,19 @@ DELTAGENT_RUN_LIVE_INTEGRATION_TESTS=
 ## Build Order
 
 
-| Phase | What       | Done when                                                    |
-| ----- | ---------- | ------------------------------------------------------------ |
-| 1     | Agent core | CSV in → commentary out, no tools, no TUI                    |
-| 2     | Mock tools | All 4 tools return fixture data. Commentary has real reasons |
-| 3     | TUI        | File picker + variance table + commentary display            |
-| 4     | Export     | .docx and .md working                                        |
-| 5     | Polish     | Threshold config, period confirmation, error messages        |
-| 6     | Real tools | Gmail + Calendar OAuth, Slack, CRM                           |
+| Phase | What                                       | Done when                                                    |
+| ----- | ------------------------------------------ | ------------------------------------------------------------ |
+| 1     | Agent core                                 | CSV in → commentary out, no tools, no TUI                    |
+| 2     | Mock tools                                 | All 4 tools return fixture data, commentary has real reasons |
+| 3     | TUI                                        | File picker + variance table + commentary display            |
+| 4     | Export                                     | `.docx` and `.md` working                                    |
+| 5     | Polish                                     | Threshold config, period confirmation, error messages        |
+| 6     | Real tools                                 | Gmail + Calendar OAuth, Slack, CRM                           |
+| A     | CLI + trustworthy output + review workflow | Controller can run, review, and export without the TUI       |
 
-
-**Rule: Phase 1 must produce good commentary before touching anything else.**
-The agent prompt and tool definitions are the product. Everything else is plumbing.
 
 ---
 
 ## What success looks like
 
-User runs `python main.py`, selects `november_2024.csv`, presses Run.
-60 seconds later, a `.docx` file exists that a Finance Controller could paste
-directly into a board pack with minor edits. That is the whole product.
+User runs `deltaagent run report.csv --period 2025-11`, reviews commentary with `deltaagent review`, and exports with `deltaagent export`. 60 seconds later, a `.docx` file exists — with sources per line — that a Finance Controller could put directly into a board pack with minor edits. That is the whole product.

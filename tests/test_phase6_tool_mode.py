@@ -4,7 +4,7 @@ import pytest
 
 from tools import build_mock_tool_registry, build_tool_registry
 from tools.gmail_tool import search_gmail
-from tools.period_parse import parse_period_to_utc_range
+from tools.period_parse import parse_period_to_utc_range, resolve_period
 from tools.tool_mode import is_live_tool_mode
 
 
@@ -18,6 +18,13 @@ def test_parse_period_november_2024():
 def test_parse_period_invalid_returns_none():
     assert parse_period_to_utc_range("") is None
     assert parse_period_to_utc_range("not a month") is None
+
+
+def test_resolve_period_supports_year_month():
+    window = resolve_period("2025-11")
+    assert window is not None
+    assert window.label == "November 2025"
+    assert window.start_iso.startswith("2025-11-01")
 
 
 def test_build_tool_registry_matches_mock_keys():

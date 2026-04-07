@@ -100,9 +100,9 @@ async def test_run_agent_tool_loop_with_mocked_client():
         tool_registry={"search_slack": search_slack},
     )
 
-    assert "EXECUTIVE SUMMARY" in output
-    assert "LINE COMMENTARY" in output
-    assert "INSIGNIFICANT VARIANCES" in output
+    assert "EXECUTIVE SUMMARY" in output.raw_text
+    assert "LINE COMMENTARY" in output.raw_text
+    assert "INSIGNIFICANT VARIANCES" in output.raw_text
     assert len(client.messages.calls) == 2
 
 
@@ -170,5 +170,5 @@ async def test_professional_fees_phase1_fallback_gate():
         client=client,
         tool_registry={},
     )
-    assert "No context found" in output or "recommend review" in output.lower()
-    assert "costs were higher than expected" not in output.lower()
+    assert "No context found" in output.raw_text or "recommend review" in output.raw_text.lower()
+    assert "costs were higher than expected" not in output.raw_text.lower()
