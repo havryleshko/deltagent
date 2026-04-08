@@ -157,15 +157,15 @@ Date: 2026-04-08
 ## Summary
 
 
-| Case        | Old Total  | New Total  | Delta    | Top Issue                                                        |
-| ----------- | ---------- | ---------- | -------- | ---------------------------------------------------------------- |
-| Case 01     | 9/15       | 13/15      | +4       | Sales still does not use the full evidence richness available    |
-| Case 02     | 10/15      | 10/15      | +0       | Malformed no-evidence sources and missing insurance-claim detail |
-| Case 03     | 11/15      | 11/15      | +0       | Source formatting is malformed                                   |
-| Case 04     | 9/15       | 13/15      | +4       | Some salary lines still rely on thin evidence                    |
-| Case 05     | 8/15       | 14/15      | +6       | Mostly stylistic concision remains                               |
-| Case 06     | 11/15      | 10/15      | -1       | Source formatting regressed; residual exposure still loose       |
-| Case 07     | 7/15       | 10/15      | +3       | Source formatting and recovery certainty still too weak          |
+| Case        | Old Total  | New Total   | Delta    | Top Issue                                                        |
+| ----------- | ---------- | ----------- | -------- | ---------------------------------------------------------------- |
+| Case 01     | 9/15       | 13/15       | +4       | Sales still does not use the full evidence richness available    |
+| Case 02     | 10/15      | 10/15       | +0       | Malformed no-evidence sources and missing insurance-claim detail |
+| Case 03     | 11/15      | 11/15       | +0       | Source formatting is malformed                                   |
+| Case 04     | 9/15       | 13/15       | +4       | Some salary lines still rely on thin evidence                    |
+| Case 05     | 8/15       | 14/15       | +6       | Mostly stylistic concision remains                               |
+| Case 06     | 11/15      | 10/15       | -1       | Source formatting regressed; residual exposure still loose       |
+| Case 07     | 7/15       | 10/15       | +3       | Source formatting and recovery certainty still too weak          |
 | **Average** | **9.3/15** | **11.6/15** | **+2.3** |                                                                  |
 
 
