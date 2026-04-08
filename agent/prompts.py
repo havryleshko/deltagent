@@ -25,8 +25,9 @@ Rules:
 - Assess variance complexity first, then choose relevant tools.
 - Use tools only for significant variance lines.
 - Use broad queries first for each selected tool.
-- If broad search returns no useful context, run one narrower follow-up query.
-- Use search_crm only for significant Revenue variance context.
+- If broad search is partial, conflicting, or does not reconcile the full variance, run one narrower follow-up query before writing that line.
+- Use search_calendar when timing or schedule context could explain the variance.
+- Use search_crm for revenue and revenue-adjacent lines when deal, contract, onboarding, or project context could explain the variance, including Revenue, Professional Services, Cost of Revenue, and contractor/project-linked spend.
 - Execute relevant tool calls in parallel each tool-use round.
 - You may use multiple tool-use rounds until no additional tool calls are needed.
 - Monetary amounts in the user message use the currency symbol shown there; mirror that symbol in your commentary.
@@ -35,6 +36,8 @@ Rules:
 - Each source line must be in the format: - SourceType - Timestamp - EvidenceID - Snippet
 - If a tool fails or returns no evidence, keep going and mention the visible gap in the commentary.
 - Do not use markdown tables in your commentary. Use prose and bullet lists only.
+- Do not claim a variance is fully explained unless the evidence actually reconciles the driver.
+- If you cite aggregate totals in the executive summary, either use the Full report totals from the user message exactly or explicitly label them as significant-line totals.
 """
 
 
@@ -47,6 +50,14 @@ def _format_money(value: float, currency_symbol: str) -> str:
     return f"{sign}{currency_symbol}{abs(value):,.0f}"
 
 
+def _rollup_rows(rows: list[dict[str, Any]]) -> tuple[float, float, float, float]:
+    budget = sum(float(row.get("budget_usd", 0) or 0) for row in rows)
+    actual = sum(float(row.get("actual_usd", 0) or 0) for row in rows)
+    variance = sum(float(row.get("variance_usd", 0) or 0) for row in rows)
+    variance_pct = (variance / abs(budget) * 100) if budget else 0.0
+    return budget, actual, variance, variance_pct
+
+
 def build_user_message(
     significant_rows: list[dict[str, Any]],
     insignificant_rows: list[dict[str, Any]],
@@ -54,6 +65,7 @@ def build_user_message(
     period_start: str = "",
     period_end: str = "",
 ) -> str:
+    all_rows = significant_rows + insignificant_rows
     period = significant_rows[0]["period"] if significant_rows else (
         insignificant_rows[0]["period"] if insignificant_rows else "Unknown Period"
     )
@@ -61,6 +73,25 @@ def build_user_message(
     lines.append(f"Period: {period}")
     if period_start and period_end:
         lines.append(f"Hard date bounds: {period_start} to {period_end}")
+    if all_rows:
+        full_budget, full_actual, full_variance, full_variance_pct = _rollup_rows(all_rows)
+        lines.append(
+            "Full report totals: "
+            f"Budget: {_format_money(full_budget, currency_symbol)} | "
+            f"Actual: {_format_money(full_actual, currency_symbol)} | "
+            f"Variance: {_format_money(full_variance, currency_symbol)} ({full_variance_pct:+.1f}%)"
+        )
+    if significant_rows:
+        sig_budget, sig_actual, sig_variance, sig_variance_pct = _rollup_rows(significant_rows)
+        lines.append(
+            "Significant-line totals: "
+            f"Budget: {_format_money(sig_budget, currency_symbol)} | "
+            f"Actual: {_format_money(sig_actual, currency_symbol)} | "
+            f"Variance: {_format_money(sig_variance, currency_symbol)} ({sig_variance_pct:+.1f}%)"
+        )
+        lines.append(
+            "If you cite totals in the executive summary, use Full report totals unless you explicitly label them as significant-line totals."
+        )
     lines.append("")
     lines.append("Significant variances:")
     if not significant_rows:

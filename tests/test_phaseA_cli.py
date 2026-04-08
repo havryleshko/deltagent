@@ -141,6 +141,41 @@ INSIGNIFICANT VARIANCES
     assert warnings == []
 
 
+def test_validate_parsed_output_placeholder_sources_returns_warning() -> None:
+    text = """EXECUTIVE SUMMARY
+Summary
+
+LINE COMMENTARY
+
+Revenue | Budget: $100 | Actual: $120 | Variance: +$20 (+20%)
+Outperformance from pulled-forward deals.
+Sources
+- gmail
+
+INSIGNIFICANT VARIANCES
+"""
+    _, line_items, _, _ = parse_agent_output(text)
+    warnings = validate_parsed_output(line_items)
+    assert warnings == ["Malformed or placeholder sources: 'Revenue | Budget: $100 | Actual: $120 | Variance: +$20 (+20%)'"]
+
+
+def test_parser_source_line_allows_hyphens_in_snippet() -> None:
+    text = """EXECUTIVE SUMMARY
+Summary
+
+LINE COMMENTARY
+
+Revenue | Budget: $100 | Actual: $120 | Variance: +$20 (+20%)
+Outperformance from pulled-forward deals.
+Sources
+- gmail - 2024-11-10T10:00:00Z - gmail-1 - Approval thread - moved deal close by one week
+
+INSIGNIFICANT VARIANCES
+"""
+    _, line_items, _, _ = parse_agent_output(text)
+    assert line_items[0].sources[0].snippet == "Approval thread - moved deal close by one week"
+
+
 def test_gaps_from_diagnostics_produces_gap_entries() -> None:
     diagnostics = ["search_gmail: connection timeout", "search_crm: 403 Forbidden"]
     gaps = _gaps_from_diagnostics(diagnostics)
@@ -170,6 +205,88 @@ INSIGNIFICANT VARIANCES
     )
     assert any("Revenue" in g for g in run.gaps)
     assert any("search_slack" in g for g in run.gaps)
+
+
+def test_fallback_run_warns_on_significant_line_totals_in_executive_summary() -> None:
+    text = """EXECUTIVE SUMMARY
+November closed with actual spend of $120 versus budget of $100.
+
+LINE COMMENTARY
+
+Revenue | Budget: $100 | Actual: $120 | Variance: +$20 (+20%)
+Outperformance from pulled-forward deals.
+Sources
+- gmail - 2024-11-10T10:00:00Z - gmail-1 - Approval thread
+
+INSIGNIFICANT VARIANCES
+Software: small.
+"""
+    run = _fallback_run(
+        period_label="November 2024",
+        period_start="2024-11-01T00:00:00Z",
+        period_end="2024-11-30T23:59:59Z",
+        currency_symbol="$",
+        raw_text=text,
+        tool_diagnostics=[],
+        tool_traces=[],
+        significant_rows=[
+            {
+                "period": "November 2024",
+                "line_item": "Revenue",
+                "budget_usd": 100.0,
+                "actual_usd": 120.0,
+                "variance_usd": 20.0,
+                "variance_pct": 20.0,
+            }
+        ],
+        insignificant_rows=[
+            {
+                "period": "November 2024",
+                "line_item": "Software",
+                "budget_usd": 50.0,
+                "actual_usd": 70.0,
+                "variance_usd": 20.0,
+                "variance_pct": 40.0,
+            }
+        ],
+    )
+    assert "Executive summary appears to use significant-line totals as full totals." in run.tool_diagnostics
+
+
+def test_fallback_run_warns_on_commentary_percent_mismatch() -> None:
+    text = """EXECUTIVE SUMMARY
+Summary
+
+LINE COMMENTARY
+
+Repairs Maintenance | Budget: $100 | Actual: $886 | Variance: +$786 (+786.3%)
+This represents 886% overspend against budget.
+Sources
+- gmail - 2024-11-10T10:00:00Z - gmail-1 - Invoice thread
+
+INSIGNIFICANT VARIANCES
+"""
+    run = _fallback_run(
+        period_label="November 2024",
+        period_start="2024-11-01T00:00:00Z",
+        period_end="2024-11-30T23:59:59Z",
+        currency_symbol="$",
+        raw_text=text,
+        tool_diagnostics=[],
+        tool_traces=[],
+        significant_rows=[
+            {
+                "period": "November 2024",
+                "line_item": "Repairs Maintenance",
+                "budget_usd": 100.0,
+                "actual_usd": 886.0,
+                "variance_usd": 786.0,
+                "variance_pct": 786.3,
+            }
+        ],
+        insignificant_rows=[],
+    )
+    assert any("Percent mismatch in commentary" in warning for warning in run.tool_diagnostics)
 
 
 def test_review_command_saves_state(tmp_path: Path) -> None:

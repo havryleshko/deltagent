@@ -43,29 +43,33 @@ def _looks_like_header(line: str) -> bool:
     return bool(stripped) and "|" in stripped
 
 
-def _parse_source_line(line: str, fallback_index: int) -> Evidence:
+def _parse_source_line(line: str, fallback_index: int) -> Evidence | None:
     stripped = line.strip().lstrip("-").strip()
     if not stripped:
+        return None
+    parts = [part.strip() for part in re.split(r"\s+-\s+", stripped, maxsplit=3)]
+    if len(parts) < 4:
         return Evidence(
             id=f"source-{fallback_index}",
-            source_type="source",
+            source_type="malformed_source",
             timestamp="",
-            snippet="",
+            snippet=stripped,
         )
-    parts = [part.strip() for part in stripped.split(" - ") if part.strip()]
-    source_type = parts[0] if parts else "source"
-    timestamp = parts[1] if len(parts) > 1 else ""
-    evidence_id = parts[2] if len(parts) > 2 else f"{source_type.lower().replace(' ', '_')}-{fallback_index}"
-    remainder = parts[3:] if len(parts) > 3 else []
-    snippet = remainder[-1] if remainder else stripped
-    ref = " - ".join(remainder[:-1]) if len(remainder) > 1 else ""
+    source_type, timestamp, evidence_id, snippet = parts
     return Evidence(
         id=evidence_id,
         source_type=source_type,
         timestamp=timestamp,
         snippet=snippet,
-        ref=ref,
     )
+
+
+def _is_meaningful_source(source: Evidence) -> bool:
+    return bool(source.snippet.strip()) and source.source_type not in {
+        "",
+        "source",
+        "malformed_source",
+    }
 
 
 def parse_agent_output(
@@ -111,7 +115,9 @@ def parse_agent_output(
             continue
         if mode == "sources":
             source_index += 1
-            sources.append(_parse_source_line(raw_line, source_index))
+            source = _parse_source_line(raw_line, source_index)
+            if source is not None:
+                sources.append(source)
         else:
             commentary_lines.append(raw_line)
     flush()
@@ -142,10 +148,16 @@ _NO_EVIDENCE_MARKERS = (
 def validate_parsed_output(line_items: list[ParsedLineItem]) -> list[str]:
     warnings: list[str] = []
     for item in line_items:
-        has_sources = bool(item.sources)
+        meaningful_sources = [source for source in item.sources if _is_meaningful_source(source)]
+        has_sources = bool(meaningful_sources)
+        has_any_sources = bool(item.sources)
         body_lower = item.final_commentary.lower()
         has_no_evidence = any(marker in body_lower for marker in _NO_EVIDENCE_MARKERS)
-        if not has_sources and not has_no_evidence:
+        if has_any_sources and not has_sources:
+            warnings.append(f"Malformed or placeholder sources: {item.header!r}")
+        elif has_sources and has_no_evidence:
+            warnings.append(f"Contradictory no-evidence marker: {item.header!r}")
+        elif not has_sources and not has_no_evidence:
             warnings.append(
                 f"Missing sources or no-evidence marker: {item.header!r}"
             )

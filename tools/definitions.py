@@ -62,9 +62,9 @@ TOOL_DEFINITIONS = [
     {
         "name": "search_crm",
         "description": (
-            "Finds revenue-driving context in CRM for significant revenue variances, "
-            "including closed/won, slipped deals, and pipeline movement. "
-            "Does NOT find cost line explanations, salary decisions, or general operating expenses."
+            "Finds deal, contract, onboarding, and project context in CRM for revenue and revenue-adjacent variances, "
+            "including Revenue, Professional Services, Cost of Revenue, slipped deals, and contractor or project-linked spend. "
+            "Does NOT find salary decisions or unrelated general operating expenses."
         ),
         "input_schema": {
             "type": "object",
