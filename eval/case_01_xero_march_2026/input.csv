@@ -1,0 +1,19 @@
+period,line_item,budget_usd,actual_usd,variance_usd,variance_pct
+March 2026,Sales,6000.00,11003.12,5003.12,83.39
+March 2026,Purchases,500.00,1250.00,750.00,150.00
+March 2026,Advertising & Marketing,7000.00,7044.79,44.79,0.64
+March 2026,Audit & Accountancy fees,50.00,46.96,-3.04,-6.08
+March 2026,Bank Fees,30.00,0.00,-30.00,-100.00
+March 2026,Cleaning,100.00,0.00,-100.00,-100.00
+March 2026,Entertainment - 0%,50.00,0.00,-50.00,-100.00
+March 2026,Entertainment-100% business,0.00,18.33,18.33,0.00
+March 2026,General Expenses,120.00,244.29,124.29,103.58
+March 2026,Light Power Heating,90.00,103.43,13.43,14.92
+March 2026,Motor Vehicle Expenses,130.00,123.75,-6.25,-4.81
+March 2026,Postage Freight Courier,50.00,0.00,-50.00,-100.00
+March 2026,Printing Stationery,20.00,65.58,45.58,227.90
+March 2026,Rent,1030.00,984.38,-45.62,-4.43
+March 2026,Repairs Maintenance,100.00,0.00,-100.00,-100.00
+March 2026,Subscriptions,0.00,0.00,0.00,0.00
+March 2026,Telephone Internet,45.00,42.92,-2.08,-4.62
+March 2026,Travel National,150.00,0.00,-150.00,-100.00

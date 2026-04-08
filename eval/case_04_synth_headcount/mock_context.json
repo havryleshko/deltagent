@@ -1,0 +1,48 @@
+{
+  "period": "November 2024",
+  "line_items": ["Engineering Salaries", "Product Salaries", "Marketing Salaries", "Operations Salaries", "G&A Salaries", "Contractor Spend"],
+  "tool_responses": {
+    "search_slack": {
+      "Engineering Salaries": {
+        "broad": "hr-slack-2024-11-01: Priya Sharma (Staff Engineer, L5) started 28 October — first full salary run hits November. Comp: $185K base. Previous plan assumed November start but she onboarded a week early, creating one extra pay period overlap.",
+        "narrow": "hr-slack-2024-11-01: Engineering headcount now 12 vs plan of 11. No further planned hires before year-end."
+      },
+      "Product Salaries": {
+        "broad": "hr-slack-2024-11-04: Note on Product: Marcus (outgoing PM) is serving his notice through 30 November. Sarah (incoming PM) started 1 November. Double salary in November only — Marcus exits end of month.",
+        "narrow": "hr-slack-2024-11-04: Product overlap is temporary. December will return to plan. No other headcount changes in Product."
+      },
+      "Marketing Salaries": {
+        "broad": "hr-slack-2024-11-15: Q4 performance bonuses paid 15 November for Marketing team. $8,400 total across the team per the approved Q3 performance review outcomes. Separate from base salary line — should have been budgeted under bonuses but posted to salaries.",
+        "narrow": "hr-slack-2024-11-15: Marketing bonus posting confirmed by payroll. Coding error — should be Bonus & Incentives line. Finance team to correct in December re-class."
+      },
+      "Operations Salaries": {
+        "broad": "ops-slack-2024-11-01: Peak season starts — 5 temporary warehouse staff added for November and December. Bringing in via agency, posting to Ops Salaries. Cost: $7,000 additional per month. Planned in operations budget review, not reflected in original headcount plan.",
+        "narrow": "ops-slack-2024-11-01: Temporary ops headcount approved in October ops review. Will be released by Jan 1. No permanent headcount impact."
+      },
+      "G&A Salaries": {
+        "broad": "finance-slack-2024-11-01: Brought in Clara Mendez (finance contractor) for Q4 close support. $4,000/month, posting to G&A Salaries per CFO instruction. Year-end close support, 3-month engagement.",
+        "narrow": "finance-slack-2024-11-01: G&A salary overage is Clara's contractor cost. Should have been Contractor Spend line — CFO approved posting to G&A this quarter."
+      },
+      "Contractor Spend": {
+        "broad": "eng-slack-2024-10-28: Platform migration kicked off — two senior contractors (DevOps + Backend) engaged for 8 weeks from 28 Oct. Day rates $750 and $700 per day respectively. Estimated Nov cost ~$12,000. CTO approved.",
+        "narrow": "eng-slack-2024-10-28: Platform migration contractors working full-time alongside core team. Spend tracking vs milestone plan: on track. Additional $6,500 for AWS migration specialist added week 3 — CTO approved extension."
+      }
+    },
+    "search_gmail": {
+      "Engineering Salaries": {
+        "broad": "gmail-2024-11-01-priya-offer: Offer letter to Priya Sharma — start date 28 October per her request. Original plan was 4 November. First full payroll: November.",
+        "narrow": "gmail-2024-11-29-payroll-variance: November payroll variance memo from HR. Engineering: +$18K from early start (Priya). Full December return to plan."
+      },
+      "Contractor Spend": {
+        "broad": "gmail-2024-10-25-contractor-sow: SOW executed with TechForce Ltd (DevOps contractor) and NovaBuild Inc (Backend contractor). 8-week engagement from 28 Oct. Day rate schedule attached. CTO and CFO co-signed.",
+        "narrow": "gmail-2024-11-15-contractor-extension: CTO email — AWS migration specialist engaged for 2 additional weeks. $6,500 total. Approved. Added to existing SOW as Amendment 1."
+      }
+    },
+    "search_crm": {
+      "Contractor Spend": {
+        "broad": "crm-project-PLAT-001: Platform Migration Project. Status: In Progress. Budget: $50,000 (total). Contractor spend Nov: $18,500 of $50K approved budget. Milestone 2 of 4 complete. On track for January go-live.",
+        "narrow": "crm-project-PLAT-001: Spend to date vs project budget: $18,500 / $50,000. Remaining budget sufficient for completion. No budget exception required."
+      }
+    }
+  }
+}

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import re
+
 from agent.models import Evidence, ParsedLineItem
 
 
@@ -9,23 +11,46 @@ _SECTIONS = (
     "INSIGNIFICANT VARIANCES",
 )
 
+# Strips markdown heading markers and leading numbering from a line item header
+_HEADER_PREFIX_RE = re.compile(r"^[#*\s]*\d*[.):\s]*")
+
 
 def _split_sections(text: str) -> dict[str, list[str]]:
+    """Split raw model text into named sections.
+
+    Tolerates markdown heading markers (##, ###) and partial matches so that
+    output formats like '## LINE COMMENTARY' and 'LINE COMMENTARY' both work.
+    """
     sections = {name: [] for name in _SECTIONS}
     current: str | None = None
     for line in text.splitlines():
         stripped = line.strip()
-        if stripped in sections:
-            current = stripped
-            continue
-        if current is not None:
+        # Strip markdown heading markers (#, ##, etc.) for section matching
+        clean_upper = stripped.lstrip("#").strip().upper()
+        matched = False
+        for section_name in _SECTIONS:
+            if clean_upper == section_name or clean_upper.startswith(section_name):
+                current = section_name
+                matched = True
+                break
+        if not matched and current is not None:
             sections[current].append(line)
     return sections
 
 
+def _clean_header(raw: str) -> str:
+    """Remove markdown prefixes, leading numbering, and trailing bold markers from a line item header line."""
+    cleaned = _HEADER_PREFIX_RE.sub("", raw.strip()).strip()
+    return cleaned.rstrip("*").rstrip()
+
+
 def _looks_like_header(line: str) -> bool:
     stripped = line.strip()
-    return bool(stripped) and "|" in stripped and not stripped.startswith("-")
+    # Reject markdown table rows (start with | — they contain pipes but are not headers)
+    # Reject separator rows (all dashes/pipes)
+    if stripped.startswith("|") or stripped.startswith("-"):
+        return False
+    return bool(stripped) and "|" in stripped
 
 
 def _parse_source_line(line: str, fallback_index: int) -> Evidence:
@@ -85,12 +110,12 @@ def parse_agent_output(
         stripped = raw_line.strip()
         if not stripped or stripped == "---":
             continue
-        if stripped.lower().startswith("sources"):
+        if re.match(r"^[-*#\s]*sources[*#:\s]*$", stripped, re.IGNORECASE):
             mode = "sources"
             continue
         if _looks_like_header(raw_line):
             flush()
-            current_header = stripped
+            current_header = _clean_header(stripped)
             continue
         if current_header is None:
             continue
@@ -113,3 +138,26 @@ def parse_agent_output(
         if "no context found" in body or "tool failed" in body:
             gaps.append(item.header)
     return executive_summary, line_items, insignificant, gaps
+
+
+_NO_EVIDENCE_MARKERS = (
+    "no context found",
+    "no evidence",
+    "tool failed",
+    "inferred — no source",
+    "inferred - no source",
+)
+
+
+def validate_parsed_output(line_items: list[ParsedLineItem]) -> list[str]:
+    """Return a warning string for each significant item missing sources or a no-evidence marker."""
+    warnings: list[str] = []
+    for item in line_items:
+        has_sources = bool(item.sources)
+        body_lower = item.final_commentary.lower()
+        has_no_evidence = any(marker in body_lower for marker in _NO_EVIDENCE_MARKERS)
+        if not has_sources and not has_no_evidence:
+            warnings.append(
+                f"Missing sources or no-evidence marker: {item.header!r}"
+            )
+    return warnings

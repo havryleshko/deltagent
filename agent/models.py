@@ -37,6 +37,12 @@ class ParsedLineItem:
     review_status: ReviewStatus = "pending"
     edited_commentary: str | None = None
     flagged_reason: str | None = None
+    # Canonical numeric fields — populated by matching against the input CSV rows
+    line_item_name: str = ""
+    budget_usd: float | None = None
+    actual_usd: float | None = None
+    variance_usd: float | None = None
+    variance_pct: float | None = None
 
     @property
     def final_commentary(self) -> str:
@@ -51,6 +57,12 @@ class ParsedLineItem:
 
     @classmethod
     def from_dict(cls, payload: dict[str, Any]) -> "ParsedLineItem":
+        def _opt_float(v: Any) -> float | None:
+            try:
+                return float(v) if v is not None else None
+            except (TypeError, ValueError):
+                return None
+
         return cls(
             header=str(payload.get("header", "")),
             commentary=str(payload.get("commentary", "")),
@@ -60,6 +72,11 @@ class ParsedLineItem:
             review_status=payload.get("review_status", "pending"),
             edited_commentary=payload.get("edited_commentary"),
             flagged_reason=payload.get("flagged_reason"),
+            line_item_name=str(payload.get("line_item_name", "")),
+            budget_usd=_opt_float(payload.get("budget_usd")),
+            actual_usd=_opt_float(payload.get("actual_usd")),
+            variance_usd=_opt_float(payload.get("variance_usd")),
+            variance_pct=_opt_float(payload.get("variance_pct")),
         )
 
 

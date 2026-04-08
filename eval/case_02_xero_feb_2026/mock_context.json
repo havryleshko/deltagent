@@ -1,0 +1,36 @@
+{
+  "period": "February 2026",
+  "line_items": ["Advertising & Marketing", "Repairs Maintenance"],
+  "tool_responses": {
+    "search_slack": {
+      "Advertising & Marketing": {
+        "broad": "marketing-slack-2026-02-03: Campaign team — moving the Q2 spring campaign launch to this month. Client approval came in early, let's capitalise. Total Feb commitment will be ~£1,600 vs the £1,000 March plan. Approvals from MD signed off.",
+        "narrow": "marketing-slack-2026-02-18: Campaign live since 5 Feb. Spend on track vs revised budget. We deliberately front-loaded this — March will be under as a result."
+      },
+      "Repairs Maintenance": {
+        "broad": "ops-slack-2026-02-14: URGENT — HVAC unit in server room failed overnight. Building manager called emergency engineer. Quote came in at £886. CFO approved. Works completed today.",
+        "narrow": "ops-slack-2026-02-14: Repairs Maintenance spike is a single event — HVAC emergency callout. One-off, no further spend expected."
+      }
+    },
+    "search_gmail": {
+      "Advertising & Marketing": {
+        "broad": "gmail-2026-02-01-campaign-approval: MD approval for Q2 campaign acceleration. Spring campaign moved from March to February at agency recommendation — weather-sensitive launch window. Budget reforecast note attached.",
+        "narrow": "gmail-2026-02-20-campaign-report: February campaign performance report. Spend £1,667. March budget reduced to £0 to offset. Net full-quarter spend on plan."
+      },
+      "Repairs Maintenance": {
+        "broad": "gmail-2026-02-14-hvac-invoice: Invoice from FastAir Engineering — emergency HVAC repair 14 Feb 2026. £886.30 inclusive of parts and emergency callout rate. CFO approved same day.",
+        "narrow": "gmail-2026-02-14-hvac-approval: CFO email approval for emergency repair. Building insurance claim submitted — outcome pending but expense recognised in February."
+      }
+    },
+    "search_calendar": {
+      "Advertising & Marketing": {
+        "broad": "cal-2026-02-01: Marketing launch meeting — Spring campaign kick-off moved to 5 February. Agency briefed on 1 February per Slack decision.",
+        "narrow": "cal-2026-02-05: Campaign live — search and social activated. Digital agency confirmed all creatives approved."
+      },
+      "Repairs Maintenance": {
+        "broad": "cal-2026-02-14: Emergency maintenance — HVAC server room. Blocked out 08:00–18:00 BST for engineer access.",
+        "narrow": "cal-2026-02-14: FastAir Engineering on-site. Works completed 16:30."
+      }
+    }
+  }
+}

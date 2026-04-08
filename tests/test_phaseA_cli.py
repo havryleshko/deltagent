@@ -1,12 +1,16 @@
 from __future__ import annotations
 
+import asyncio
 import json
+import tempfile
 from pathlib import Path
 
+import pytest
 from typer.testing import CliRunner
 
-from agent.models import AgentRun
-from agent.parser import parse_agent_output
+from agent.agent import _fallback_run, _gaps_from_diagnostics
+from agent.models import AgentRun, ToolTrace
+from agent.parser import parse_agent_output, validate_parsed_output
 from cli import app
 
 FIXTURE_CSV = Path(__file__).parent / "fixtures" / "sample_november_2024.csv"
@@ -71,3 +75,165 @@ def test_agent_run_json_round_trip() -> None:
     }
     restored = AgentRun.from_dict(json.loads(json.dumps(payload)))
     assert restored.to_dict()["period_label"] == "November 2024"
+
+
+def test_cli_validate_bad_file_exits_nonzero(tmp_path: Path) -> None:
+    bad_csv = tmp_path / "bad.csv"
+    bad_csv.write_text("not,valid,headers\n1,2,3\n", encoding="utf-8")
+    result = runner.invoke(app, ["validate", str(bad_csv)])
+    assert result.exit_code == 1
+    assert result.stdout.strip()
+
+
+def test_cli_validate_missing_file_exits_nonzero() -> None:
+    result = runner.invoke(app, ["validate", "/nonexistent/path/data.csv"])
+    assert result.exit_code != 0
+
+
+def test_validate_parsed_output_missing_sources_returns_warning() -> None:
+    text = """EXECUTIVE SUMMARY
+Summary
+
+LINE COMMENTARY
+
+Revenue | Budget: $100 | Actual: $120 | Variance: +$20 (+20%)
+Outperformance from pulled-forward deals.
+
+INSIGNIFICANT VARIANCES
+"""
+    _, line_items, _, _ = parse_agent_output(text)
+    warnings = validate_parsed_output(line_items)
+    assert len(warnings) == 1
+    assert "Revenue" in warnings[0]
+
+
+def test_validate_parsed_output_no_evidence_marker_is_ok() -> None:
+    text = """EXECUTIVE SUMMARY
+Summary
+
+LINE COMMENTARY
+
+Professional Fees | Budget: $8 | Actual: $14 | Variance: +$6 (+75%)
+No context found — recommend review
+
+INSIGNIFICANT VARIANCES
+"""
+    _, line_items, _, _ = parse_agent_output(text)
+    warnings = validate_parsed_output(line_items)
+    assert warnings == []
+
+
+def test_validate_parsed_output_with_sources_is_ok() -> None:
+    text = """EXECUTIVE SUMMARY
+Summary
+
+LINE COMMENTARY
+
+Revenue | Budget: $100 | Actual: $120 | Variance: +$20 (+20%)
+Outperformance from pulled-forward deals.
+Sources
+- gmail - 2024-11-10T10:00:00Z - gmail-1 - Approval thread
+
+INSIGNIFICANT VARIANCES
+"""
+    _, line_items, _, _ = parse_agent_output(text)
+    warnings = validate_parsed_output(line_items)
+    assert warnings == []
+
+
+def test_gaps_from_diagnostics_produces_gap_entries() -> None:
+    diagnostics = ["search_gmail: connection timeout", "search_crm: 403 Forbidden"]
+    gaps = _gaps_from_diagnostics(diagnostics)
+    assert "tool error: search_gmail" in gaps
+    assert "tool error: search_crm" in gaps
+
+
+def test_fallback_run_merges_gaps_from_diagnostics() -> None:
+    text = """EXECUTIVE SUMMARY
+Summary
+
+LINE COMMENTARY
+
+Revenue | Budget: $100 | Actual: $120 | Variance: +$20 (+20%)
+No context found — recommend review
+
+INSIGNIFICANT VARIANCES
+"""
+    run = _fallback_run(
+        period_label="November 2024",
+        period_start="2024-11-01T00:00:00Z",
+        period_end="2024-11-30T23:59:59Z",
+        currency_symbol="$",
+        raw_text=text,
+        tool_diagnostics=["search_slack: timeout"],
+        tool_traces=[],
+    )
+    assert any("Revenue" in g for g in run.gaps)
+    assert any("search_slack" in g for g in run.gaps)
+
+
+def test_review_command_saves_state(tmp_path: Path) -> None:
+    run = AgentRun.from_dict({
+        "run_id": "run_test",
+        "period_label": "November 2024",
+        "period_start": "",
+        "period_end": "",
+        "currency_symbol": "$",
+        "raw_text": "EXECUTIVE SUMMARY\nSummary\n\nLINE COMMENTARY\n\n"
+                    "Revenue | Budget: $100 | Actual: $120 | Variance: +$20 (+20%)\n"
+                    "Outperformance.\nSources\n- gmail - 2024-11-10 - g1 - Thread\n\n"
+                    "INSIGNIFICANT VARIANCES\n",
+        "executive_summary": "Summary",
+        "line_items": [
+            {
+                "header": "Revenue | Budget: $100 | Actual: $120 | Variance: +$20 (+20%)",
+                "commentary": "Outperformance.",
+                "sources": [{"id": "g1", "source_type": "gmail", "timestamp": "2024-11-10", "snippet": "Thread", "ref": ""}],
+                "review_status": "pending",
+                "edited_commentary": None,
+                "flagged_reason": None,
+            }
+        ],
+        "insignificant": [],
+        "gaps": [],
+        "tool_diagnostics": [],
+        "tool_traces": [],
+    })
+    run_file = tmp_path / "run_test.json"
+    run_file.write_text(json.dumps(run.to_dict()), encoding="utf-8")
+    result = runner.invoke(app, ["review", str(run_file)], input="a\n")
+    assert result.exit_code == 0
+    saved = AgentRun.from_dict(json.loads(run_file.read_text()))
+    assert saved.line_items[0].review_status == "accepted"
+
+
+def test_review_skip_leaves_pending(tmp_path: Path) -> None:
+    run = AgentRun.from_dict({
+        "run_id": "run_test2",
+        "period_label": "November 2024",
+        "period_start": "",
+        "period_end": "",
+        "currency_symbol": "$",
+        "raw_text": "",
+        "executive_summary": "",
+        "line_items": [
+            {
+                "header": "Salaries | Budget: $50 | Actual: $55 | Variance: +$5 (+10%)",
+                "commentary": "Headcount increase.",
+                "sources": [],
+                "review_status": "pending",
+                "edited_commentary": None,
+                "flagged_reason": None,
+            }
+        ],
+        "insignificant": [],
+        "gaps": [],
+        "tool_diagnostics": [],
+        "tool_traces": [],
+    })
+    run_file = tmp_path / "run_test2.json"
+    run_file.write_text(json.dumps(run.to_dict()), encoding="utf-8")
+    result = runner.invoke(app, ["review", str(run_file)], input="s\n")
+    assert result.exit_code == 0
+    saved = AgentRun.from_dict(json.loads(run_file.read_text()))
+    assert saved.line_items[0].review_status == "pending"

@@ -1,0 +1,38 @@
+{
+  "period": "March 2026",
+  "line_items": ["Sales", "Purchases"],
+  "tool_responses": {
+    "search_slack": {
+      "Sales": {
+        "broad": "sales-slack-2026-03-24: @channel Q1 close update — Meridian contract signed today, ahead of April target. Deal pulled forward at customer's request to beat their FY end. Total contract value £5,100 (one-time plus first month recurring).",
+        "narrow": "sales-slack-2026-03-24: Deal desk confirmed Meridian booking posted to March. CRO approved revenue recognition on same-day basis per standard policy."
+      },
+      "Purchases": {
+        "broad": "ops-slack-2026-03-26: Stock order for Meridian onboarding raised — £750 materials for initial deployment. Standard procurement channel, PO attached.",
+        "narrow": "ops-slack-2026-03-26: Purchases for March reflect direct cost of Meridian contract. No other anomalies on COGS line."
+      }
+    },
+    "search_gmail": {
+      "Sales": {
+        "broad": "gmail-2026-03-24-meridian: RE: Meridian Group — Contract execution. Signed MSA received from Meridian legal on 24 March. Revenue recognition memo attached. CFO countersigned 25 March.",
+        "narrow": "gmail-2026-03-25-rev-rec: Month-end revenue memo confirms £5,003 above plan on Sales due to Meridian pull-forward. Approved by CFO."
+      },
+      "Purchases": {
+        "broad": "gmail-2026-03-26-cogs: COGS reconciliation for March — direct materials for Meridian onboarding posted in month. Variance is expected given revenue outperformance.",
+        "narrow": "gmail-2026-03-26-po: Purchase order PO-2026-0312 approved by Operations Director — £1,250 for deployment materials."
+      }
+    },
+    "search_calendar": {
+      "Sales": {
+        "broad": "cal-2026-03-24: Meridian contract signing — 14:00 BST. CFO and CRO in attendance. Scheduled at customer's request to align with their financial year close 31 March.",
+        "narrow": "cal-2026-03-15: Board pre-read circulated — Q1 pipeline summary flagged Meridian as 'likely March close' scenario."
+      }
+    },
+    "search_crm": {
+      "Sales": {
+        "broad": "crm-opp-2026-MER-001: Meridian Group — Stage: Closed Won. Close date moved from 15 April to 24 March. ARR: £4,800. One-time onboarding: £1,200. Pulled forward by 22 days.",
+        "narrow": "crm-opp-2026-MER-001: Revenue split — recurring £800/mo + one-time £1,200. Total March recognition: £2,000 first month + £3,003 accelerated annual. See revenue recognition memo."
+      }
+    }
+  }
+}

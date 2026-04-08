@@ -16,13 +16,25 @@ FIXTURE_PATH = (
     / "mock_context_november_2024.json"
 )
 
+_eval_fixture_path: Path | None = None
+
+
+def set_eval_fixture_path(path: Path | None) -> None:
+    global _eval_fixture_path
+    _eval_fixture_path = path
+
+
+def _effective_fixture_path() -> Path:
+    return _eval_fixture_path if _eval_fixture_path is not None else FIXTURE_PATH
+
 
 def _normalize(value: str) -> str:
     return value.strip().lower()
 
 
-def load_context() -> dict[str, Any]:
-    with FIXTURE_PATH.open("r", encoding="utf-8") as file:
+def load_context(fixture_path: Path | None = None) -> dict[str, Any]:
+    path = fixture_path or _effective_fixture_path()
+    with path.open("r", encoding="utf-8") as file:
         return json.load(file)
 
 

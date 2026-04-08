@@ -1,0 +1,303 @@
+{
+  "run_id": "run_20260407_150022",
+  "period_label": "November 2024",
+  "period_start": "2024-11-01T00:00:00Z",
+  "period_end": "2024-11-30T23:59:59Z",
+  "currency_symbol": "$",
+  "raw_text": "All six significant lines are now fully evidenced. All contractor spend is reconciled ($12,000 original SOW + $6,500 AWS specialist extension = $18,500 actual). I have sufficient context to produce the final commentary.\n\n---\n\n# VARIANCE COMMENTARY \u2014 NOVEMBER 2024\n\n---\n\n## EXECUTIVE SUMMARY\n\nNovember 2024 saw total salary and contractor spend exceed budget by **$68,900** across all six significant lines. Overruns are broadly explainable and largely one-time in nature: headcount timing issues (Engineering, Product), a peak-season staffing ramp (Operations), a misposted bonus run (Marketing), and a Q4 close contractor charged to G&A. The most material single variance in percentage terms is Contractor Spend (+92.5%, +$18,500), which is fully supported by a CTO/CFO co-signed SOW and a subsequently approved scope extension for an AWS migration specialist. Five of the six variances have clear, well-documented root causes; Marketing Salaries carries an additional accounting classification concern that warrants a posting correction. No variances indicate uncontrolled or unapproved spend.\n\n---\n\n## LINE COMMENTARY\n\n---\n\n### 1. Engineering Salaries | +$18,000 (+15.0%) | Budget: $120,000 | Actual: $138,000\n\n**Variance of +$18,000 (unfavourable) driven by an early-start hire creating a full payroll charge in November.**\n\nStaff Engineer Priya Sharma (L5, $185K base) was originally planned to start 4 November; at her request, her start date was pulled forward to 28 October. As a result, her first full monthly payroll run fell entirely within November rather than being partially absorbed by October, generating a salary charge not reflected in the November budget. This is a one-time timing effect \u2014 budget impact normalises from December onward.\n\n**Sources:**\n- Gmail \u2014 2024-11-20T18:15:00Z \u2014 `gmail-engineering_salaries-broad` \u2014 *\"Offer letter to Priya Sharma \u2014 start date 28 October per her request. Original plan was 4 November. First full payroll: November.\"*\n- Slack \u2014 2024-11-20T12:15:00Z \u2014 `slack-engineering_salaries-broad` \u2014 *\"Priya Sharma (Staff Engineer, L5) started 28 October \u2014 first full salary run hits November. Comp: $185K base. Previous plan assumed November start but she onboarded a week early, creating one extra pay period overlap.\"*\n\n---\n\n### 2. Contractor Spend | +$18,500 (+92.5%) | Budget: $20,000 | Actual: $38,500\n\n**Variance of +$18,500 (unfavourable) driven by a pre-approved platform migration engagement plus a mid-month scope extension.**\n\nTwo senior contractors (TechForce Ltd \u2014 DevOps, $750/day; NovaBuild Inc \u2014 Backend, $700/day) were engaged on an 8-week SOW commencing 28 October, co-signed by the CTO and CFO. Their November cost was estimated at approximately $12,000. A further $6,500 was incurred from a third engagement \u2014 an AWS migration specialist added in week three under SOW Amendment 1, approved by the CTO via email on 15 November. Combined, these three contractor charges account for approximately $18,500, fully reconciling to the actual.\n\n**Note:** The original budget of $20,000 appears not to have incorporated the platform migration engagement, suggesting the budget baseline may pre-date the migration decision. Finance should confirm whether a budget amendment was submitted alongside the SOW.\n\n**Sources:**\n- Gmail \u2014 2024-11-16T18:15:00Z \u2014 `gmail-contractor_spend-broad` \u2014 *\"SOW executed with TechForce Ltd (DevOps contractor) and NovaBuild Inc (Backend contractor). 8-week engagement from 28 Oct. Day rate schedule attached. CTO and CFO co-signed.\"*\n- Slack \u2014 2024-11-16T12:15:00Z \u2014 `slack-contractor_spend-broad` \u2014 *\"Platform migration kicked off \u2014 two senior contractors (DevOps + Backend) engaged for 8 weeks from 28 Oct. Day rates $750 and $700 per day respectively. Estimated Nov cost ~$12,000. CTO approved.\"*\n- Gmail \u2014 2024-11-16T18:45:00Z \u2014 `gmail-contractor_spend-narrow` \u2014 *\"CTO email \u2014 AWS migration specialist engaged for 2 additional weeks. $6,500 total. Approved. Added to existing SOW as Amendment 1.\"*\n- Slack \u2014 2024-11-16T12:45:00Z \u2014 `slack-contractor_spend-narrow` \u2014 *\"Additional $6,500 for AWS migration specialist added week 3 \u2014 CTO approved extension.\"*\n\n---\n\n### 3. Product Salaries | +$12,000 (+15.0%) | Budget: $80,000 | Actual: $92,000\n\n**Variance of +$12,000 (unfavourable) driven by a one-month overlap of outgoing and incoming Product Manager salaries.**\n\nOutgoing PM Marcus served his full notice period through 30 November while incoming PM Sarah commenced on 1 November, resulting in both individuals drawing salary simultaneously for the entire month. This double-salary situation is a non-recurring November event; headcount and cost normalise from December once Marcus's departure is processed.\n\n**Sources:**\n- Slack \u2014 2024-11-16T12:15:00Z \u2014 `slack-product_salaries-broad` \u2014 *\"Marcus (outgoing PM) is serving his notice through 30 November. Sarah (incoming PM) started 1 November. Double salary in November only \u2014 Marcus exits end of month.\"*\n\n---\n\n### 4. Marketing Salaries | +$8,400 (+14.0%) | Budget: $60,000 | Actual: $68,400\n\n**Variance of +$8,400 (unfavourable) driven by Q3 performance bonuses misposted to the Salaries line.**\n\nPerformance bonuses totalling $8,400 were paid to the Marketing team on 15 November, per approved Q3 review outcomes. These were posted to Marketing Salaries rather than to a Bonuses/Variable Compensation account. Underlying base salaries appear to be on budget. **Finance should process a reclassification journal to move $8,400 from Marketing Salaries to the appropriate bonus/incentive line.** Post-reclassification, the Marketing Salaries variance should reduce to approximately zero.\n\n**Sources:**\n- Slack \u2014 2024-11-18T12:15:00Z \u2014 `slack-marketing_salaries-broad` \u2014 *\"Q4 performance bonuses paid 15 November for Marketing team. $8,400 total across the team per the approved Q3 performance review outcomes. Should have been budgeted under bonuses but posted to salaries.\"*\n\n---\n\n### 5. Operations Salaries | +$7,000 (+17.5%) | Budget: $40,000 | Actual: $47,000\n\n**Variance of +$7,000 (unfavourable) driven by planned peak-season temporary staffing not reflected in the original budget.**\n\nFive temporary warehouse staff were engaged via agency effective 1 November in preparation for peak season, at a cost of $7,000 per month. The decision was made in the Operations budget review but was not incorporated into the original monthly budget. This spend is expected to continue in December. Finance and Operations should confirm whether a December budget amendment has been raised to avoid a repeat variance.\n\n**Sources:**\n- Slack \u2014 2024-11-19T",
+  "executive_summary": "November 2024 saw total salary and contractor spend exceed budget by **$68,900** across all six significant lines. Overruns are broadly explainable and largely one-time in nature: headcount timing issues (Engineering, Product), a peak-season staffing ramp (Operations), a misposted bonus run (Marketing), and a Q4 close contractor charged to G&A. The most material single variance in percentage terms is Contractor Spend (+92.5%, +$18,500), which is fully supported by a CTO/CFO co-signed SOW and a subsequently approved scope extension for an AWS migration specialist. Five of the six variances have clear, well-documented root causes; Marketing Salaries carries an additional accounting classification concern that warrants a posting correction. No variances indicate uncontrolled or unapproved spend.\n\n---",
+  "line_items": [
+    {
+      "header": "Engineering Salaries | +$18,000 (+15.0%) | Budget: $120,000 | Actual: $138,000",
+      "commentary": "**Variance of +$18,000 (unfavourable) driven by an early-start hire creating a full payroll charge in November.**\nStaff Engineer Priya Sharma (L5, $185K base) was originally planned to start 4 November; at her request, her start date was pulled forward to 28 October. As a result, her first full monthly payroll run fell entirely within November rather than being partially absorbed by October, generating a salary charge not reflected in the November budget. This is a one-time timing effect \u2014 budget impact normalises from December onward.",
+      "sources": [
+        {
+          "id": "gmail_\u2014_2024-11-20t18:15:00z_\u2014_`gmail-engineering_salaries-broad`_\u2014_*\"offer_letter_to_priya_sharma_\u2014_start_date_28_october_per_her_request._original_plan_was_4_november._first_full_payroll:_november.\"*-1",
+          "source_type": "Gmail \u2014 2024-11-20T18:15:00Z \u2014 `gmail-engineering_salaries-broad` \u2014 *\"Offer letter to Priya Sharma \u2014 start date 28 October per her request. Original plan was 4 November. First full payroll: November.\"*",
+          "timestamp": "",
+          "snippet": "Gmail \u2014 2024-11-20T18:15:00Z \u2014 `gmail-engineering_salaries-broad` \u2014 *\"Offer letter to Priya Sharma \u2014 start date 28 October per her request. Original plan was 4 November. First full payroll: November.\"*",
+          "ref": ""
+        },
+        {
+          "id": "slack_\u2014_2024-11-20t12:15:00z_\u2014_`slack-engineering_salaries-broad`_\u2014_*\"priya_sharma_(staff_engineer,_l5)_started_28_october_\u2014_first_full_salary_run_hits_november._comp:_$185k_base._previous_plan_assumed_november_start_but_she_onboarded_a_week_early,_creating_one_extra_pay_period_overlap.\"*-2",
+          "source_type": "Slack \u2014 2024-11-20T12:15:00Z \u2014 `slack-engineering_salaries-broad` \u2014 *\"Priya Sharma (Staff Engineer, L5) started 28 October \u2014 first full salary run hits November. Comp: $185K base. Previous plan assumed November start but she onboarded a week early, creating one extra pay period overlap.\"*",
+          "timestamp": "",
+          "snippet": "Slack \u2014 2024-11-20T12:15:00Z \u2014 `slack-engineering_salaries-broad` \u2014 *\"Priya Sharma (Staff Engineer, L5) started 28 October \u2014 first full salary run hits November. Comp: $185K base. Previous plan assumed November start but she onboarded a week early, creating one extra pay period overlap.\"*",
+          "ref": ""
+        }
+      ],
+      "review_status": "pending",
+      "edited_commentary": null,
+      "flagged_reason": null,
+      "line_item_name": "Engineering Salaries",
+      "budget_usd": 120000.0,
+      "actual_usd": 138000.0,
+      "variance_usd": 18000.0,
+      "variance_pct": 15.0
+    },
+    {
+      "header": "Contractor Spend | +$18,500 (+92.5%) | Budget: $20,000 | Actual: $38,500",
+      "commentary": "**Variance of +$18,500 (unfavourable) driven by a pre-approved platform migration engagement plus a mid-month scope extension.**\nTwo senior contractors (TechForce Ltd \u2014 DevOps, $750/day; NovaBuild Inc \u2014 Backend, $700/day) were engaged on an 8-week SOW commencing 28 October, co-signed by the CTO and CFO. Their November cost was estimated at approximately $12,000. A further $6,500 was incurred from a third engagement \u2014 an AWS migration specialist added in week three under SOW Amendment 1, approved by the CTO via email on 15 November. Combined, these three contractor charges account for approximately $18,500, fully reconciling to the actual.\n**Note:** The original budget of $20,000 appears not to have incorporated the platform migration engagement, suggesting the budget baseline may pre-date the migration decision. Finance should confirm whether a budget amendment was submitted alongside the SOW.",
+      "sources": [
+        {
+          "id": "gmail_\u2014_2024-11-16t18:15:00z_\u2014_`gmail-contractor_spend-broad`_\u2014_*\"sow_executed_with_techforce_ltd_(devops_contractor)_and_novabuild_inc_(backend_contractor)._8-week_engagement_from_28_oct._day_rate_schedule_attached._cto_and_cfo_co-signed.\"*-3",
+          "source_type": "Gmail \u2014 2024-11-16T18:15:00Z \u2014 `gmail-contractor_spend-broad` \u2014 *\"SOW executed with TechForce Ltd (DevOps contractor) and NovaBuild Inc (Backend contractor). 8-week engagement from 28 Oct. Day rate schedule attached. CTO and CFO co-signed.\"*",
+          "timestamp": "",
+          "snippet": "Gmail \u2014 2024-11-16T18:15:00Z \u2014 `gmail-contractor_spend-broad` \u2014 *\"SOW executed with TechForce Ltd (DevOps contractor) and NovaBuild Inc (Backend contractor). 8-week engagement from 28 Oct. Day rate schedule attached. CTO and CFO co-signed.\"*",
+          "ref": ""
+        },
+        {
+          "id": "slack_\u2014_2024-11-16t12:15:00z_\u2014_`slack-contractor_spend-broad`_\u2014_*\"platform_migration_kicked_off_\u2014_two_senior_contractors_(devops_+_backend)_engaged_for_8_weeks_from_28_oct._day_rates_$750_and_$700_per_day_respectively._estimated_nov_cost_~$12,000._cto_approved.\"*-4",
+          "source_type": "Slack \u2014 2024-11-16T12:15:00Z \u2014 `slack-contractor_spend-broad` \u2014 *\"Platform migration kicked off \u2014 two senior contractors (DevOps + Backend) engaged for 8 weeks from 28 Oct. Day rates $750 and $700 per day respectively. Estimated Nov cost ~$12,000. CTO approved.\"*",
+          "timestamp": "",
+          "snippet": "Slack \u2014 2024-11-16T12:15:00Z \u2014 `slack-contractor_spend-broad` \u2014 *\"Platform migration kicked off \u2014 two senior contractors (DevOps + Backend) engaged for 8 weeks from 28 Oct. Day rates $750 and $700 per day respectively. Estimated Nov cost ~$12,000. CTO approved.\"*",
+          "ref": ""
+        },
+        {
+          "id": "gmail_\u2014_2024-11-16t18:45:00z_\u2014_`gmail-contractor_spend-narrow`_\u2014_*\"cto_email_\u2014_aws_migration_specialist_engaged_for_2_additional_weeks._$6,500_total._approved._added_to_existing_sow_as_amendment_1.\"*-5",
+          "source_type": "Gmail \u2014 2024-11-16T18:45:00Z \u2014 `gmail-contractor_spend-narrow` \u2014 *\"CTO email \u2014 AWS migration specialist engaged for 2 additional weeks. $6,500 total. Approved. Added to existing SOW as Amendment 1.\"*",
+          "timestamp": "",
+          "snippet": "Gmail \u2014 2024-11-16T18:45:00Z \u2014 `gmail-contractor_spend-narrow` \u2014 *\"CTO email \u2014 AWS migration specialist engaged for 2 additional weeks. $6,500 total. Approved. Added to existing SOW as Amendment 1.\"*",
+          "ref": ""
+        },
+        {
+          "id": "slack_\u2014_2024-11-16t12:45:00z_\u2014_`slack-contractor_spend-narrow`_\u2014_*\"additional_$6,500_for_aws_migration_specialist_added_week_3_\u2014_cto_approved_extension.\"*-6",
+          "source_type": "Slack \u2014 2024-11-16T12:45:00Z \u2014 `slack-contractor_spend-narrow` \u2014 *\"Additional $6,500 for AWS migration specialist added week 3 \u2014 CTO approved extension.\"*",
+          "timestamp": "",
+          "snippet": "Slack \u2014 2024-11-16T12:45:00Z \u2014 `slack-contractor_spend-narrow` \u2014 *\"Additional $6,500 for AWS migration specialist added week 3 \u2014 CTO approved extension.\"*",
+          "ref": ""
+        }
+      ],
+      "review_status": "pending",
+      "edited_commentary": null,
+      "flagged_reason": null,
+      "line_item_name": "Contractor Spend",
+      "budget_usd": 20000.0,
+      "actual_usd": 38500.0,
+      "variance_usd": 18500.0,
+      "variance_pct": 92.5
+    },
+    {
+      "header": "Product Salaries | +$12,000 (+15.0%) | Budget: $80,000 | Actual: $92,000",
+      "commentary": "**Variance of +$12,000 (unfavourable) driven by a one-month overlap of outgoing and incoming Product Manager salaries.**\nOutgoing PM Marcus served his full notice period through 30 November while incoming PM Sarah commenced on 1 November, resulting in both individuals drawing salary simultaneously for the entire month. This double-salary situation is a non-recurring November event; headcount and cost normalise from December once Marcus's departure is processed.",
+      "sources": [
+        {
+          "id": "slack_\u2014_2024-11-16t12:15:00z_\u2014_`slack-product_salaries-broad`_\u2014_*\"marcus_(outgoing_pm)_is_serving_his_notice_through_30_november._sarah_(incoming_pm)_started_1_november._double_salary_in_november_only_\u2014_marcus_exits_end_of_month.\"*-7",
+          "source_type": "Slack \u2014 2024-11-16T12:15:00Z \u2014 `slack-product_salaries-broad` \u2014 *\"Marcus (outgoing PM) is serving his notice through 30 November. Sarah (incoming PM) started 1 November. Double salary in November only \u2014 Marcus exits end of month.\"*",
+          "timestamp": "",
+          "snippet": "Slack \u2014 2024-11-16T12:15:00Z \u2014 `slack-product_salaries-broad` \u2014 *\"Marcus (outgoing PM) is serving his notice through 30 November. Sarah (incoming PM) started 1 November. Double salary in November only \u2014 Marcus exits end of month.\"*",
+          "ref": ""
+        }
+      ],
+      "review_status": "pending",
+      "edited_commentary": null,
+      "flagged_reason": null,
+      "line_item_name": "Product Salaries",
+      "budget_usd": 80000.0,
+      "actual_usd": 92000.0,
+      "variance_usd": 12000.0,
+      "variance_pct": 15.0
+    },
+    {
+      "header": "Marketing Salaries | +$8,400 (+14.0%) | Budget: $60,000 | Actual: $68,400",
+      "commentary": "**Variance of +$8,400 (unfavourable) driven by Q3 performance bonuses misposted to the Salaries line.**\nPerformance bonuses totalling $8,400 were paid to the Marketing team on 15 November, per approved Q3 review outcomes. These were posted to Marketing Salaries rather than to a Bonuses/Variable Compensation account. Underlying base salaries appear to be on budget. **Finance should process a reclassification journal to move $8,400 from Marketing Salaries to the appropriate bonus/incentive line.** Post-reclassification, the Marketing Salaries variance should reduce to approximately zero.",
+      "sources": [
+        {
+          "id": "slack_\u2014_2024-11-18t12:15:00z_\u2014_`slack-marketing_salaries-broad`_\u2014_*\"q4_performance_bonuses_paid_15_november_for_marketing_team._$8,400_total_across_the_team_per_the_approved_q3_performance_review_outcomes._should_have_been_budgeted_under_bonuses_but_posted_to_salaries.\"*-8",
+          "source_type": "Slack \u2014 2024-11-18T12:15:00Z \u2014 `slack-marketing_salaries-broad` \u2014 *\"Q4 performance bonuses paid 15 November for Marketing team. $8,400 total across the team per the approved Q3 performance review outcomes. Should have been budgeted under bonuses but posted to salaries.\"*",
+          "timestamp": "",
+          "snippet": "Slack \u2014 2024-11-18T12:15:00Z \u2014 `slack-marketing_salaries-broad` \u2014 *\"Q4 performance bonuses paid 15 November for Marketing team. $8,400 total across the team per the approved Q3 performance review outcomes. Should have been budgeted under bonuses but posted to salaries.\"*",
+          "ref": ""
+        }
+      ],
+      "review_status": "pending",
+      "edited_commentary": null,
+      "flagged_reason": null,
+      "line_item_name": "Marketing Salaries",
+      "budget_usd": 60000.0,
+      "actual_usd": 68400.0,
+      "variance_usd": 8400.0,
+      "variance_pct": 14.0
+    },
+    {
+      "header": "Operations Salaries | +$7,000 (+17.5%) | Budget: $40,000 | Actual: $47,000",
+      "commentary": "**Variance of +$7,000 (unfavourable) driven by planned peak-season temporary staffing not reflected in the original budget.**\nFive temporary warehouse staff were engaged via agency effective 1 November in preparation for peak season, at a cost of $7,000 per month. The decision was made in the Operations budget review but was not incorporated into the original monthly budget. This spend is expected to continue in December. Finance and Operations should confirm whether a December budget amendment has been raised to avoid a repeat variance.",
+      "sources": [
+        {
+          "id": "slack_\u2014_2024-11-19t-9",
+          "source_type": "Slack \u2014 2024-11-19T",
+          "timestamp": "",
+          "snippet": "Slack \u2014 2024-11-19T",
+          "ref": ""
+        }
+      ],
+      "review_status": "pending",
+      "edited_commentary": null,
+      "flagged_reason": null,
+      "line_item_name": "Operations Salaries",
+      "budget_usd": 40000.0,
+      "actual_usd": 47000.0,
+      "variance_usd": 7000.0,
+      "variance_pct": 17.5
+    }
+  ],
+  "insignificant": [],
+  "gaps": [],
+  "tool_diagnostics": [],
+  "tool_traces": [
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_01SYQ2TQtsqUBCs9PfAbFa1C",
+      "input_payload": {
+        "period": "2024-11-01T00:00:00Z to 2024-11-30T23:59:59Z",
+        "line_item": "Engineering Salaries",
+        "query": "engineering headcount hire salary increase approval November 2024",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"November 2024\", \"date_start\": \"2024-11-01T00:00:00Z\", \"date_end\": \"2024-11-30T23:59:59Z\", \"summary_for_model\": \"gmail-2024-11-01-priya-offer: Offer letter to Priya Sharma \\u2014 start date 28 October per her request. Original plan was 4 November. First full payroll: November.\", \"evidence\": [{\"id\": \"gmail-engineering_salaries-broad\", \"source_type\": \"gmail\", \"timestamp\": \"2024-11-20T18:15:00Z\", \"snippet\": \"gmail-2024-11-01-priya-offer: Offer letter to Priya Sharma \\u2014 start date 28 October per her request. Original plan was 4 November. First full payroll: November.\", \"ref\": \"Engineering Salaries fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_01TiSiFmZLh6DtCeFHUuEN7i",
+      "input_payload": {
+        "period": "2024-11-01T00:00:00Z to 2024-11-30T23:59:59Z",
+        "line_item": "Contractor Spend",
+        "query": "contractor invoice approval spend November 2024",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"November 2024\", \"date_start\": \"2024-11-01T00:00:00Z\", \"date_end\": \"2024-11-30T23:59:59Z\", \"summary_for_model\": \"gmail-2024-10-25-contractor-sow: SOW executed with TechForce Ltd (DevOps contractor) and NovaBuild Inc (Backend contractor). 8-week engagement from 28 Oct. Day rate schedule attached. CTO and CFO co-signed.\", \"evidence\": [{\"id\": \"gmail-contractor_spend-broad\", \"source_type\": \"gmail\", \"timestamp\": \"2024-11-16T18:15:00Z\", \"snippet\": \"gmail-2024-10-25-contractor-sow: SOW executed with TechForce Ltd (DevOps contractor) and NovaBuild Inc (Backend contractor). 8-week engagement from 28 Oct. Day rate schedule attached. CTO and CFO co-signed.\", \"ref\": \"Contractor Spend fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_slack",
+      "tool_use_id": "toolu_01XWo9cEWWf962jPbyoJstNR",
+      "input_payload": {
+        "period": "2024-11-01T00:00:00Z to 2024-11-30T23:59:59Z",
+        "line_item": "Engineering Salaries",
+        "query": "engineering new hire salary overage headcount November 2024",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_slack\", \"period\": \"November 2024\", \"date_start\": \"2024-11-01T00:00:00Z\", \"date_end\": \"2024-11-30T23:59:59Z\", \"summary_for_model\": \"hr-slack-2024-11-01: Priya Sharma (Staff Engineer, L5) started 28 October \\u2014 first full salary run hits November. Comp: $185K base. Previous plan assumed November start but she onboarded a week early, creating one extra pay period overlap.\", \"evidence\": [{\"id\": \"slack-engineering_salaries-broad\", \"source_type\": \"slack\", \"timestamp\": \"2024-11-20T12:15:00Z\", \"snippet\": \"hr-slack-2024-11-01: Priya Sharma (Staff Engineer, L5) started 28 October \\u2014 first full salary run hits November. Comp: $185K base. Previous plan assumed November start but she onboarded a week early, creating one extra pay period overlap.\", \"ref\": \"Engineering Salaries fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_slack",
+      "tool_use_id": "toolu_01Jdi3uq43zkeUDtV6e4ZDXt",
+      "input_payload": {
+        "period": "2024-11-01T00:00:00Z to 2024-11-30T23:59:59Z",
+        "line_item": "Contractor Spend",
+        "query": "contractor spend overage engagement November 2024",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_slack\", \"period\": \"November 2024\", \"date_start\": \"2024-11-01T00:00:00Z\", \"date_end\": \"2024-11-30T23:59:59Z\", \"summary_for_model\": \"eng-slack-2024-10-28: Platform migration kicked off \\u2014 two senior contractors (DevOps + Backend) engaged for 8 weeks from 28 Oct. Day rates $750 and $700 per day respectively. Estimated Nov cost ~$12,000. CTO approved.\", \"evidence\": [{\"id\": \"slack-contractor_spend-broad\", \"source_type\": \"slack\", \"timestamp\": \"2024-11-16T12:15:00Z\", \"snippet\": \"eng-slack-2024-10-28: Platform migration kicked off \\u2014 two senior contractors (DevOps + Backend) engaged for 8 weeks from 28 Oct. Day rates $750 and $700 per day respectively. Estimated Nov cost ~$12,000. CTO approved.\", \"ref\": \"Contractor Spend fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_01KVE3p5JhFszkzcQmY9CLtH",
+      "input_payload": {
+        "period": "2024-11-01T00:00:00Z to 2024-11-30T23:59:59Z",
+        "line_item": "Product Salaries",
+        "query": "product team headcount hire salary approval November 2024",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"November 2024\", \"date_start\": \"2024-11-01T00:00:00Z\", \"date_end\": \"2024-11-30T23:59:59Z\", \"summary_for_model\": \"No search_gmail context found for line item 'Product Salaries' in November 2024.\", \"evidence\": [], \"error\": \"line_item_not_found\"}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_011wyiJ51dUYsR4C2cmJQmY2",
+      "input_payload": {
+        "period": "2024-11-01T00:00:00Z to 2024-11-30T23:59:59Z",
+        "line_item": "Marketing Salaries",
+        "query": "marketing headcount hire salary approval November 2024",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"November 2024\", \"date_start\": \"2024-11-01T00:00:00Z\", \"date_end\": \"2024-11-30T23:59:59Z\", \"summary_for_model\": \"No search_gmail context found for line item 'Marketing Salaries' in November 2024.\", \"evidence\": [], \"error\": \"line_item_not_found\"}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_012Vc4xwX3692jFZvCEuqCzG",
+      "input_payload": {
+        "period": "2024-11-01T00:00:00Z to 2024-11-30T23:59:59Z",
+        "line_item": "Operations Salaries",
+        "query": "operations headcount hire salary approval November 2024",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"November 2024\", \"date_start\": \"2024-11-01T00:00:00Z\", \"date_end\": \"2024-11-30T23:59:59Z\", \"summary_for_model\": \"No search_gmail context found for line item 'Operations Salaries' in November 2024.\", \"evidence\": [], \"error\": \"line_item_not_found\"}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_01Jgp9QF5VuK4kgDPaCAaHXM",
+      "input_payload": {
+        "period": "2024-11-01T00:00:00Z to 2024-11-30T23:59:59Z",
+        "line_item": "G&A Salaries",
+        "query": "G&A general administrative headcount hire salary approval November 2024",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"November 2024\", \"date_start\": \"2024-11-01T00:00:00Z\", \"date_end\": \"2024-11-30T23:59:59Z\", \"summary_for_model\": \"No search_gmail context found for line item 'G&A Salaries' in November 2024.\", \"evidence\": [], \"error\": \"line_item_not_found\"}"
+    },
+    {
+      "tool_name": "search_slack",
+      "tool_use_id": "toolu_016CBcXgfhgWGAH4LWWygDWL",
+      "input_payload": {
+        "period": "2024-11-01T00:00:00Z to 2024-11-30T23:59:59Z",
+        "line_item": "Product Salaries",
+        "query": "product team new hire salary overage headcount November 2024",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_slack\", \"period\": \"November 2024\", \"date_start\": \"2024-11-01T00:00:00Z\", \"date_end\": \"2024-11-30T23:59:59Z\", \"summary_for_model\": \"hr-slack-2024-11-04: Note on Product: Marcus (outgoing PM) is serving his notice through 30 November. Sarah (incoming PM) started 1 November. Double salary in November only \\u2014 Marcus exits end of month.\", \"evidence\": [{\"id\": \"slack-product_salaries-broad\", \"source_type\": \"slack\", \"timestamp\": \"2024-11-16T12:15:00Z\", \"snippet\": \"hr-slack-2024-11-04: Note on Product: Marcus (outgoing PM) is serving his notice through 30 November. Sarah (incoming PM) started 1 November. Double salary in November only \\u2014 Marcus exits end of month.\", \"ref\": \"Product Salaries fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_slack",
+      "tool_use_id": "toolu_018Q1BWihjtQTwkFvaeCsVGK",
+      "input_payload": {
+        "period": "2024-11-01T00:00:00Z to 2024-11-30T23:59:59Z",
+        "line_item": "Marketing Salaries",
+        "query": "marketing team new hire salary overage headcount November 2024",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_slack\", \"period\": \"November 2024\", \"date_start\": \"2024-11-01T00:00:00Z\", \"date_end\": \"2024-11-30T23:59:59Z\", \"summary_for_model\": \"hr-slack-2024-11-15: Q4 performance bonuses paid 15 November for Marketing team. $8,400 total across the team per the approved Q3 performance review outcomes. Separate from base salary line \\u2014 should have been budgeted under bonuses but posted to salaries.\", \"evidence\": [{\"id\": \"slack-marketing_salaries-broad\", \"source_type\": \"slack\", \"timestamp\": \"2024-11-18T12:15:00Z\", \"snippet\": \"hr-slack-2024-11-15: Q4 performance bonuses paid 15 November for Marketing team. $8,400 total across the team per the approved Q3 performance review outcomes. Separate from base salary line \\u2014 should have been budgeted under bonuses but posted to salaries.\", \"ref\": \"Marketing Salaries fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_slack",
+      "tool_use_id": "toolu_01SmLPUjeqfdHuziwhER7F6w",
+      "input_payload": {
+        "period": "2024-11-01T00:00:00Z to 2024-11-30T23:59:59Z",
+        "line_item": "Operations Salaries",
+        "query": "operations team new hire salary overage headcount November 2024",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_slack\", \"period\": \"November 2024\", \"date_start\": \"2024-11-01T00:00:00Z\", \"date_end\": \"2024-11-30T23:59:59Z\", \"summary_for_model\": \"ops-slack-2024-11-01: Peak season starts \\u2014 5 temporary warehouse staff added for November and December. Bringing in via agency, posting to Ops Salaries. Cost: $7,000 additional per month. Planned in operations budget review, not reflected in original headcount plan.\", \"evidence\": [{\"id\": \"slack-operations_salaries-broad\", \"source_type\": \"slack\", \"timestamp\": \"2024-11-19T12:15:00Z\", \"snippet\": \"ops-slack-2024-11-01: Peak season starts \\u2014 5 temporary warehouse staff added for November and December. Bringing in via agency, posting to Ops Salaries. Cost: $7,000 additional per month. Planned in operations budget review, not reflected in original headcount plan.\", \"ref\": \"Operations Salaries fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_slack",
+      "tool_use_id": "toolu_01CQ2GiSJJ3UQWMg3fo7uqdJ",
+      "input_payload": {
+        "period": "2024-11-01T00:00:00Z to 2024-11-30T23:59:59Z",
+        "line_item": "G&A Salaries",
+        "query": "G&A general administrative new hire salary overage headcount November 2024",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_slack\", \"period\": \"November 2024\", \"date_start\": \"2024-11-01T00:00:00Z\", \"date_end\": \"2024-11-30T23:59:59Z\", \"summary_for_model\": \"finance-slack-2024-11-01: Brought in Clara Mendez (finance contractor) for Q4 close support. $4,000/month, posting to G&A Salaries per CFO instruction. Year-end close support, 3-month engagement.\", \"evidence\": [{\"id\": \"slack-g&a_salaries-broad\", \"source_type\": \"slack\", \"timestamp\": \"2024-11-12T12:15:00Z\", \"snippet\": \"finance-slack-2024-11-01: Brought in Clara Mendez (finance contractor) for Q4 close support. $4,000/month, posting to G&A Salaries per CFO instruction. Year-end close support, 3-month engagement.\", \"ref\": \"G&A Salaries fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_01Rcqa5W6TdxXCAJEAGjZxGY",
+      "input_payload": {
+        "period": "2024-11-01T00:00:00Z to 2024-11-30T23:59:59Z",
+        "line_item": "Contractor Spend",
+        "query": "contractor additional invoice TechForce NovaBuild third contractor November 2024",
+        "search_scope": "narrow"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"November 2024\", \"date_start\": \"2024-11-01T00:00:00Z\", \"date_end\": \"2024-11-30T23:59:59Z\", \"summary_for_model\": \"gmail-2024-11-15-contractor-extension: CTO email \\u2014 AWS migration specialist engaged for 2 additional weeks. $6,500 total. Approved. Added to existing SOW as Amendment 1.\", \"evidence\": [{\"id\": \"gmail-contractor_spend-narrow\", \"source_type\": \"gmail\", \"timestamp\": \"2024-11-16T18:45:00Z\", \"snippet\": \"gmail-2024-11-15-contractor-extension: CTO email \\u2014 AWS migration specialist engaged for 2 additional weeks. $6,500 total. Approved. Added to existing SOW as Amendment 1.\", \"ref\": \"Contractor Spend fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_slack",
+      "tool_use_id": "toolu_017FDUppsnnFzPSqaA5QptZB",
+      "input_payload": {
+        "period": "2024-11-01T00:00:00Z to 2024-11-30T23:59:59Z",
+        "line_item": "Contractor Spend",
+        "query": "contractor additional spend scope increase third contractor November 2024",
+        "search_scope": "narrow"
+      },
+      "output_text": "{\"tool_name\": \"search_slack\", \"period\": \"November 2024\", \"date_start\": \"2024-11-01T00:00:00Z\", \"date_end\": \"2024-11-30T23:59:59Z\", \"summary_for_model\": \"eng-slack-2024-10-28: Platform migration contractors working full-time alongside core team. Spend tracking vs milestone plan: on track. Additional $6,500 for AWS migration specialist added week 3 \\u2014 CTO approved extension.\", \"evidence\": [{\"id\": \"slack-contractor_spend-narrow\", \"source_type\": \"slack\", \"timestamp\": \"2024-11-16T12:45:00Z\", \"snippet\": \"eng-slack-2024-10-28: Platform migration contractors working full-time alongside core team. Spend tracking vs milestone plan: on track. Additional $6,500 for AWS migration specialist added week 3 \\u2014 CTO approved extension.\", \"ref\": \"Contractor Spend fixture\"}], \"error\": null}"
+    }
+  ]
+}

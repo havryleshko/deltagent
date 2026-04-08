@@ -17,7 +17,8 @@ from tools import build_tool_registry
 from tools.period_parse import PeriodWindow, resolve_period
 from ui.app import run_tui
 from utils.config import load_config
-from utils.csv_validator import validate_csv
+from utils.csv_validator import validate_rows
+from utils.report_loader import load_report
 
 load_dotenv()
 
@@ -64,11 +65,23 @@ def _eligible_tools(line_item: str) -> list[str]:
     return tools
 
 
+def _parse_column_map(items: list[str]) -> dict[str, str]:
+    result: dict[str, str] = {}
+    for item in items:
+        if "=" in item:
+            src, dst = item.split("=", 1)
+            result[src.strip()] = dst.strip()
+    return result
+
+
 def _print_validation_summary(
     significant: list[dict[str, object]],
     insignificant: list[dict[str, object]],
     errors: list[str],
+    detected_format: str | None = None,
 ) -> None:
+    if detected_format:
+        typer.echo(f"Detected format: {detected_format}")
     typer.echo(f"Significant rows: {len(significant)}")
     typer.echo(f"Insignificant rows: {len(insignificant)}")
     if errors:
@@ -107,17 +120,23 @@ def tui(
 def validate(
     csv_path: Path = typer.Argument(..., exists=True, readable=True),
     period: Optional[str] = typer.Option(default=None, help="Optional explicit reporting period"),
+    column_map: Optional[list[str]] = typer.Option(
+        default=None, help="Column remapping, e.g. --column-map budget=budget_usd"
+    ),
 ) -> None:
     cfg = load_config()
-    significant, insignificant, errors = validate_csv(
-        csv_path,
+    col_map = _parse_column_map(column_map or [])
+    rows, detected_format, load_errors = load_report(csv_path, column_map=col_map, period=period)
+    significant, insignificant, validate_errors = validate_rows(
+        rows,
         significance_pct_threshold=cfg.significance_pct_threshold,
         significance_abs_variance_threshold=cfg.significance_abs_variance_threshold,
     )
-    rows = significant + insignificant
-    if period is not None:
-        _validate_period_alignment(rows, _resolve_required_period(period))
-    _print_validation_summary(significant, insignificant, errors)
+    errors = load_errors + validate_errors
+    all_rows = significant + insignificant
+    if period is not None and not errors:
+        _validate_period_alignment(all_rows, _resolve_required_period(period))
+    _print_validation_summary(significant, insignificant, errors, detected_format=detected_format)
     raise typer.Exit(code=1 if errors else 0)
 
 
@@ -126,18 +145,26 @@ def run(
     csv_path: Path = typer.Argument(..., exists=True, readable=True),
     period: str = typer.Option(..., help="Reporting period, e.g. 2025-11"),
     dry_run: bool = typer.Option(False, "--dry-run", help="Show the plan without executing"),
+    column_map: Optional[list[str]] = typer.Option(
+        default=None, help="Column remapping, e.g. --column-map budget=budget_usd"
+    ),
 ) -> None:
     period_window = _resolve_required_period(period)
     cfg = load_config()
-    significant, insignificant, errors = validate_csv(
-        csv_path,
+    col_map = _parse_column_map(column_map or [])
+    rows, _detected_format, load_errors = load_report(
+        csv_path, column_map=col_map, period=period_window.label
+    )
+    significant, insignificant, validate_errors = validate_rows(
+        rows,
         significance_pct_threshold=cfg.significance_pct_threshold,
         significance_abs_variance_threshold=cfg.significance_abs_variance_threshold,
     )
-    rows = significant + insignificant
-    _validate_period_alignment(rows, period_window)
+    errors = load_errors + validate_errors
+    all_rows = significant + insignificant
+    _validate_period_alignment(all_rows, period_window)
     if errors:
-        _print_validation_summary(significant, insignificant, errors)
+        _print_validation_summary(significant, insignificant, errors, detected_format=_detected_format)
         raise typer.Exit(code=1)
     if dry_run:
         typer.echo(f"Period: {period_window.label}")
@@ -194,6 +221,50 @@ def auth_test() -> None:
     ok, message = google_auth_test()
     typer.echo(message)
     raise typer.Exit(code=0 if ok else 1)
+
+
+@auth_app.command("mcp-status")
+def mcp_status() -> None:
+    from mcp_client.config import load_mcp_servers, load_mcp_connection_state
+
+    servers = load_mcp_servers()
+    if not servers:
+        typer.echo("No MCP servers configured (add [[mcp_servers]] to deltaagent.toml).")
+        raise typer.Exit(code=0)
+    any_connected = False
+    for server in servers:
+        state = load_mcp_connection_state(server)
+        if state:
+            tools = state.get("tools", [])
+            typer.echo(f"{server.name}: connected — {len(tools)} tool(s): {', '.join(tools) or 'none'}")
+            any_connected = True
+        else:
+            typer.echo(f"{server.name}: not connected (run: deltaagent auth mcp-connect --server {server.name})")
+    raise typer.Exit(code=0 if any_connected else 1)
+
+
+@auth_app.command("mcp-connect")
+def mcp_connect(
+    server_name: str = typer.Option(..., "--server", help="Name of the MCP server from deltaagent.toml"),
+) -> None:
+    from mcp_client.config import load_mcp_servers, save_mcp_connection_state
+    from mcp_client import client as mcp_client
+
+    servers = {s.name: s for s in load_mcp_servers()}
+    if server_name not in servers:
+        typer.echo(f"Server {server_name!r} not found in deltaagent.toml.")
+        raise typer.Exit(code=1)
+    server = servers[server_name]
+    typer.echo(f"Connecting to {server.name} ({server.url}) …")
+    try:
+        tools = asyncio.run(mcp_client.discover_tools(server))
+    except Exception as exc:
+        typer.echo(f"Connection failed: {exc}")
+        raise typer.Exit(code=1)
+    tool_names = [t["name"] for t in tools]
+    save_mcp_connection_state(server, tool_names)
+    typer.echo(f"Connected. {len(tool_names)} tool(s) discovered: {', '.join(tool_names) or 'none'}")
+    raise typer.Exit(code=0)
 
 
 @app.command()

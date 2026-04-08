@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import time
 from pathlib import Path
 from typing import Any
@@ -12,11 +13,21 @@ from textual.screen import Screen
 from textual.widgets import Button, Checkbox, DataTable, Footer, Header, Input, RichLog, Static
 
 from agent.agent import run_agent
-from exports.exporter import build_export_basename, write_docx, write_markdown
+from agent.models import AgentRun
+from exports.exporter import export_from_run
 from tools import build_tool_registry
 from tools.period_parse import resolve_period
 from utils.config import load_config
-from utils.csv_validator import validate_csv
+from utils.csv_validator import validate_rows
+from utils.report_loader import load_report
+
+
+def _save_tui_run(agent_run: AgentRun) -> Path:
+    run_dir = Path("runs")
+    run_dir.mkdir(parents=True, exist_ok=True)
+    dest = run_dir / f"{agent_run.run_id}.json"
+    dest.write_text(json.dumps(agent_run.to_dict(), indent=2), encoding="utf-8")
+    return dest
 
 
 class FilePickerScreen(Screen[str | None]):
@@ -86,11 +97,13 @@ class VarianceScreen(Screen[None]):
         cfg = load_config()
         self._currency_symbol = cfg.currency_symbol
         self.query_one("#path_label", Static).update(f"File: {self._csv_path}")
-        self._significant, self._insignificant, self._errors = validate_csv(
-            self._csv_path,
+        rows, _fmt, load_errors = load_report(self._csv_path)
+        self._significant, self._insignificant, validate_errors = validate_rows(
+            rows,
             significance_pct_threshold=cfg.significance_pct_threshold,
             significance_abs_variance_threshold=cfg.significance_abs_variance_threshold,
         )
+        self._errors = load_errors + validate_errors
         err_widget = self.query_one("#validation_errors", Static)
         if self._errors:
             lines = list(self._errors)
@@ -190,7 +203,7 @@ class CommentaryScreen(Screen[None]):
         self._insignificant_rows = insignificant_rows
         self._period = period
         self._currency_symbol = currency_symbol
-        self._commentary_text: str | None = None
+        self._agent_run: AgentRun | None = None
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -240,11 +253,12 @@ class CommentaryScreen(Screen[None]):
         notes_title.update("")
         notes_body.update("")
         diagnostics: list[str] = []
-        failed = False
+        agent_run: AgentRun | None = None
+        error_message: str | None = None
         start = time.perf_counter()
         try:
             period_window = resolve_period(self._period)
-            text = await run_agent(
+            agent_run = await run_agent(
                 significant_rows=self._significant_rows,
                 insignificant_rows=self._insignificant_rows,
                 tool_registry=build_tool_registry(period_window=period_window),
@@ -257,33 +271,41 @@ class CommentaryScreen(Screen[None]):
                 ),
             )
         except Exception as error:
-            text = f"Run failed: {error}"
-            failed = True
+            error_message = f"Run failed: {error}"
         finally:
             run_btn.disabled = False
         elapsed = time.perf_counter() - start
         suffix = f" ({elapsed:.1f}s)"
-        status.update(
-            ("Finished with error." if failed else "Done.") + suffix
-        )
-        log.write(text.raw_text)
-        if diagnostics:
+        if error_message is not None:
+            status.update(f"Finished with error.{suffix}")
+            log.write(error_message)
+            self.query_one("#export_md", Button).disabled = True
+            self.query_one("#export_docx", Button).disabled = True
+            return
+        assert agent_run is not None
+        self._agent_run = agent_run
+        try:
+            run_path = _save_tui_run(agent_run)
+            status.update(f"Done.{suffix} — saved {run_path}")
+        except OSError:
+            status.update(f"Done.{suffix}")
+        log.write(agent_run.raw_text)
+        all_diag = agent_run.tool_diagnostics
+        if all_diag:
             notes_title.update("Tool notes")
-            summary = (
-                "Some tools returned errors; the model proceeded with remaining context."
+            notes_body.update(
+                "Some tools returned errors or missing sources; see details below.\n\n"
+                + "\n".join(all_diag)
             )
-            notes_body.update(summary + "\n\n" + "\n".join(diagnostics))
         else:
             notes_title.update("")
             notes_body.update("")
-        self._commentary_text = text.raw_text
-        can_export = (not failed) and bool(self._commentary_text.strip())
+        can_export = bool(agent_run.raw_text.strip())
         self.query_one("#export_md", Button).disabled = not can_export
         self.query_one("#export_docx", Button).disabled = not can_export
 
     def _export_commentary(self, kind: str) -> None:
-        text = self._commentary_text
-        if not text or not text.strip():
+        if self._agent_run is None:
             self.app.notify("No commentary to export", severity="error")
             return
         dir_raw = self.query_one("#export_dir", Input).value.strip() or "."
@@ -293,14 +315,9 @@ class CommentaryScreen(Screen[None]):
         except OSError as error:
             self.app.notify(f"Invalid export directory: {error}", severity="error")
             return
-        name = build_export_basename(self._period, kind)
-        dest = out_dir / name
         try:
-            if kind == "md":
-                write_markdown(text, dest)
-            else:
-                write_docx(text, dest)
-        except OSError as error:
+            dest = export_from_run(self._agent_run, format=kind, out_dir=out_dir)
+        except (OSError, ValueError) as error:
             self.app.notify(f"Export failed: {error}", severity="error")
             return
         self.app.notify(f"Saved {dest}")

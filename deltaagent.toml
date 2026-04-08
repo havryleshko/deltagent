@@ -1,0 +1,12 @@
+# DeltAgent configuration
+#
+# MCP servers — uncomment and configure when a platform ships an MCP server.
+# Run `deltaagent auth mcp-connect --server <name>` after adding an entry.
+
+# [[mcp_servers]]
+# name = "xero"
+# url  = "https://mcp.xero.com/sse"
+
+# [[mcp_servers]]
+# name = "light"
+# url  = "https://mcp.light.inc/sse"

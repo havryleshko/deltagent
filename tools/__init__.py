@@ -28,7 +28,7 @@ def _with_period_bounds(
 
     async def wrapped(payload: dict[str, Any]) -> str:
         next_payload = dict(payload)
-        next_payload.setdefault("period", period_window.label)
+        next_payload["period"] = period_window.label
         next_payload["date_start"] = period_window.start_iso
         next_payload["date_end"] = period_window.end_iso
         return await handler(next_payload)
@@ -37,8 +37,25 @@ def _with_period_bounds(
 
 
 def build_tool_registry(period_window: PeriodWindow | None = None) -> dict[str, ToolHandler]:
-    """Each tool branches on DELTAGENT_TOOL_MODE internally."""
     return {
         name: _with_period_bounds(handler, period_window)
         for name, handler in build_mock_tool_registry().items()
     }
+
+
+async def build_tool_registry_with_mcp(
+    period_window: PeriodWindow | None = None,
+) -> tuple[dict[str, ToolHandler], list[dict[str, Any]]]:
+    from mcp_client.config import load_mcp_servers
+    from mcp_client.registry import build_mcp_tool_registry
+    from tools.definitions import TOOL_DEFINITIONS
+
+    local = build_tool_registry(period_window)
+    servers = load_mcp_servers()
+    if not servers:
+        return local, []
+
+    mcp_registry, mcp_definitions = await build_mcp_tool_registry(servers)
+    merged = {**mcp_registry, **local}
+    new_defs = [d for d in mcp_definitions if d["name"] not in {t["name"] for t in TOOL_DEFINITIONS}]
+    return merged, new_defs

@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from typing import Any, Awaitable, Callable
 
 from agent.models import AgentRun, ToolTrace
-from agent.parser import parse_agent_output
+from agent.parser import parse_agent_output, validate_parsed_output
 from agent.prompts import build_system_prompt, build_user_message
 from tools.definitions import TOOL_DEFINITIONS
 
@@ -76,6 +76,34 @@ def _new_run_id() -> str:
     return datetime.now(timezone.utc).strftime("run_%Y%m%d_%H%M%S")
 
 
+def _gaps_from_diagnostics(diagnostics: list[str]) -> list[str]:
+    gaps: list[str] = []
+    for entry in diagnostics:
+        tool_name = entry.split(":")[0].strip()
+        if tool_name:
+            gaps.append(f"tool error: {tool_name}")
+    return gaps
+
+
+def _enrich_line_items(
+    line_items: list[Any],
+    significant_rows: list[dict[str, Any]],
+) -> None:
+    """Populate numeric fields on each ParsedLineItem by matching to canonical rows."""
+    row_by_name = {
+        str(r.get("line_item", "")).lower().strip(): r for r in significant_rows
+    }
+    for item in line_items:
+        name = item.header.split("|")[0].strip().lower()
+        row = row_by_name.get(name)
+        if row:
+            item.line_item_name = str(row.get("line_item", ""))
+            item.budget_usd = row.get("budget_usd")
+            item.actual_usd = row.get("actual_usd")
+            item.variance_usd = row.get("variance_usd")
+            item.variance_pct = row.get("variance_pct")
+
+
 def _fallback_run(
     *,
     period_label: str,
@@ -85,8 +113,15 @@ def _fallback_run(
     raw_text: str,
     tool_diagnostics: list[str],
     tool_traces: list[ToolTrace],
+    significant_rows: list[dict[str, Any]] | None = None,
 ) -> AgentRun:
     executive_summary, line_items, insignificant, gaps = parse_agent_output(raw_text)
+    if significant_rows:
+        _enrich_line_items(line_items, significant_rows)
+    source_warnings = validate_parsed_output(line_items)
+    all_diagnostics = list(tool_diagnostics) + source_warnings
+    extra_gaps = _gaps_from_diagnostics(tool_diagnostics)
+    merged_gaps = list(dict.fromkeys(gaps + extra_gaps))
     return AgentRun(
         run_id=_new_run_id(),
         period_label=period_label,
@@ -97,8 +132,8 @@ def _fallback_run(
         executive_summary=executive_summary,
         line_items=line_items,
         insignificant=insignificant,
-        gaps=gaps,
-        tool_diagnostics=list(tool_diagnostics),
+        gaps=merged_gaps,
+        tool_diagnostics=all_diagnostics,
         tool_traces=list(tool_traces),
     )
 
@@ -134,6 +169,7 @@ async def run_agent(
             raw_text="Dry run only.",
             tool_diagnostics=list(diagnostics),
             tool_traces=tool_traces,
+            significant_rows=list(significant_rows),
         )
     if client is None:
         from anthropic import AsyncAnthropic
@@ -171,11 +207,12 @@ async def run_agent(
                 raw_text="No context found — recommend review",
                 tool_diagnostics=list(diagnostics),
                 tool_traces=tool_traces,
+                significant_rows=list(significant_rows),
             )
 
         response = await client.messages.create(
             model=model,
-            max_tokens=1800,
+            max_tokens=4096,
             system=build_system_prompt(),
             messages=messages,
             tools=tools,
@@ -196,6 +233,7 @@ async def run_agent(
                 raw_text=raw_text,
                 tool_diagnostics=list(diagnostics),
                 tool_traces=tool_traces,
+                significant_rows=list(significant_rows),
             )
 
         tool_calls = [
@@ -210,6 +248,7 @@ async def run_agent(
                 raw_text="No context found — recommend review",
                 tool_diagnostics=list(diagnostics),
                 tool_traces=tool_traces,
+                significant_rows=list(significant_rows),
             )
 
         tool_batches = await asyncio.gather(

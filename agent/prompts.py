@@ -10,6 +10,11 @@ EXECUTIVE SUMMARY
 LINE COMMENTARY
 INSIGNIFICANT VARIANCES
 
+Header format for every line item in LINE COMMENTARY:
+  <Line Item Name> | <Variance sign+amount> (<variance pct>) | Budget: <budget> | Actual: <actual>
+  Example: Sales | +£5,003 (+83.4%) | Budget: £6,000 | Actual: £11,003
+  IMPORTANT: The line item name MUST come first. Never start the header with "Variance:".
+
 Rules:
 - State variance amount and direction first, then reason.
 - Never fabricate reasons.
@@ -29,6 +34,7 @@ Rules:
 - For each significant line item, render a Sources subsection immediately after the commentary.
 - Each source line must be in the format: - SourceType - Timestamp - EvidenceID - Snippet
 - If a tool fails or returns no evidence, keep going and mention the visible gap in the commentary.
+- Do not use markdown tables in your commentary. Use prose and bullet lists only.
 """
 
 
