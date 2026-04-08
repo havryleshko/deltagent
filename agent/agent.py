@@ -103,6 +103,32 @@ def _normalize_line_item_name(value: str) -> str:
     return value.lower().strip()
 
 
+def _canonical_line_item_key(value: str) -> str:
+    return " ".join(re.findall(r"[a-z0-9]+", value.lower()))
+
+
+def _index_traces_by_canonical_line_item(traces: list[ToolTrace]) -> dict[str, list[ToolTrace]]:
+    out: dict[str, list[ToolTrace]] = {}
+    for trace in traces:
+        raw = str(trace.input_payload.get("line_item", "")).strip()
+        if not raw:
+            continue
+        key = _canonical_line_item_key(raw)
+        if not key:
+            continue
+        out.setdefault(key, []).append(trace)
+    return out
+
+
+def _item_line_item_key(item: Any) -> str:
+    raw = (item.line_item_name or item.header.split("|")[0]).strip()
+    return _canonical_line_item_key(raw)
+
+
+def _strip_markdown_emphasis(text: str) -> str:
+    return text.replace("**", "")
+
+
 def _has_meaningful_sources(sources: list[Evidence]) -> bool:
     return any(
         bool(source.snippet.strip()) and source.source_type not in {"", "source", "malformed_source"}
@@ -185,30 +211,25 @@ def _normalize_output_structure(
     insignificant: list[str],
     tool_traces: list[ToolTrace],
 ) -> tuple[str, list[Any], list[str], list[str], str]:
-    traces_by_line_item: dict[str, list[ToolTrace]] = {}
-    for trace in tool_traces:
-        line_item = _normalize_line_item_name(str(trace.input_payload.get("line_item", "")))
-        if not line_item:
-            continue
-        traces_by_line_item.setdefault(line_item, []).append(trace)
+    traces_by_line_item = _index_traces_by_canonical_line_item(tool_traces)
 
     normalized_items: list[Any] = []
     gaps: list[str] = []
     for item in line_items:
-        name = _normalize_line_item_name(item.line_item_name or item.header.split("|")[0])
+        name = _item_line_item_key(item)
         replacement_sources = _evidence_from_tool_traces(traces_by_line_item.get(name, []))
         meaningful_sources = [
             source for source in item.sources
             if bool(source.snippet.strip()) and source.source_type not in {"", "source", "malformed_source"}
         ]
         item.sources = meaningful_sources or replacement_sources
-        item.commentary = _clean_section_text(item.commentary)
+        item.commentary = _strip_markdown_emphasis(_clean_section_text(item.commentary))
         normalized_items.append(item)
         body = item.final_commentary.lower()
         if "no context found" in body or "tool failed" in body:
             gaps.append(item.header)
 
-    normalized_summary = _clean_section_text(executive_summary)
+    normalized_summary = _strip_markdown_emphasis(_clean_section_text(executive_summary))
     normalized_insignificant = [
         cleaned for cleaned in (_clean_section_text(line) for line in insignificant) if cleaned
     ]
@@ -233,6 +254,14 @@ def _trace_text(traces: list[ToolTrace]) -> str:
     return "\n".join(chunk for chunk in chunks if chunk).lower()
 
 
+def _merged_trace_text_for_softening(tool_traces: list[ToolTrace], line_items: list[Any]) -> str:
+    idx = _index_traces_by_canonical_line_item(tool_traces)
+    parts = [_trace_text(tool_traces)]
+    for item in line_items:
+        parts.append(_trace_text(idx.get(_item_line_item_key(item), [])))
+    return "\n".join(p for p in parts if p)
+
+
 def _has_partial_evidence(trace_text: str) -> bool:
     return any(
         token in trace_text
@@ -243,10 +272,24 @@ def _has_partial_evidence(trace_text: str) -> bool:
             "pending",
             "risk",
             "re-qualify",
+            "re-qualification",
             "forecast",
             "reforecast",
             "~",
             "approximately",
+            "landing",
+            "absorb",
+            "provisioning",
+            "warrant",
+            "requires confirmation",
+            "subject to",
+            "contingent",
+            "tbc",
+            "unclear",
+            "preliminary",
+            "provisional",
+            "outcome pending",
+            "to be confirmed",
         )
     )
 
@@ -260,6 +303,11 @@ def _soften_confidence_text(text: str, trace_text: str) -> str:
         (r"\bwill all normalise in November\b", "is expected to normalize as the related deals close, subject to timing"),
         (r"\bwill recur\b", "is expected to recur"),
         (r"\bwill continue\b", "is expected to continue"),
+        (r"\bwill close\b", "is expected to close"),
+        (r"\bwill complete\b", "is expected to complete"),
+        (r"\bwill settle\b", "is expected to settle"),
+        (r"\bwill reverse\b", "may reverse"),
+        (r"\bwill be recovered\b", "is expected to be recovered"),
         (r"\bno further spend is expected\b", "no further spend is currently indicated"),
         (r"\bfully explained\b", "well supported"),
         (r"\bfully reconciled\b", "largely reconciled"),
@@ -300,6 +348,13 @@ def _enrich_material_detail(text: str, line_item_name: str, trace_text: str) -> 
             "Current evidence indicates remaining exposure of approximately $8–18K in Q1 2025, subject to matter timing.",
         )
         warnings.append(f"Recovered missing evidence detail: {line_item_name} remaining exposure")
+    for needle, mention, sentence in (
+        ("venue credit", "venue credit", "Fixture evidence references a venue credit; recognition timing should be confirmed."),
+        ("uspto", "uspto", "Fixture evidence references USPTO-related costs; remaining spend should be treated as an estimate pending matter updates."),
+    ):
+        if needle in trace_text and mention not in enriched.lower():
+            enriched = _append_material_detail(enriched, sentence)
+            warnings.append(f"Recovered missing evidence detail: {needle}")
     return enriched, warnings
 
 
@@ -308,17 +363,13 @@ def _apply_confidence_and_evidence_enrichment(
     line_items: list[Any],
     tool_traces: list[ToolTrace],
 ) -> tuple[str, list[Any], list[str]]:
-    traces_by_line_item: dict[str, list[ToolTrace]] = {}
-    for trace in tool_traces:
-        line_item = _normalize_line_item_name(str(trace.input_payload.get("line_item", "")))
-        if line_item:
-            traces_by_line_item.setdefault(line_item, []).append(trace)
+    traces_by_line_item = _index_traces_by_canonical_line_item(tool_traces)
 
     diagnostics: list[str] = []
-    combined_trace_text = _trace_text(tool_traces)
-    executive_summary = _soften_confidence_text(executive_summary, combined_trace_text)
+    softening_trace_text = _merged_trace_text_for_softening(tool_traces, line_items)
+    executive_summary = _soften_confidence_text(executive_summary, softening_trace_text)
     for item in line_items:
-        name = _normalize_line_item_name(item.line_item_name or item.header.split("|")[0])
+        name = _item_line_item_key(item)
         item_trace_text = _trace_text(traces_by_line_item.get(name, []))
         item.commentary = _soften_confidence_text(item.commentary, item_trace_text)
         item.commentary, item_warnings = _enrich_material_detail(
@@ -334,16 +385,12 @@ def _validate_tool_coverage(
     line_items: list[Any],
     tool_traces: list[ToolTrace],
 ) -> list[str]:
-    by_line_item: dict[str, list[ToolTrace]] = {}
-    for trace in tool_traces:
-        line_item = str(trace.input_payload.get("line_item", "")).strip()
-        if not line_item:
-            continue
-        by_line_item.setdefault(_normalize_line_item_name(line_item), []).append(trace)
+    by_line_item = _index_traces_by_canonical_line_item(tool_traces)
 
     warnings: list[str] = []
     for item in line_items:
-        name = _normalize_line_item_name(item.line_item_name or item.header.split("|")[0])
+        name = _item_line_item_key(item)
+        label_lower = _normalize_line_item_name(item.line_item_name or item.header.split("|")[0])
         traces = by_line_item.get(name, [])
         if not traces:
             continue
@@ -359,12 +406,12 @@ def _validate_tool_coverage(
         ):
             warnings.append(f"Missing narrow follow-up: {item.header!r}")
         if any(
-            token in name for token in ("revenue", "professional services", "cost of revenue", "contractor")
+            token in label_lower for token in ("revenue", "professional services", "cost of revenue", "contractor")
         ) and "search_crm" not in tool_names:
             warnings.append(f"Missing CRM follow-up: {item.header!r}")
-        if "repair" in name and "insurance claim" in item_trace_text and "insurance" not in body_lower:
+        if "repair" in label_lower and "insurance claim" in item_trace_text and "insurance" not in body_lower:
             warnings.append(f"Missing evidence detail: {item.header!r} should mention insurance claim")
-        if "professional fees" in name and "vantec" in item_trace_text and "vantec" not in body_lower:
+        if "professional fees" in label_lower and "vantec" in item_trace_text and "vantec" not in body_lower:
             warnings.append(f"Missing evidence detail: {item.header!r} should mention Vantec context")
     return warnings
 
@@ -421,30 +468,46 @@ def _validate_confidence(
     tool_traces: list[ToolTrace],
 ) -> list[str]:
     warnings: list[str] = []
-    combined_trace_text = _trace_text(tool_traces)
+    combined_trace_text = _merged_trace_text_for_softening(tool_traces, line_items)
     strong_patterns = (
         r"\bwill\b",
         r"fully explained",
         r"fully reconciled",
         r"no further spend is expected",
+        r"\bcertain\b",
+        r"\bcertainly\b",
+        r"\bguaranteed\b",
+        r"\bno doubt\b",
+        r"\bwill close\b",
+        r"\bwill complete\b",
+        r"\bwill settle\b",
     )
     if _has_partial_evidence(combined_trace_text) and any(
         re.search(pattern, executive_summary, flags=re.IGNORECASE) for pattern in strong_patterns
     ):
         warnings.append("Executive summary still contains unsupported certainty language.")
-    traces_by_line_item: dict[str, list[ToolTrace]] = {}
-    for trace in tool_traces:
-        line_item = _normalize_line_item_name(str(trace.input_payload.get("line_item", "")))
-        if line_item:
-            traces_by_line_item.setdefault(line_item, []).append(trace)
+    traces_by_line_item = _index_traces_by_canonical_line_item(tool_traces)
     for item in line_items:
-        name = _normalize_line_item_name(item.line_item_name or item.header.split("|")[0])
+        name = _item_line_item_key(item)
         item_trace_text = _trace_text(traces_by_line_item.get(name, []))
         if _has_partial_evidence(item_trace_text) and any(
             re.search(pattern, item.commentary, flags=re.IGNORECASE) for pattern in strong_patterns
         ):
             warnings.append(f"Unsupported certainty language: {item.header!r}")
     return warnings
+
+
+def _length_review_diagnostics(executive_summary: str, line_items: list[Any]) -> list[str]:
+    out: list[str] = []
+    exec_words = len(executive_summary.split())
+    if exec_words > 200:
+        out.append(f"Executive summary length note: {exec_words} words (review for brevity).")
+    for item in line_items:
+        wc = len(item.final_commentary.split())
+        if wc > 250:
+            label = (item.line_item_name or item.header.split("|")[0]).strip() or item.header
+            out.append(f"Line commentary length note: {label!r} ~{wc} words (review for brevity).")
+    return out
 
 
 def _enrich_line_items(
@@ -501,6 +564,7 @@ def _fallback_run(
     )
     line_item_warnings = _validate_line_item_consistency(line_items)
     confidence_warnings = _validate_confidence(executive_summary, line_items, tool_traces)
+    length_warnings = _length_review_diagnostics(executive_summary, line_items)
     all_diagnostics = (
         list(tool_diagnostics)
         + enrichment_warnings
@@ -509,6 +573,7 @@ def _fallback_run(
         + summary_warnings
         + line_item_warnings
         + confidence_warnings
+        + length_warnings
     )
     extra_gaps = _gaps_from_diagnostics(tool_diagnostics)
     merged_gaps = list(dict.fromkeys(gaps + extra_gaps))

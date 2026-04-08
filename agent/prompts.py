@@ -40,6 +40,11 @@ Rules:
 - If you cite aggregate totals in the executive summary, either use the Full report totals from the user message exactly or explicitly label them as significant-line totals.
 - If evidence indicates timing, forecast, recovery, reserve, or remaining exposure but does not prove exact certainty, use cautious wording such as expected, likely, may, or requires confirmation.
 - Avoid strong certainty phrases such as will, fully reconciled, fully explained, or no further spend is expected when the evidence is partial, estimated, or still pending confirmation.
+- When evidence is partial, also avoid certain, guaranteed, no doubt, and will close / will complete / will settle unless the tool output explicitly confirms timing.
+- Do not use second-person imperatives to Finance (for example "you should", "finance must") except optionally in a single closing Recommendation sentence framed as a suggestion.
+- Keep each line item to at most three short bullets or two to four sentences before Sources; avoid "Key points:" or similar scaffolding.
+- Write in a board-pack register: lead with the driver and variance, minimize operational play-by-play, and avoid markdown emphasis (**bold**) in body copy.
+- If summary_for_model or evidence snippets contain a concrete fact (dates, amounts, insurance claim, venue credit, USPTO, credits), either reflect it in the line commentary or state explicitly that it is not yet reconciled to the ledger.
 - Render the sources label exactly as Sources and each source row exactly as: - SourceType - Timestamp - EvidenceID - Snippet
 """
 
