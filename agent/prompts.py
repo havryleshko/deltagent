@@ -38,6 +38,9 @@ Rules:
 - Do not use markdown tables in your commentary. Use prose and bullet lists only.
 - Do not claim a variance is fully explained unless the evidence actually reconciles the driver.
 - If you cite aggregate totals in the executive summary, either use the Full report totals from the user message exactly or explicitly label them as significant-line totals.
+- If evidence indicates timing, forecast, recovery, reserve, or remaining exposure but does not prove exact certainty, use cautious wording such as expected, likely, may, or requires confirmation.
+- Avoid strong certainty phrases such as will, fully reconciled, fully explained, or no further spend is expected when the evidence is partial, estimated, or still pending confirmation.
+- Render the sources label exactly as Sources and each source row exactly as: - SourceType - Timestamp - EvidenceID - Snippet
 """
 
 

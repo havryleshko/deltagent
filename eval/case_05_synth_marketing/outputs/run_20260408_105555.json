@@ -1,0 +1,206 @@
+{
+  "run_id": "run_20260408_105555",
+  "period_label": "February 2026",
+  "period_start": "2026-02-01T00:00:00Z",
+  "period_end": "2026-02-28T23:59:59Z",
+  "currency_symbol": "$",
+  "raw_text": "EXECUTIVE SUMMARY\nFor February 2026, total marketing spend came in at **$117,100** against a budget of **$93,000**, representing an overall overspend of **$24,100 (+25.9%)**.\nThe variance is driven primarily by a single approved strategic decision: the Q2 Spring Campaign was pulled forward from its original March/April schedule into February, concentrating the full associated digital budget into one month. This accounts for the majority of the overspend. A secondary, partially offsetting item is the postponement of the Q1 Sales Summit to April, which produced a $5,500 underspend in Events & Conferences \u2014 though the associated venue credit is expected to flow through in April. A minor overspend in Content & Creative reflects a cross-period billing item from a newly onboarded creative agency, approved by the CMO.\nBoth the Digital Advertising overspend and the Events & Conferences underspend are timing-driven and carry forward-period implications. A reforecast of March and April digital budgets and an uplift to the April events budget are likely required. All significant items carry documented CMO approval.\n\nLINE COMMENTARY\n\nDigital Advertising | +$28,500 (+57.0%) | Budget: $50,000 | Actual: $78,500\nActual spend exceeded budget by $28,500, representing the largest variance in the period. The overspend reflects a deliberate pull-forward of the Q2 Spring Campaign from its originally planned March/April window into February. Per a CMO decision communicated on 28 January, the full digital budget associated with the spring campaign \u2014 totalling $78,500 \u2014 was allocated to February to take advantage of an earlier launch window recommended by the agency. Paid search and social channels were activated on 5 February following creative sign-off on 4 February.\nKey points:\n- The overspend is fully approved and strategically directed, not an uncontrolled cost escalation.\n- The CMO approval email noted that March and April digital budgets are expected to be zeroed in a revised forecast, with the CFO flagged for reforecast action.\n- The forward-period offset is referenced but not yet confirmed in the actuals; March and April budget adjustments **require formal reforecast confirmation** before the overspend can be considered fully absorbed.\nSources\n- Slack - 2024-11-19T12:15:00Z - slack-digital_advertising-broad - marketing-slack-2026-01-28: Confirmed \u2014 moving the Q2 spring campaign to February launch. Agency recommends 28 Jan brief to 5 Feb launch window. This pulls the full March digital budget into February. CMO approved this morning.\n- Gmail - 2024-11-19T18:15:00Z - gmail-digital_advertising-broad - gmail-2026-01-28-campaign-approval: CMO email approving campaign pull-forward. Full Q2 digital budget ($78,500) allocated to February. March and April digital budgets to be zeroed in revised forecast. CFO noted for reforecast.\n- Calendar - 2024-11-19T22:15:00Z - calendar-digital_advertising-broad - cal-2026-02-05: Spring campaign launch \u2014 paid search and social activated 09:00. Agency briefed 28 Jan per CMO decision. All creatives approved 4 Feb.\n\nEvents & Conferences | -$5,500 (-27.5%) | Budget: $20,000 | Actual: $14,500\nActual spend was $5,500 below budget. The underspend is attributable to the postponement of the Q1 Sales Summit, which was originally scheduled in February but moved to 18 April due to venue availability constraints. The decision was communicated by the events team on 15 January and is corroborated across Slack, email, and calendar.\nKey points:\n- No cash refund was triggered; a venue credit of $5,500 has been secured and is expected to be applied against the rescheduled April event.\n- The $5,500 saving in February is therefore likely a timing difference rather than a permanent budget saving, and the April events budget may need to be reviewed accordingly.\n- Confirmation that the venue credit will be honoured and applied in April is recommended before treating this as a permanent saving.\nSources\n- Slack - 2024-11-20T12:15:00Z - slack-events_&_conferences-broad - events-slack-2026-01-15: UPDATE on Q1 Sales Summit \u2014 moving to April due to venue availability issues. February slot cancelled. Budget savings of $5,500 will carry forward to April event. No refunds needed \u2014 venue credit held.\n- Gmail - 2024-11-20T18:15:00Z - gmail-events_&_conferences-broad - gmail-2026-01-15-summit-postpone: Events team email confirming Q1 Sales Summit moved to April. Venue credit of $5,500 secured. No cash outflow in February for this item. Savings tracked against April budget.\n- Calendar - 2024-11-20T22:15:00Z - calendar-events_&_conferences-broad - cal-2026-04-18: Q1 Sales Summit rescheduled \u2014 now 18 April. Previous February booking cancelled 15 January.\n\nContent & Creative | +$1,200 (+15.0%) | Budget: $8,000 | Actual: $9,200\nActual spend exceeded budget by $1,200. The variance reflects a cross-period billing item from Vivid Studio, a newly onboarded creative agency. The February invoice comprised the standard monthly retainer of $8,000 plus a $1,200 charge for a strategy workshop delivered in January, which was billed in arrears in February. Both elements were included in a single invoice dated 1 February and carry CMO approval.\nKey points:\n- The $1,200 incremental charge is a one-off billing timing item linked to the agency onboarding; it is not expected to recur in future months at this level, though this should be confirmed once the March retainer scope is finalised.\n- The overspend is modest and fully documented with an approved invoice.\nSources\n- Slack - 2024-11-18T12:15:00Z - slack-content_&_creative-broad - marketing-slack-2026-01-20: New creative agency (Vivid Studio) briefed in January. Campaign assets delivered ahead of schedule \u2014 February billing will include January strategy work ($1,200 extra). Approved by CMO.\n- Gmail - 2024-11-18T18:15:00Z - gmail-content_&_creative-broad - gmail-2026-02-01-vivid-invoice: Invoice from Vivid Studio \u2014 February retainer $8,000 + January strategy workshop $1,200 = $9,200 total. CMO approved. Strategy work delivered 28 January.\n\nINSIGNIFICANT VARIANCES\nThe following lines moved within immaterial thresholds and were not investigated further:\n- **Marketing Software** \u2014 $100 overspend (+2.0%). Within normal tolerance; no investigation required.\n- **PR & Comms** \u2014 $200 underspend (-2.0%). Within normal tolerance; no investigation required.",
+  "executive_summary": "For February 2026, total marketing spend came in at **$117,100** against a budget of **$93,000**, representing an overall overspend of **$24,100 (+25.9%)**.\nThe variance is driven primarily by a single approved strategic decision: the Q2 Spring Campaign was pulled forward from its original March/April schedule into February, concentrating the full associated digital budget into one month. This accounts for the majority of the overspend. A secondary, partially offsetting item is the postponement of the Q1 Sales Summit to April, which produced a $5,500 underspend in Events & Conferences \u2014 though the associated venue credit is expected to flow through in April. A minor overspend in Content & Creative reflects a cross-period billing item from a newly onboarded creative agency, approved by the CMO.\nBoth the Digital Advertising overspend and the Events & Conferences underspend are timing-driven and carry forward-period implications. A reforecast of March and April digital budgets and an uplift to the April events budget are likely required. All significant items carry documented CMO approval.",
+  "line_items": [
+    {
+      "header": "Digital Advertising | +$28,500 (+57.0%) | Budget: $50,000 | Actual: $78,500",
+      "commentary": "Actual spend exceeded budget by $28,500, representing the largest variance in the period. The overspend reflects a deliberate pull-forward of the Q2 Spring Campaign from its originally planned March/April window into February. Per a CMO decision communicated on 28 January, the full digital budget associated with the spring campaign \u2014 totalling $78,500 \u2014 was allocated to February to take advantage of an earlier launch window recommended by the agency. Paid search and social channels were activated on 5 February following creative sign-off on 4 February.\nKey points:\n- The overspend is fully approved and strategically directed, not an uncontrolled cost escalation.\n- The CMO approval email noted that March and April digital budgets are expected to be zeroed in a revised forecast, with the CFO flagged for reforecast action.\n- The forward-period offset is referenced but not yet confirmed in the actuals; March and April budget adjustments **require formal reforecast confirmation** before the overspend can be considered fully absorbed.",
+      "sources": [
+        {
+          "id": "slack-digital_advertising-broad",
+          "source_type": "Slack",
+          "timestamp": "2024-11-19T12:15:00Z",
+          "snippet": "marketing-slack-2026-01-28: Confirmed \u2014 moving the Q2 spring campaign to February launch. Agency recommends 28 Jan brief to 5 Feb launch window. This pulls the full March digital budget into February. CMO approved this morning.",
+          "ref": ""
+        },
+        {
+          "id": "gmail-digital_advertising-broad",
+          "source_type": "Gmail",
+          "timestamp": "2024-11-19T18:15:00Z",
+          "snippet": "gmail-2026-01-28-campaign-approval: CMO email approving campaign pull-forward. Full Q2 digital budget ($78,500) allocated to February. March and April digital budgets to be zeroed in revised forecast. CFO noted for reforecast.",
+          "ref": ""
+        },
+        {
+          "id": "calendar-digital_advertising-broad",
+          "source_type": "Calendar",
+          "timestamp": "2024-11-19T22:15:00Z",
+          "snippet": "cal-2026-02-05: Spring campaign launch \u2014 paid search and social activated 09:00. Agency briefed 28 Jan per CMO decision. All creatives approved 4 Feb.",
+          "ref": ""
+        }
+      ],
+      "review_status": "pending",
+      "edited_commentary": null,
+      "flagged_reason": null,
+      "line_item_name": "Digital Advertising",
+      "budget_usd": 50000.0,
+      "actual_usd": 78500.0,
+      "variance_usd": 28500.0,
+      "variance_pct": 57.0
+    },
+    {
+      "header": "Events & Conferences | -$5,500 (-27.5%) | Budget: $20,000 | Actual: $14,500",
+      "commentary": "Actual spend was $5,500 below budget. The underspend is attributable to the postponement of the Q1 Sales Summit, which was originally scheduled in February but moved to 18 April due to venue availability constraints. The decision was communicated by the events team on 15 January and is corroborated across Slack, email, and calendar.\nKey points:\n- No cash refund was triggered; a venue credit of $5,500 has been secured and is expected to be applied against the rescheduled April event.\n- The $5,500 saving in February is therefore likely a timing difference rather than a permanent budget saving, and the April events budget may need to be reviewed accordingly.\n- Confirmation that the venue credit will be honoured and applied in April is recommended before treating this as a permanent saving.",
+      "sources": [
+        {
+          "id": "slack-events_&_conferences-broad",
+          "source_type": "Slack",
+          "timestamp": "2024-11-20T12:15:00Z",
+          "snippet": "events-slack-2026-01-15: UPDATE on Q1 Sales Summit \u2014 moving to April due to venue availability issues. February slot cancelled. Budget savings of $5,500 will carry forward to April event. No refunds needed \u2014 venue credit held.",
+          "ref": ""
+        },
+        {
+          "id": "gmail-events_&_conferences-broad",
+          "source_type": "Gmail",
+          "timestamp": "2024-11-20T18:15:00Z",
+          "snippet": "gmail-2026-01-15-summit-postpone: Events team email confirming Q1 Sales Summit moved to April. Venue credit of $5,500 secured. No cash outflow in February for this item. Savings tracked against April budget.",
+          "ref": ""
+        },
+        {
+          "id": "calendar-events_&_conferences-broad",
+          "source_type": "Calendar",
+          "timestamp": "2024-11-20T22:15:00Z",
+          "snippet": "cal-2026-04-18: Q1 Sales Summit rescheduled \u2014 now 18 April. Previous February booking cancelled 15 January.",
+          "ref": ""
+        }
+      ],
+      "review_status": "pending",
+      "edited_commentary": null,
+      "flagged_reason": null,
+      "line_item_name": "Events & Conferences",
+      "budget_usd": 20000.0,
+      "actual_usd": 14500.0,
+      "variance_usd": -5500.0,
+      "variance_pct": -27.5
+    },
+    {
+      "header": "Content & Creative | +$1,200 (+15.0%) | Budget: $8,000 | Actual: $9,200",
+      "commentary": "Actual spend exceeded budget by $1,200. The variance reflects a cross-period billing item from Vivid Studio, a newly onboarded creative agency. The February invoice comprised the standard monthly retainer of $8,000 plus a $1,200 charge for a strategy workshop delivered in January, which was billed in arrears in February. Both elements were included in a single invoice dated 1 February and carry CMO approval.\nKey points:\n- The $1,200 incremental charge is a one-off billing timing item linked to the agency onboarding; it is not expected to recur in future months at this level, though this should be confirmed once the March retainer scope is finalised.\n- The overspend is modest and fully documented with an approved invoice.",
+      "sources": [
+        {
+          "id": "slack-content_&_creative-broad",
+          "source_type": "Slack",
+          "timestamp": "2024-11-18T12:15:00Z",
+          "snippet": "marketing-slack-2026-01-20: New creative agency (Vivid Studio) briefed in January. Campaign assets delivered ahead of schedule \u2014 February billing will include January strategy work ($1,200 extra). Approved by CMO.",
+          "ref": ""
+        },
+        {
+          "id": "gmail-content_&_creative-broad",
+          "source_type": "Gmail",
+          "timestamp": "2024-11-18T18:15:00Z",
+          "snippet": "gmail-2026-02-01-vivid-invoice: Invoice from Vivid Studio \u2014 February retainer $8,000 + January strategy workshop $1,200 = $9,200 total. CMO approved. Strategy work delivered 28 January.",
+          "ref": ""
+        }
+      ],
+      "review_status": "pending",
+      "edited_commentary": null,
+      "flagged_reason": null,
+      "line_item_name": "Content & Creative",
+      "budget_usd": 8000.0,
+      "actual_usd": 9200.0,
+      "variance_usd": 1200.0,
+      "variance_pct": 15.0
+    }
+  ],
+  "insignificant": [
+    "The following lines moved within immaterial thresholds and were not investigated further:",
+    "- **Marketing Software** \u2014 $100 overspend (+2.0%). Within normal tolerance; no investigation required.",
+    "- **PR & Comms** \u2014 $200 underspend (-2.0%). Within normal tolerance; no investigation required."
+  ],
+  "gaps": [],
+  "tool_diagnostics": [],
+  "tool_traces": [
+    {
+      "tool_name": "search_slack",
+      "tool_use_id": "toolu_013uRMsWdqJFmxFnk7dU2qTh",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Digital Advertising",
+        "query": "digital advertising overspend budget increase campaign spend",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_slack\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"marketing-slack-2026-01-28: Confirmed \\u2014 moving the Q2 spring campaign to February launch. Agency recommends 28 Jan brief to 5 Feb launch window. This pulls the full March digital budget into February. CMO approved this morning.\", \"evidence\": [{\"id\": \"slack-digital_advertising-broad\", \"source_type\": \"slack\", \"timestamp\": \"2024-11-19T12:15:00Z\", \"snippet\": \"marketing-slack-2026-01-28: Confirmed \\u2014 moving the Q2 spring campaign to February launch. Agency recommends 28 Jan brief to 5 Feb launch window. This pulls the full March digital budget into February. CMO approved this morning.\", \"ref\": \"Digital Advertising fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_01P1GwzzJb91F7iyjr8tNq7U",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Digital Advertising",
+        "query": "digital advertising budget approval overspend campaign spend increase",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"gmail-2026-01-28-campaign-approval: CMO email approving campaign pull-forward. Full Q2 digital budget ($78,500) allocated to February. March and April digital budgets to be zeroed in revised forecast. CFO noted for reforecast.\", \"evidence\": [{\"id\": \"gmail-digital_advertising-broad\", \"source_type\": \"gmail\", \"timestamp\": \"2024-11-19T18:15:00Z\", \"snippet\": \"gmail-2026-01-28-campaign-approval: CMO email approving campaign pull-forward. Full Q2 digital budget ($78,500) allocated to February. March and April digital budgets to be zeroed in revised forecast. CFO noted for reforecast.\", \"ref\": \"Digital Advertising fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_calendar",
+      "tool_use_id": "toolu_01X4196NfmkHZZCJte5PxFJA",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Digital Advertising",
+        "query": "campaign launch advertising schedule February 2026",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_calendar\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"cal-2026-02-05: Spring campaign launch \\u2014 paid search and social activated 09:00. Agency briefed 28 Jan per CMO decision. All creatives approved 4 Feb.\", \"evidence\": [{\"id\": \"calendar-digital_advertising-broad\", \"source_type\": \"calendar\", \"timestamp\": \"2024-11-19T22:15:00Z\", \"snippet\": \"cal-2026-02-05: Spring campaign launch \\u2014 paid search and social activated 09:00. Agency briefed 28 Jan per CMO decision. All creatives approved 4 Feb.\", \"ref\": \"Digital Advertising fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_slack",
+      "tool_use_id": "toolu_013C8rwMt9mXwf9p9fMgQNLM",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Events & Conferences",
+        "query": "events conferences cancelled postponed underspend",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_slack\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"events-slack-2026-01-15: UPDATE on Q1 Sales Summit \\u2014 moving to April due to venue availability issues. February slot cancelled. Budget savings of $5,500 will carry forward to April event. No refunds needed \\u2014 venue credit held.\", \"evidence\": [{\"id\": \"slack-events_&_conferences-broad\", \"source_type\": \"slack\", \"timestamp\": \"2024-11-20T12:15:00Z\", \"snippet\": \"events-slack-2026-01-15: UPDATE on Q1 Sales Summit \\u2014 moving to April due to venue availability issues. February slot cancelled. Budget savings of $5,500 will carry forward to April event. No refunds needed \\u2014 venue credit held.\", \"ref\": \"Events & Conferences fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_01A8abSdBgec4yTRBHkX5rpi",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Events & Conferences",
+        "query": "event conference cancelled postponed refund February 2026",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"gmail-2026-01-15-summit-postpone: Events team email confirming Q1 Sales Summit moved to April. Venue credit of $5,500 secured. No cash outflow in February for this item. Savings tracked against April budget.\", \"evidence\": [{\"id\": \"gmail-events_&_conferences-broad\", \"source_type\": \"gmail\", \"timestamp\": \"2024-11-20T18:15:00Z\", \"snippet\": \"gmail-2026-01-15-summit-postpone: Events team email confirming Q1 Sales Summit moved to April. Venue credit of $5,500 secured. No cash outflow in February for this item. Savings tracked against April budget.\", \"ref\": \"Events & Conferences fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_calendar",
+      "tool_use_id": "toolu_01XYbVSnznA6SK3DEres1SSS",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Events & Conferences",
+        "query": "conference event cancelled postponed rescheduled February 2026",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_calendar\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"cal-2026-04-18: Q1 Sales Summit rescheduled \\u2014 now 18 April. Previous February booking cancelled 15 January.\", \"evidence\": [{\"id\": \"calendar-events_&_conferences-broad\", \"source_type\": \"calendar\", \"timestamp\": \"2024-11-20T22:15:00Z\", \"snippet\": \"cal-2026-04-18: Q1 Sales Summit rescheduled \\u2014 now 18 April. Previous February booking cancelled 15 January.\", \"ref\": \"Events & Conferences fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_slack",
+      "tool_use_id": "toolu_01S5Dos4T5nA6KNGLgum6a4d",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Content & Creative",
+        "query": "content creative overspend additional work agency freelancer",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_slack\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"marketing-slack-2026-01-20: New creative agency (Vivid Studio) briefed in January. Campaign assets delivered ahead of schedule \\u2014 February billing will include January strategy work ($1,200 extra). Approved by CMO.\", \"evidence\": [{\"id\": \"slack-content_&_creative-broad\", \"source_type\": \"slack\", \"timestamp\": \"2024-11-18T12:15:00Z\", \"snippet\": \"marketing-slack-2026-01-20: New creative agency (Vivid Studio) briefed in January. Campaign assets delivered ahead of schedule \\u2014 February billing will include January strategy work ($1,200 extra). Approved by CMO.\", \"ref\": \"Content & Creative fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_01S4FPEKn7nyokSy2gQsGHss",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Content & Creative",
+        "query": "content creative invoice approval additional spend February 2026",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"gmail-2026-02-01-vivid-invoice: Invoice from Vivid Studio \\u2014 February retainer $8,000 + January strategy workshop $1,200 = $9,200 total. CMO approved. Strategy work delivered 28 January.\", \"evidence\": [{\"id\": \"gmail-content_&_creative-broad\", \"source_type\": \"gmail\", \"timestamp\": \"2024-11-18T18:15:00Z\", \"snippet\": \"gmail-2026-02-01-vivid-invoice: Invoice from Vivid Studio \\u2014 February retainer $8,000 + January strategy workshop $1,200 = $9,200 total. CMO approved. Strategy work delivered 28 January.\", \"ref\": \"Content & Creative fixture\"}], \"error\": null}"
+    }
+  ]
+}

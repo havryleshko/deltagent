@@ -104,7 +104,7 @@ async def run_case(case_dir: Path, *, live: bool = False) -> dict[str, Any]:
     }
 
 
-def run_all(
+async def run_all_async(
     filter_prefix: str | None = None,
     eval_dir: Path = EVAL_DIR,
     live: bool = False,
@@ -120,7 +120,7 @@ def run_all(
     for case_dir in cases:
         print(f"Running {case_dir.name} ...", flush=True)
         try:
-            result = asyncio.run(run_case(case_dir, live=live))
+            result = await run_case(case_dir, live=live)
         except Exception as exc:
             result = {"case": case_dir.name, "status": "error", "error": str(exc)}
         results.append(result)
@@ -134,6 +134,14 @@ def run_all(
         else:
             print(f"  ✗  {result['error']}")
     return results
+
+
+def run_all(
+    filter_prefix: str | None = None,
+    eval_dir: Path = EVAL_DIR,
+    live: bool = False,
+) -> list[dict[str, Any]]:
+    return asyncio.run(run_all_async(filter_prefix=filter_prefix, eval_dir=eval_dir, live=live))
 
 
 def _print_usage() -> None:

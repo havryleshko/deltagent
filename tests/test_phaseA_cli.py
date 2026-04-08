@@ -289,6 +289,219 @@ INSIGNIFICANT VARIANCES
     assert any("Percent mismatch in commentary" in warning for warning in run.tool_diagnostics)
 
 
+def test_fallback_run_rebuilds_canonical_sources_from_tool_traces() -> None:
+    text = """EXECUTIVE SUMMARY
+Summary
+---
+
+LINE COMMENTARY
+
+Revenue | +$20 (+20.0%) | Budget: $100 | Actual: $120
+Closed one deal early.
+Sources:
+- CRM — 2024-11-10 — crm-1 — Closed Won
+
+INSIGNIFICANT VARIANCES
+Software: small.
+"""
+    run = _fallback_run(
+        period_label="November 2024",
+        period_start="2024-11-01T00:00:00Z",
+        period_end="2024-11-30T23:59:59Z",
+        currency_symbol="$",
+        raw_text=text,
+        tool_diagnostics=[],
+        tool_traces=[
+            ToolTrace(
+                tool_name="search_crm",
+                tool_use_id="toolu_1",
+                input_payload={"period": "November 2024", "line_item": "Revenue", "search_scope": "broad"},
+                output_text=json.dumps(
+                    {
+                        "evidence": [
+                            {
+                                "id": "crm-1",
+                                "source_type": "crm",
+                                "timestamp": "2024-11-10",
+                                "snippet": "Closed Won",
+                                "ref": "",
+                            }
+                        ]
+                    }
+                ),
+            )
+        ],
+        significant_rows=[
+            {
+                "period": "November 2024",
+                "line_item": "Revenue",
+                "budget_usd": 100.0,
+                "actual_usd": 120.0,
+                "variance_usd": 20.0,
+                "variance_pct": 20.0,
+            }
+        ],
+        insignificant_rows=[],
+    )
+    assert "Sources\n- CRM - 2024-11-10 - crm-1 - Closed Won" in run.raw_text
+    assert run.tool_diagnostics == []
+
+
+def test_fallback_run_drops_placeholder_no_evidence_source_rows() -> None:
+    text = """EXECUTIVE SUMMARY
+Summary
+---
+
+LINE COMMENTARY
+
+Subscriptions | -$1,200 (-100.0%) | Budget: $1,200 | Actual: $0
+No context found — recommend review.
+Sources:
+- Slack (broad) — No evidence returned.
+- Gmail (narrow) — No evidence returned.
+
+INSIGNIFICANT VARIANCES
+"""
+    run = _fallback_run(
+        period_label="February 2026",
+        period_start="2026-02-01T00:00:00Z",
+        period_end="2026-02-28T23:59:59Z",
+        currency_symbol="$",
+        raw_text=text,
+        tool_diagnostics=[],
+        tool_traces=[],
+        significant_rows=[
+            {
+                "period": "February 2026",
+                "line_item": "Subscriptions",
+                "budget_usd": 1200.0,
+                "actual_usd": 0.0,
+                "variance_usd": -1200.0,
+                "variance_pct": -100.0,
+            }
+        ],
+        insignificant_rows=[],
+    )
+    assert "No evidence returned" not in run.raw_text
+    assert "Sources" not in run.raw_text
+    assert run.tool_diagnostics == []
+
+
+def test_fallback_run_softens_unsupported_certainty_language() -> None:
+    text = """EXECUTIVE SUMMARY
+The miss will be absorbed into next month's plan.
+
+LINE COMMENTARY
+
+Revenue | -$82,000 (-16.4%) | Budget: $500,000 | Actual: $418,000
+Three slipped deals will all normalise in November.
+Sources
+- CRM - 2024-11-07 - crm-1 - Summit is a re-qualify risk and November plan needs to absorb the slips.
+
+INSIGNIFICANT VARIANCES
+"""
+    run = _fallback_run(
+        period_label="October 2024",
+        period_start="2024-10-01T00:00:00Z",
+        period_end="2024-10-31T23:59:59Z",
+        currency_symbol="$",
+        raw_text=text,
+        tool_diagnostics=[],
+        tool_traces=[
+            ToolTrace(
+                tool_name="search_crm",
+                tool_use_id="toolu_2",
+                input_payload={"period": "October 2024", "line_item": "Revenue", "search_scope": "broad"},
+                output_text=json.dumps(
+                    {
+                        "summary_for_model": "Summit is a re-qualify risk and November plan needs to absorb the slips.",
+                        "evidence": [
+                            {
+                                "id": "crm-1",
+                                "source_type": "crm",
+                                "timestamp": "2024-11-07",
+                                "snippet": "Summit is a re-qualify risk and November plan needs to absorb the slips.",
+                                "ref": "",
+                            }
+                        ],
+                    }
+                ),
+            )
+        ],
+        significant_rows=[
+            {
+                "period": "October 2024",
+                "line_item": "Revenue",
+                "budget_usd": 500000.0,
+                "actual_usd": 418000.0,
+                "variance_usd": -82000.0,
+                "variance_pct": -16.4,
+            }
+        ],
+        insignificant_rows=[],
+    )
+    assert "will be absorbed" not in run.raw_text.lower()
+    assert "will all normalise" not in run.raw_text.lower()
+    assert "expected to support upcoming periods" in run.raw_text.lower()
+
+
+def test_fallback_run_recovers_missing_insurance_claim_detail() -> None:
+    text = """EXECUTIVE SUMMARY
+Summary
+
+LINE COMMENTARY
+
+Repairs Maintenance | +$786 (+786.3%) | Budget: $100 | Actual: $886
+Emergency repair completed and approved.
+Sources
+- Gmail - 2024-11-10 - gmail-1 - Emergency repair invoice
+
+INSIGNIFICANT VARIANCES
+"""
+    run = _fallback_run(
+        period_label="February 2026",
+        period_start="2026-02-01T00:00:00Z",
+        period_end="2026-02-28T23:59:59Z",
+        currency_symbol="$",
+        raw_text=text,
+        tool_diagnostics=[],
+        tool_traces=[
+            ToolTrace(
+                tool_name="search_gmail",
+                tool_use_id="toolu_3",
+                input_payload={"period": "February 2026", "line_item": "Repairs Maintenance", "search_scope": "narrow"},
+                output_text=json.dumps(
+                    {
+                        "summary_for_model": "Building insurance claim submitted — outcome pending but expense recognised in February.",
+                        "evidence": [
+                            {
+                                "id": "gmail-claim",
+                                "source_type": "gmail",
+                                "timestamp": "2024-11-10",
+                                "snippet": "Building insurance claim submitted — outcome pending but expense recognised in February.",
+                                "ref": "",
+                            }
+                        ],
+                    }
+                ),
+            )
+        ],
+        significant_rows=[
+            {
+                "period": "February 2026",
+                "line_item": "Repairs Maintenance",
+                "budget_usd": 100.0,
+                "actual_usd": 886.0,
+                "variance_usd": 786.0,
+                "variance_pct": 786.3,
+            }
+        ],
+        insignificant_rows=[],
+    )
+    assert "insurance claim" in run.raw_text.lower()
+    assert any("Recovered missing evidence detail" in warning for warning in run.tool_diagnostics)
+
+
 def test_review_command_saves_state(tmp_path: Path) -> None:
     run = AgentRun.from_dict({
         "run_id": "run_test",
