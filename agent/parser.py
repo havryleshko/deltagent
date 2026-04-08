@@ -11,21 +11,14 @@ _SECTIONS = (
     "INSIGNIFICANT VARIANCES",
 )
 
-# Strips markdown heading markers and leading numbering from a line item header
 _HEADER_PREFIX_RE = re.compile(r"^[#*\s]*\d*[.):\s]*")
 
 
 def _split_sections(text: str) -> dict[str, list[str]]:
-    """Split raw model text into named sections.
-
-    Tolerates markdown heading markers (##, ###) and partial matches so that
-    output formats like '## LINE COMMENTARY' and 'LINE COMMENTARY' both work.
-    """
     sections = {name: [] for name in _SECTIONS}
     current: str | None = None
     for line in text.splitlines():
         stripped = line.strip()
-        # Strip markdown heading markers (#, ##, etc.) for section matching
         clean_upper = stripped.lstrip("#").strip().upper()
         matched = False
         for section_name in _SECTIONS:
@@ -39,15 +32,12 @@ def _split_sections(text: str) -> dict[str, list[str]]:
 
 
 def _clean_header(raw: str) -> str:
-    """Remove markdown prefixes, leading numbering, and trailing bold markers from a line item header line."""
     cleaned = _HEADER_PREFIX_RE.sub("", raw.strip()).strip()
     return cleaned.rstrip("*").rstrip()
 
 
 def _looks_like_header(line: str) -> bool:
     stripped = line.strip()
-    # Reject markdown table rows (start with | — they contain pipes but are not headers)
-    # Reject separator rows (all dashes/pipes)
     if stripped.startswith("|") or stripped.startswith("-"):
         return False
     return bool(stripped) and "|" in stripped
@@ -150,7 +140,6 @@ _NO_EVIDENCE_MARKERS = (
 
 
 def validate_parsed_output(line_items: list[ParsedLineItem]) -> list[str]:
-    """Return a warning string for each significant item missing sources or a no-evidence marker."""
     warnings: list[str] = []
     for item in line_items:
         has_sources = bool(item.sources)

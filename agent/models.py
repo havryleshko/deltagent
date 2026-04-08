@@ -37,7 +37,6 @@ class ParsedLineItem:
     review_status: ReviewStatus = "pending"
     edited_commentary: str | None = None
     flagged_reason: str | None = None
-    # Canonical numeric fields — populated by matching against the input CSV rows
     line_item_name: str = ""
     budget_usd: float | None = None
     actual_usd: float | None = None

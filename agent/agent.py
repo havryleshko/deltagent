@@ -89,7 +89,6 @@ def _enrich_line_items(
     line_items: list[Any],
     significant_rows: list[dict[str, Any]],
 ) -> None:
-    """Populate numeric fields on each ParsedLineItem by matching to canonical rows."""
     row_by_name = {
         str(r.get("line_item", "")).lower().strip(): r for r in significant_rows
     }

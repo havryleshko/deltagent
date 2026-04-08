@@ -1,10 +1,3 @@
-"""Eval runner — runs all 7 eval cases and saves AgentRun outputs.
-
-Usage:
-    python eval/runner.py                     # run all cases
-    python eval/runner.py case_01_xero_march  # run one case (prefix match)
-    python eval/runner.py --list              # list available cases
-"""
 from __future__ import annotations
 
 import asyncio
@@ -17,7 +10,6 @@ EVAL_DIR = Path(__file__).parent
 
 
 def discover_cases(eval_dir: Path = EVAL_DIR) -> list[Path]:
-    """Return case directories in sorted order."""
     return sorted(
         p for p in eval_dir.iterdir()
         if p.is_dir() and p.name.startswith("case_")
@@ -33,7 +25,6 @@ def load_case_config(case_dir: Path) -> dict[str, Any]:
 
 
 async def run_case(case_dir: Path, *, live: bool = False) -> dict[str, Any]:
-    """Run a single eval case. Returns a summary dict."""
     from agent.agent import run_agent
     from agent.models import AgentRun
     from tools import build_tool_registry
@@ -146,7 +137,11 @@ def run_all(
 
 
 def _print_usage() -> None:
-    print(__doc__ or "")
+    print(
+        "eval/runner.py [--list] [--live] [case_prefix]\n"
+        "  --list   list cases\n"
+        "  --live   live tool mode\n"
+    )
 
 
 if __name__ == "__main__":

@@ -45,7 +45,6 @@ async def discover_tools(
     server: McpServerConfig,
     timeout: float = 10.0,
 ) -> list[dict[str, Any]]:
-    """Connect to the MCP server and return its tool definitions."""
     try:
         return await asyncio.wait_for(_sse_discover_tools(server.url), timeout=timeout)
     except asyncio.TimeoutError:
@@ -60,7 +59,6 @@ async def call_tool(
     arguments: dict[str, Any],
     timeout: float = 30.0,
 ) -> str:
-    """Call a tool on the MCP server and return the text response."""
     try:
         return await asyncio.wait_for(
             _sse_call_tool(server.url, tool_name, arguments), timeout=timeout
@@ -72,7 +70,6 @@ async def call_tool(
 
 
 async def ping(server: McpServerConfig, timeout: float = 5.0) -> bool:
-    """Return True if the server URL is reachable over HTTP."""
     try:
         async with httpx.AsyncClient(timeout=timeout) as client:
             resp = await client.get(server.url)
