@@ -1,0 +1,210 @@
+{
+  "run_id": "run_20260408_153932",
+  "period_label": "February 2026",
+  "period_start": "2026-02-01T00:00:00Z",
+  "period_end": "2026-02-28T23:59:59Z",
+  "currency_symbol": "$",
+  "raw_text": "EXECUTIVE SUMMARY\nFebruary 2026 closed with total spend of $117,100 against a budget of $93,000, a net overage of $24,100 (+25.9%). The variance is concentrated in a single line: Digital Advertising overran by $28,500 (+57.0%) due to a CMO-approved pull-forward of the Q2 spring campaign into February, which accelerated spend originally budgeted across March and April. This overage is partially offset by an Events & Conferences underspend of $5,500 (-27.5%), driven by the postponement of the Q1 Sales Summit to April. Content & Creative is modestly over budget by $1,200 (+15.0%), reflecting a one-time January strategy workshop billed in February by the incoming agency, Vivid Studio. The Digital Advertising overage is expected to be offset by nil digital spend in March, and the Events underspend is expected to reverse in April when the rescheduled Summit costs land; both items require confirmation in the forward forecast.\n\nLINE COMMENTARY\n\nDigital Advertising | +$28,500 (+57.0%) | Budget: $50,000 | Actual: $78,500\nThe $28,500 overage reflects a deliberate pull-forward of the Q2 spring campaign into February, approved by the CMO on 28 January. The agency recommended a 28 January brief-to-5 February launch window, which concentrated spend that had been originally budgeted across March and April into a single month. The month-end digital report confirms total February spend of $78,500 with a reported ROAS of 3.2x, signed off by the CMO. The same approval email notes that March and April digital budgets are to be zeroed in the revised forecast, with the CFO noted for reforecast action; however, formal CFO sign-off on the revised forward forecast has not been evidenced in the sources retrieved and requires confirmation. March digital spend is expected to be nil based on the month-end report.\nSources\n- Slack - 2024-11-19T12:15:00Z - slack-digital_advertising-broad - marketing-slack-2026-01-28: Confirmed \u2014 moving the Q2 spring campaign to February launch. Agency recommends 28 Jan brief to 5 Feb launch window. This pulls the full March digital budget into February. CMO approved this morning.\n- Gmail - 2024-11-19T18:15:00Z - gmail-digital_advertising-broad - gmail-2026-01-28-campaign-approval: CMO email approving campaign pull-forward. Full Q2 digital budget ($78,500) allocated to February. March and April digital budgets to be zeroed in revised forecast. CFO noted for reforecast.\n- Gmail - 2024-11-19T18:45:00Z - gmail-digital_advertising-narrow - gmail-2026-02-28-digital-report: February digital advertising report. Total spend $78,500. ROAS 3.2x. CMO signed off on month-end. March digital line will be nil.\n\nEvents & Conferences | -$5,500 (-27.5%) | Budget: $20,000 | Actual: $14,500\nThe $5,500 underspend is primarily driven by the postponement of the Q1 Sales Summit, originally budgeted for February, to 18 April. A venue credit of $5,500 was secured with no cash outflow in February for that event; Summit costs are expected to land in the April budget. The February invoice pack confirms that actual spend of at least $4,000 was incurred across a virtual webinar ($1,200 via Zoom Events) and two meetup sponsorships ($2,800 across TechMeet SF and ProductCraft NYC). The remaining $10,500 of February actuals is not fully itemised in the sources retrieved and may warrant a line-level review. Finance should be aware that the rescheduled Summit costs are likely to create an April overage against that month's budgeted Events line.\nSources\n- Gmail - 2024-11-20T18:15:00Z - gmail-events_&_conferences-broad - gmail-2026-01-15-summit-postpone: Events team email confirming Q1 Sales Summit moved to April. Venue credit of $5,500 secured. No cash outflow in February for this item. Savings tracked against April budget.\n- Calendar - 2024-11-20T22:15:00Z - calendar-events_&_conferences-broad - cal-2026-04-18: Q1 Sales Summit rescheduled \u2014 now 18 April. Previous February booking cancelled 15 January.\n- Gmail - 2024-11-20T18:45:00Z - gmail-events_&_conferences-narrow - gmail-2026-02-20-events-summary: February events invoice pack \u2014 virtual webinar $1,200 (Zoom Events), two meetup sponsorships $2,800 (TechMeet SF + ProductCraft NYC). Total $4,000. Summit costs will hit in April.\n\nContent & Creative | +$1,200 (+15.0%) | Budget: $8,000 | Actual: $9,200\nThe $1,200 overage reflects a one-time billing catch-up by new agency Vivid Studio, whose February invoice bundled the standard monthly retainer of $8,000 with a $1,200 January strategy workshop delivered on 28 January. The additional charge was CMO-approved and is not expected to recur in March, as the workshop was a one-off onboarding cost associated with briefing the new agency. The invoice has been received and approved.\nSources\n- Slack - 2024-11-18T12:15:00Z - slack-content_&_creative-broad - marketing-slack-2026-01-20: New creative agency (Vivid Studio) briefed in January. Campaign assets delivered ahead of schedule \u2014 February billing will include January strategy work ($1,200 extra). Approved by CMO.\n- Gmail - 2024-11-18T18:15:00Z - gmail-content_&_creative-broad - gmail-2026-02-01-vivid-invoice: Invoice from Vivid Studio \u2014 February retainer $8,000 + January strategy workshop $1,200 = $9,200 total. CMO approved. Strategy work delivered 28 January.\n\nINSIGNIFICANT VARIANCES\n- **Marketing Software**: +$100 (+2.0%) \u2014 Within acceptable tolerance; no investigation required.\n- **PR & Comms**: -$200 (-2.0%) \u2014 Within acceptable tolerance; no investigation required.",
+  "executive_summary": "February 2026 closed with total spend of $117,100 against a budget of $93,000, a net overage of $24,100 (+25.9%). The variance is concentrated in a single line: Digital Advertising overran by $28,500 (+57.0%) due to a CMO-approved pull-forward of the Q2 spring campaign into February, which accelerated spend originally budgeted across March and April. This overage is partially offset by an Events & Conferences underspend of $5,500 (-27.5%), driven by the postponement of the Q1 Sales Summit to April. Content & Creative is modestly over budget by $1,200 (+15.0%), reflecting a one-time January strategy workshop billed in February by the incoming agency, Vivid Studio. The Digital Advertising overage is expected to be offset by nil digital spend in March, and the Events underspend is expected to reverse in April when the rescheduled Summit costs land; both items require confirmation in the forward forecast.",
+  "line_items": [
+    {
+      "header": "Digital Advertising | +$28,500 (+57.0%) | Budget: $50,000 | Actual: $78,500",
+      "commentary": "The $28,500 overage reflects a deliberate pull-forward of the Q2 spring campaign into February, approved by the CMO on 28 January. The agency recommended a 28 January brief-to-5 February launch window, which concentrated spend that had been originally budgeted across March and April into a single month. The month-end digital report confirms total February spend of $78,500 with a reported ROAS of 3.2x, signed off by the CMO. The same approval email notes that March and April digital budgets are to be zeroed in the revised forecast, with the CFO noted for reforecast action; however, formal CFO sign-off on the revised forward forecast has not been evidenced in the sources retrieved and requires confirmation. March digital spend is expected to be nil based on the month-end report.",
+      "sources": [
+        {
+          "id": "slack-digital_advertising-broad",
+          "source_type": "Slack",
+          "timestamp": "2024-11-19T12:15:00Z",
+          "snippet": "marketing-slack-2026-01-28: Confirmed \u2014 moving the Q2 spring campaign to February launch. Agency recommends 28 Jan brief to 5 Feb launch window. This pulls the full March digital budget into February. CMO approved this morning.",
+          "ref": ""
+        },
+        {
+          "id": "gmail-digital_advertising-broad",
+          "source_type": "Gmail",
+          "timestamp": "2024-11-19T18:15:00Z",
+          "snippet": "gmail-2026-01-28-campaign-approval: CMO email approving campaign pull-forward. Full Q2 digital budget ($78,500) allocated to February. March and April digital budgets to be zeroed in revised forecast. CFO noted for reforecast.",
+          "ref": ""
+        },
+        {
+          "id": "gmail-digital_advertising-narrow",
+          "source_type": "Gmail",
+          "timestamp": "2024-11-19T18:45:00Z",
+          "snippet": "gmail-2026-02-28-digital-report: February digital advertising report. Total spend $78,500. ROAS 3.2x. CMO signed off on month-end. March digital line will be nil.",
+          "ref": ""
+        }
+      ],
+      "review_status": "pending",
+      "edited_commentary": null,
+      "flagged_reason": null,
+      "line_item_name": "Digital Advertising",
+      "budget_usd": 50000.0,
+      "actual_usd": 78500.0,
+      "variance_usd": 28500.0,
+      "variance_pct": 57.0
+    },
+    {
+      "header": "Events & Conferences | -$5,500 (-27.5%) | Budget: $20,000 | Actual: $14,500",
+      "commentary": "The $5,500 underspend is primarily driven by the postponement of the Q1 Sales Summit, originally budgeted for February, to 18 April. A venue credit of $5,500 was secured with no cash outflow in February for that event; Summit costs are expected to land in the April budget. The February invoice pack confirms that actual spend of at least $4,000 was incurred across a virtual webinar ($1,200 via Zoom Events) and two meetup sponsorships ($2,800 across TechMeet SF and ProductCraft NYC). The remaining $10,500 of February actuals is not fully itemised in the sources retrieved and may warrant a line-level review. Finance should be aware that the rescheduled Summit costs are likely to create an April overage against that month's budgeted Events line.",
+      "sources": [
+        {
+          "id": "gmail-events_&_conferences-broad",
+          "source_type": "Gmail",
+          "timestamp": "2024-11-20T18:15:00Z",
+          "snippet": "gmail-2026-01-15-summit-postpone: Events team email confirming Q1 Sales Summit moved to April. Venue credit of $5,500 secured. No cash outflow in February for this item. Savings tracked against April budget.",
+          "ref": ""
+        },
+        {
+          "id": "calendar-events_&_conferences-broad",
+          "source_type": "Calendar",
+          "timestamp": "2024-11-20T22:15:00Z",
+          "snippet": "cal-2026-04-18: Q1 Sales Summit rescheduled \u2014 now 18 April. Previous February booking cancelled 15 January.",
+          "ref": ""
+        },
+        {
+          "id": "gmail-events_&_conferences-narrow",
+          "source_type": "Gmail",
+          "timestamp": "2024-11-20T18:45:00Z",
+          "snippet": "gmail-2026-02-20-events-summary: February events invoice pack \u2014 virtual webinar $1,200 (Zoom Events), two meetup sponsorships $2,800 (TechMeet SF + ProductCraft NYC). Total $4,000. Summit costs will hit in April.",
+          "ref": ""
+        }
+      ],
+      "review_status": "pending",
+      "edited_commentary": null,
+      "flagged_reason": null,
+      "line_item_name": "Events & Conferences",
+      "budget_usd": 20000.0,
+      "actual_usd": 14500.0,
+      "variance_usd": -5500.0,
+      "variance_pct": -27.5
+    },
+    {
+      "header": "Content & Creative | +$1,200 (+15.0%) | Budget: $8,000 | Actual: $9,200",
+      "commentary": "The $1,200 overage reflects a one-time billing catch-up by new agency Vivid Studio, whose February invoice bundled the standard monthly retainer of $8,000 with a $1,200 January strategy workshop delivered on 28 January. The additional charge was CMO-approved and is not expected to recur in March, as the workshop was a one-off onboarding cost associated with briefing the new agency. The invoice has been received and approved.",
+      "sources": [
+        {
+          "id": "slack-content_&_creative-broad",
+          "source_type": "Slack",
+          "timestamp": "2024-11-18T12:15:00Z",
+          "snippet": "marketing-slack-2026-01-20: New creative agency (Vivid Studio) briefed in January. Campaign assets delivered ahead of schedule \u2014 February billing will include January strategy work ($1,200 extra). Approved by CMO.",
+          "ref": ""
+        },
+        {
+          "id": "gmail-content_&_creative-broad",
+          "source_type": "Gmail",
+          "timestamp": "2024-11-18T18:15:00Z",
+          "snippet": "gmail-2026-02-01-vivid-invoice: Invoice from Vivid Studio \u2014 February retainer $8,000 + January strategy workshop $1,200 = $9,200 total. CMO approved. Strategy work delivered 28 January.",
+          "ref": ""
+        }
+      ],
+      "review_status": "pending",
+      "edited_commentary": null,
+      "flagged_reason": null,
+      "line_item_name": "Content & Creative",
+      "budget_usd": 8000.0,
+      "actual_usd": 9200.0,
+      "variance_usd": 1200.0,
+      "variance_pct": 15.0
+    }
+  ],
+  "insignificant": [
+    "- **Marketing Software**: +$100 (+2.0%) \u2014 Within acceptable tolerance; no investigation required.",
+    "- **PR & Comms**: -$200 (-2.0%) \u2014 Within acceptable tolerance; no investigation required."
+  ],
+  "gaps": [],
+  "tool_diagnostics": [
+    "Unsupported certainty language: 'Digital Advertising | +$28,500 (+57.0%) | Budget: $50,000 | Actual: $78,500'",
+    "Executive summary may be too long for board-pack style: 143 words",
+    "Line commentary may be too long for board-pack style: 'Digital Advertising | +$28,500 (+57.0%) | Budget: $50,000 | Actual: $78,500'",
+    "Line commentary may be too long for board-pack style: 'Events & Conferences | -$5,500 (-27.5%) | Budget: $20,000 | Actual: $14,500'"
+  ],
+  "tool_traces": [
+    {
+      "tool_name": "search_slack",
+      "tool_use_id": "toolu_011HcygynPAcxan3nteJhHo1",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Digital Advertising",
+        "query": "digital advertising overspend budget increase campaign spend",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_slack\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"marketing-slack-2026-01-28: Confirmed \\u2014 moving the Q2 spring campaign to February launch. Agency recommends 28 Jan brief to 5 Feb launch window. This pulls the full March digital budget into February. CMO approved this morning.\", \"evidence\": [{\"id\": \"slack-digital_advertising-broad\", \"source_type\": \"slack\", \"timestamp\": \"2024-11-19T12:15:00Z\", \"snippet\": \"marketing-slack-2026-01-28: Confirmed \\u2014 moving the Q2 spring campaign to February launch. Agency recommends 28 Jan brief to 5 Feb launch window. This pulls the full March digital budget into February. CMO approved this morning.\", \"ref\": \"Digital Advertising fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_01LGWc7ifhfcuhKG636GtqRF",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Digital Advertising",
+        "query": "digital advertising budget approval overspend campaign spend increase",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"gmail-2026-01-28-campaign-approval: CMO email approving campaign pull-forward. Full Q2 digital budget ($78,500) allocated to February. March and April digital budgets to be zeroed in revised forecast. CFO noted for reforecast.\", \"evidence\": [{\"id\": \"gmail-digital_advertising-broad\", \"source_type\": \"gmail\", \"timestamp\": \"2024-11-19T18:15:00Z\", \"snippet\": \"gmail-2026-01-28-campaign-approval: CMO email approving campaign pull-forward. Full Q2 digital budget ($78,500) allocated to February. March and April digital budgets to be zeroed in revised forecast. CFO noted for reforecast.\", \"ref\": \"Digital Advertising fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_01RWuFGgHW3QFBPoQnrbo4C6",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Events & Conferences",
+        "query": "events conferences cancellation postponement underspend",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"gmail-2026-01-15-summit-postpone: Events team email confirming Q1 Sales Summit moved to April. Venue credit of $5,500 secured. No cash outflow in February for this item. Savings tracked against April budget.\", \"evidence\": [{\"id\": \"gmail-events_&_conferences-broad\", \"source_type\": \"gmail\", \"timestamp\": \"2024-11-20T18:15:00Z\", \"snippet\": \"gmail-2026-01-15-summit-postpone: Events team email confirming Q1 Sales Summit moved to April. Venue credit of $5,500 secured. No cash outflow in February for this item. Savings tracked against April budget.\", \"ref\": \"Events & Conferences fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_calendar",
+      "tool_use_id": "toolu_01Goh8gxvA7iKBRsjFqiNYVz",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Events & Conferences",
+        "query": "conference event cancellation postponement February 2026",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_calendar\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"cal-2026-04-18: Q1 Sales Summit rescheduled \\u2014 now 18 April. Previous February booking cancelled 15 January.\", \"evidence\": [{\"id\": \"calendar-events_&_conferences-broad\", \"source_type\": \"calendar\", \"timestamp\": \"2024-11-20T22:15:00Z\", \"snippet\": \"cal-2026-04-18: Q1 Sales Summit rescheduled \\u2014 now 18 April. Previous February booking cancelled 15 January.\", \"ref\": \"Events & Conferences fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_slack",
+      "tool_use_id": "toolu_01Uzw9sKZ18xdyPxV9JMR45W",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Content & Creative",
+        "query": "content creative overspend agency freelancer additional work",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_slack\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"marketing-slack-2026-01-20: New creative agency (Vivid Studio) briefed in January. Campaign assets delivered ahead of schedule \\u2014 February billing will include January strategy work ($1,200 extra). Approved by CMO.\", \"evidence\": [{\"id\": \"slack-content_&_creative-broad\", \"source_type\": \"slack\", \"timestamp\": \"2024-11-18T12:15:00Z\", \"snippet\": \"marketing-slack-2026-01-20: New creative agency (Vivid Studio) briefed in January. Campaign assets delivered ahead of schedule \\u2014 February billing will include January strategy work ($1,200 extra). Approved by CMO.\", \"ref\": \"Content & Creative fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_01352wyo14Me8VArAVDiw2Aq",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Content & Creative",
+        "query": "content creative invoice approval additional spend freelancer agency",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"gmail-2026-02-01-vivid-invoice: Invoice from Vivid Studio \\u2014 February retainer $8,000 + January strategy workshop $1,200 = $9,200 total. CMO approved. Strategy work delivered 28 January.\", \"evidence\": [{\"id\": \"gmail-content_&_creative-broad\", \"source_type\": \"gmail\", \"timestamp\": \"2024-11-18T18:15:00Z\", \"snippet\": \"gmail-2026-02-01-vivid-invoice: Invoice from Vivid Studio \\u2014 February retainer $8,000 + January strategy workshop $1,200 = $9,200 total. CMO approved. Strategy work delivered 28 January.\", \"ref\": \"Content & Creative fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_016NqYMdXDYGFbCu9PhUKyWd",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Digital Advertising",
+        "query": "digital advertising reforecast March April budget zero CFO",
+        "search_scope": "narrow"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"gmail-2026-02-28-digital-report: February digital advertising report. Total spend $78,500. ROAS 3.2x. CMO signed off on month-end. March digital line will be nil.\", \"evidence\": [{\"id\": \"gmail-digital_advertising-narrow\", \"source_type\": \"gmail\", \"timestamp\": \"2024-11-19T18:45:00Z\", \"snippet\": \"gmail-2026-02-28-digital-report: February digital advertising report. Total spend $78,500. ROAS 3.2x. CMO signed off on month-end. March digital line will be nil.\", \"ref\": \"Digital Advertising fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_01AC5euq7AxLsBXBVeN21bMJ",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Events & Conferences",
+        "query": "venue credit $5500 Sales Summit April recovery refund",
+        "search_scope": "narrow"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"gmail-2026-02-20-events-summary: February events invoice pack \\u2014 virtual webinar $1,200 (Zoom Events), two meetup sponsorships $2,800 (TechMeet SF + ProductCraft NYC). Total $4,000. Summit costs will hit in April.\", \"evidence\": [{\"id\": \"gmail-events_&_conferences-narrow\", \"source_type\": \"gmail\", \"timestamp\": \"2024-11-20T18:45:00Z\", \"snippet\": \"gmail-2026-02-20-events-summary: February events invoice pack \\u2014 virtual webinar $1,200 (Zoom Events), two meetup sponsorships $2,800 (TechMeet SF + ProductCraft NYC). Total $4,000. Summit costs will hit in April.\", \"ref\": \"Events & Conferences fixture\"}], \"error\": null}"
+    }
+  ]
+}

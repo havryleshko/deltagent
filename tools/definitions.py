@@ -25,7 +25,8 @@ TOOL_DEFINITIONS = [
         "name": "search_gmail",
         "description": (
             "Finds formal decisions and approvals in email for significant variance lines, "
-            "including salary/headcount decisions, invoices, and one-off spend approvals. "
+            "including salary/headcount decisions, invoices, one-off spend approvals, and secondary recovery or insurance context that may live in a different thread from the main invoice. "
+            "Broad and narrow Gmail searches often surface different messages for the same line item. "
             "Does NOT find casual team chat context or CRM opportunity pipeline status."
         ),
         "input_schema": {

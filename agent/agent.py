@@ -243,8 +243,15 @@ def _has_partial_evidence(trace_text: str) -> bool:
             "pending",
             "risk",
             "re-qualify",
+            "re-qualified",
             "forecast",
             "reforecast",
+            "recoverable",
+            "recovery",
+            "subject to",
+            "confirmation",
+            "provision",
+            "reserve",
             "~",
             "approximately",
         )
@@ -258,6 +265,12 @@ def _soften_confidence_text(text: str, trace_text: str) -> str:
     replacements = (
         (r"\bwill be absorbed into next month's plan\b", "is expected to support upcoming periods, subject to latest forecast timing"),
         (r"\bwill all normalise in November\b", "is expected to normalize as the related deals close, subject to timing"),
+        (r"\bexpected pipeline recovery\b", "potential pipeline recovery"),
+        (r"\bexpected to land\b", "currently expected to close"),
+        (r"\bexpected to absorb\b", "may support upcoming periods"),
+        (r"\bfinance should consider provisioning\b", "the remaining exposure should be monitored against the latest forecast"),
+        (r"\brequires provisioning or budget re-forecasting\b", "should be monitored in the latest forecast"),
+        (r"\bbudget provision for that range is recommended\b", "that range should be reflected in ongoing forecast review"),
         (r"\bwill recur\b", "is expected to recur"),
         (r"\bwill continue\b", "is expected to continue"),
         (r"\bno further spend is expected\b", "no further spend is currently indicated"),
@@ -358,6 +371,10 @@ def _validate_tool_coverage(
             "no context found" in body_lower or "inferred" in body_lower
         ):
             warnings.append(f"Missing narrow follow-up: {item.header!r}")
+        if "gmail" in {name.replace("search_", "") for name in tool_names} and "narrow" not in search_scopes and any(
+            token in name for token in ("repair", "maintenance", "legal", "professional fees")
+        ):
+            warnings.append(f"Missing narrow Gmail follow-up: {item.header!r}")
         if any(
             token in name for token in ("revenue", "professional services", "cost of revenue", "contractor")
         ) and "search_crm" not in tool_names:
@@ -427,6 +444,12 @@ def _validate_confidence(
         r"fully explained",
         r"fully reconciled",
         r"no further spend is expected",
+        r"finance should",
+        r"\bprovision(?:ing)?\b",
+        r"\breforecast(?:ing)?\b",
+        r"expected pipeline recovery",
+        r"expected to land",
+        r"full recovery",
     )
     if _has_partial_evidence(combined_trace_text) and any(
         re.search(pattern, executive_summary, flags=re.IGNORECASE) for pattern in strong_patterns
@@ -444,6 +467,21 @@ def _validate_confidence(
             re.search(pattern, item.commentary, flags=re.IGNORECASE) for pattern in strong_patterns
         ):
             warnings.append(f"Unsupported certainty language: {item.header!r}")
+    return warnings
+
+
+def _length_review_diagnostics(
+    executive_summary: str,
+    line_items: list[Any],
+) -> list[str]:
+    warnings: list[str] = []
+    summary_word_count = len(executive_summary.split())
+    if summary_word_count > 140:
+        warnings.append(f"Executive summary may be too long for board-pack style: {summary_word_count} words")
+    for item in line_items:
+        word_count = len(item.final_commentary.split())
+        if word_count > 110:
+            warnings.append(f"Line commentary may be too long for board-pack style: {item.header!r}")
     return warnings
 
 
@@ -501,6 +539,7 @@ def _fallback_run(
     )
     line_item_warnings = _validate_line_item_consistency(line_items)
     confidence_warnings = _validate_confidence(executive_summary, line_items, tool_traces)
+    length_warnings = _length_review_diagnostics(executive_summary, line_items)
     all_diagnostics = (
         list(tool_diagnostics)
         + enrichment_warnings
@@ -509,6 +548,7 @@ def _fallback_run(
         + summary_warnings
         + line_item_warnings
         + confidence_warnings
+        + length_warnings
     )
     extra_gaps = _gaps_from_diagnostics(tool_diagnostics)
     merged_gaps = list(dict.fromkeys(gaps + extra_gaps))

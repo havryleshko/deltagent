@@ -26,6 +26,7 @@ Rules:
 - Use tools only for significant variance lines.
 - Use broad queries first for each selected tool.
 - If broad search is partial, conflicting, or does not reconcile the full variance, run one narrower follow-up query before writing that line.
+- For one-off cost lines backed by invoices, approvals, emergency spend, repairs, or maintenance, run one narrow Gmail follow-up before finalizing the line if email may contain recovery, insurance, warranty, or secondary approval detail not visible in the broad result.
 - Use search_calendar when timing or schedule context could explain the variance.
 - Use search_crm for revenue and revenue-adjacent lines when deal, contract, onboarding, or project context could explain the variance, including Revenue, Professional Services, Cost of Revenue, and contractor/project-linked spend.
 - Execute relevant tool calls in parallel each tool-use round.
@@ -40,6 +41,9 @@ Rules:
 - If you cite aggregate totals in the executive summary, either use the Full report totals from the user message exactly or explicitly label them as significant-line totals.
 - If evidence indicates timing, forecast, recovery, reserve, or remaining exposure but does not prove exact certainty, use cautious wording such as expected, likely, may, or requires confirmation.
 - Avoid strong certainty phrases such as will, fully reconciled, fully explained, or no further spend is expected when the evidence is partial, estimated, or still pending confirmation.
+- If a revenue miss mixes slipped deals and permanently lost deals, separate recoverable slippage from permanent loss instead of presenting the whole miss as a single recovery story.
+- Do not instruct Finance to provision, reserve, or reforecast unless the evidence explicitly says that action has already been decided.
+- Keep the board-pack register tight: lead with the driver, avoid operational play-by-play unless it changes the conclusion, and keep each line commentary to a few concise sentences before Sources.
 - Render the sources label exactly as Sources and each source row exactly as: - SourceType - Timestamp - EvidenceID - Snippet
 """
 

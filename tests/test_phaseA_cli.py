@@ -11,7 +11,9 @@ from typer.testing import CliRunner
 from agent.agent import _fallback_run, _gaps_from_diagnostics
 from agent.models import AgentRun, ToolTrace
 from agent.parser import parse_agent_output, validate_parsed_output
+from agent.prompts import build_system_prompt
 from cli import app
+from tools.definitions import TOOL_DEFINITIONS
 
 FIXTURE_CSV = Path(__file__).parent / "fixtures" / "sample_november_2024.csv"
 runner = CliRunner()
@@ -500,6 +502,172 @@ INSIGNIFICANT VARIANCES
     )
     assert "insurance claim" in run.raw_text.lower()
     assert any("Recovered missing evidence detail" in warning for warning in run.tool_diagnostics)
+
+
+def test_prompt_requires_narrow_gmail_for_one_off_cost_lines() -> None:
+    system_prompt = build_system_prompt()
+    assert "run one narrow Gmail follow-up before finalizing the line" in system_prompt
+    assert "separate recoverable slippage from permanent loss" in system_prompt
+
+
+def test_search_gmail_description_mentions_broad_and_narrow_context() -> None:
+    description = next(tool["description"] for tool in TOOL_DEFINITIONS if tool["name"] == "search_gmail")
+    assert "Broad and narrow Gmail searches often surface different messages" in description
+    assert "insurance" in description
+
+
+def test_fallback_run_softens_forceful_forward_language() -> None:
+    text = """EXECUTIVE SUMMARY
+Finance should consider provisioning for the remaining range.
+
+LINE COMMENTARY
+
+Professional Fees | +$27,500 (+183.3%) | Budget: $15,000 | Actual: $42,500
+The remaining exposure requires provisioning or budget re-forecasting.
+Sources
+- Gmail - 2024-11-10 - gmail-1 - Remaining $8–18K expected in Q1 2025, subject to matter timing.
+
+INSIGNIFICANT VARIANCES
+"""
+    run = _fallback_run(
+        period_label="November 2024",
+        period_start="2024-11-01T00:00:00Z",
+        period_end="2024-11-30T23:59:59Z",
+        currency_symbol="$",
+        raw_text=text,
+        tool_diagnostics=[],
+        tool_traces=[
+            ToolTrace(
+                tool_name="search_gmail",
+                tool_use_id="toolu_forceful",
+                input_payload={"period": "November 2024", "line_item": "Professional Fees", "search_scope": "narrow"},
+                output_text=json.dumps(
+                    {
+                        "summary_for_model": "Remaining $8–18K expected in Q1 2025, subject to matter timing.",
+                        "evidence": [
+                            {
+                                "id": "gmail-1",
+                                "source_type": "gmail",
+                                "timestamp": "2024-11-10",
+                                "snippet": "Remaining $8–18K expected in Q1 2025, subject to matter timing.",
+                                "ref": "",
+                            }
+                        ],
+                    }
+                ),
+            )
+        ],
+        significant_rows=[
+            {
+                "period": "November 2024",
+                "line_item": "Professional Fees",
+                "budget_usd": 15000.0,
+                "actual_usd": 42500.0,
+                "variance_usd": 27500.0,
+                "variance_pct": 183.3,
+            }
+        ],
+        insignificant_rows=[],
+    )
+    assert "finance should consider provisioning" not in run.raw_text.lower()
+    assert "requires provisioning or budget re-forecasting" not in run.raw_text.lower()
+    assert "should be monitored in the latest forecast" in run.raw_text.lower()
+
+
+def test_fallback_run_flags_bundled_recovery_language() -> None:
+    text = """EXECUTIVE SUMMARY
+Expected pipeline recovery remains strong.
+
+LINE COMMENTARY
+
+Revenue | -$82,000 (-16.4%) | Budget: $500,000 | Actual: $418,000
+All slipped deals are expected to land in November.
+Sources
+- CRM - 2024-11-07 - crm-1 - Summit is a re-qualify risk and timing remains subject to confirmation.
+
+INSIGNIFICANT VARIANCES
+"""
+    run = _fallback_run(
+        period_label="October 2024",
+        period_start="2024-10-01T00:00:00Z",
+        period_end="2024-10-31T23:59:59Z",
+        currency_symbol="$",
+        raw_text=text,
+        tool_diagnostics=[],
+        tool_traces=[
+            ToolTrace(
+                tool_name="search_crm",
+                tool_use_id="toolu_recovery",
+                input_payload={"period": "October 2024", "line_item": "Revenue", "search_scope": "broad"},
+                output_text=json.dumps(
+                    {
+                        "summary_for_model": "Summit is a re-qualify risk and timing remains subject to confirmation.",
+                        "evidence": [
+                            {
+                                "id": "crm-1",
+                                "source_type": "crm",
+                                "timestamp": "2024-11-07",
+                                "snippet": "Summit is a re-qualify risk and timing remains subject to confirmation.",
+                                "ref": "",
+                            }
+                        ],
+                    }
+                ),
+            )
+        ],
+        significant_rows=[
+            {
+                "period": "October 2024",
+                "line_item": "Revenue",
+                "budget_usd": 500000.0,
+                "actual_usd": 418000.0,
+                "variance_usd": -82000.0,
+                "variance_pct": -16.4,
+            }
+        ],
+        insignificant_rows=[],
+    )
+    assert "expected pipeline recovery" not in run.raw_text.lower()
+    assert "expected to land" not in run.raw_text.lower()
+    assert "potential pipeline recovery" in run.raw_text.lower()
+    assert "currently expected to close" in run.raw_text.lower()
+
+
+def test_fallback_run_adds_length_diagnostic_for_verbose_summary() -> None:
+    summary = " ".join(["summary"] * 141)
+    text = f"""EXECUTIVE SUMMARY
+{summary}
+
+LINE COMMENTARY
+
+Revenue | +$20 (+20.0%) | Budget: $100 | Actual: $120
+Short note.
+Sources
+- gmail - 2024-11-10 - gmail-1 - Thread
+
+INSIGNIFICANT VARIANCES
+"""
+    run = _fallback_run(
+        period_label="November 2024",
+        period_start="2024-11-01T00:00:00Z",
+        period_end="2024-11-30T23:59:59Z",
+        currency_symbol="$",
+        raw_text=text,
+        tool_diagnostics=[],
+        tool_traces=[],
+        significant_rows=[
+            {
+                "period": "November 2024",
+                "line_item": "Revenue",
+                "budget_usd": 100.0,
+                "actual_usd": 120.0,
+                "variance_usd": 20.0,
+                "variance_pct": 20.0,
+            }
+        ],
+        insignificant_rows=[],
+    )
+    assert any("Executive summary may be too long" in warning for warning in run.tool_diagnostics)
 
 
 def test_review_command_saves_state(tmp_path: Path) -> None:
