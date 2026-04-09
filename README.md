@@ -1,80 +1,72 @@
-# Variance Commentary Agent
+# DeltAgent
 
-## Problem
-
-**Every month-end a variance commentary for the management accounts. To explain the *why* of the variance numbers are not enough because the context is everywhere - converstaions, calendar tasks, overdues, notes in Slack, CRM etc. reads the numbers, gathers the context, and drafts the full commentary in one run. You can review and export the file. Run in TUI** 
+DeltAgent generates month-end variance commentary from report data plus operational context. It ingests CSV/XLSX exports, retrieves evidence from tool sources, and produces structured commentary ready for review and export.
 
 ## Requirements
 
 - Python 3.11+
-- An [Anthropic](https://www.anthropic.com/) API key (`ANTHROPIC_API_KEY`)
+- `ANTHROPIC_API_KEY` for non-`--dry-run` runs
 
-## Setup
+## Install
 
 ```bash
-cd deltagent
 python3 -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
+source .venv/bin/activate
+python3 -m pip install -e .
 ```
 
-Create a `.env` file in the project root (it is gitignored) with your key:
+For live tools, OAuth, MCP configuration, and environment variables, see [design.md](design.md).
 
-```
-ANTHROPIC_API_KEY=sk-ant-...
-```
-
-`main.py` loads `.env` via `python-dotenv`. You can also export the variable in your shell instead.
-
-## Run
-
-Always run from the **repository root** so paths like `tests/fixtures/...` resolve.
+## Quick start
 
 ```bash
-python main.py
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -e .
+deltaagent validate tests/fixtures/sample_november_2024.csv --period 2024-11
+deltaagent run tests/fixtures/sample_november_2024.csv --period 2024-11 --dry-run
 ```
 
-Optional: pass a CSV path to open the variance screen directly (skips the file picker):
-
-```bash
-python main.py tests/fixtures/sample_november_2024.csv
+```text
+Detected format: canonical
+Significant rows: 3
+Insignificant rows: 2
+CSV validation passed.
 ```
 
-In the TUI, pick a CSV, confirm the period, run the agent, then export Markdown or Word if you want.
+```text
+Period: November 2024
+Bounds: 2024-11-01T00:00:00Z -> 2024-11-30T23:59:59Z
+Significant rows: 3
+Insignificant rows: 2
 
-## Configuration
-
-Full list of environment variables, tool backends, and export behaviour: **[design.md](design.md)**.
-
-Short version:
-
-
-| Topic                 | Notes                                                                                                                                                                                             |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| LLM                   | Default model is `claude-sonnet-4-6` (see `run_agent` in `agent/agent.py`).                                                                                                                       |
-| Tools                 | Default `DELTAGENT_TOOL_MODE=mock` uses fixture data under `tests/fixtures/`. Set `DELTAGENT_TOOL_MODE=live` and provider credentials for real Gmail, Calendar, Slack, HubSpot (see `design.md`). |
-| Thresholds / currency | Optional: `DELTAGENT_SIGNIFICANCE_PCT`, `DELTAGENT_SIGNIFICANCE_ABS`, `DELTAGENT_CURRENCY_SYMBOL` (see `design.md`).                                                                              |
-
-
-## Tests
-
-```bash
-python3 -m pytest tests/
+Planned tool calls:
+- Revenue: search_slack, search_gmail, search_calendar, search_crm
+- Salaries: search_slack, search_gmail, search_calendar
+- Professional Fees: search_slack, search_gmail, search_calendar
 ```
 
-Optional live API checks: set `DELTAGENT_RUN_LIVE_INTEGRATION_TESTS=1` and the required service tokens; see `tests/test_phase6_integration.py`.
+## Commands
+
+- `deltaagent tui [csv_path]`
+- `deltaagent validate <csv_path> --period <YYYY-MM|Month YYYY>`
+- `deltaagent run <csv_path> --period <...> [--dry-run]`
+- `deltaagent review <runs/run_*.json>`
+- `deltaagent export <runs/run_*.json> --format md|docx`
+- `deltaagent auth status|test|mcp-status|mcp-connect`
 
 ## Project layout
 
-
-| Path        | Role                                                    |
-| ----------- | ------------------------------------------------------- |
-| `main.py`   | Entry: Textual TUI                                      |
-| `ui/app.py` | Screens (file pick, variance table, commentary, export) |
-| `agent/`    | Anthropic tool loop and prompts                         |
-| `tools/`    | `search_*` tools (mock or live)                         |
-| `utils/`    | CSV validation and env config                           |
-| `exports/`  | Markdown / `.docx` writers                              |
-| `design.md` | Product and architecture source of truth                |
-
-
+| Path | Role |
+| --- | --- |
+| `cli.py` | Canonical Typer CLI entrypoint (`deltaagent`) |
+| `ui/` | Textual TUI screens and flow |
+| `agent/` | Agent loop, prompts, parser, models |
+| `tools/` | Tool definitions and mock/live search backends |
+| `mcp_client/` | MCP configuration and client registry |
+| `exports/` | Markdown and DOCX export |
+| `utils/` | Report loading, validation, runtime config |
+| `eval/` | Eval cases, runner, and scorecards |
+| `auth/` | Provider authentication helpers |
+| `tests/` | Test suites and fixtures |
+| `design.md` | Architecture and configuration details |
