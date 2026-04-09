@@ -516,6 +516,118 @@ def test_search_gmail_description_mentions_broad_and_narrow_context() -> None:
     assert "insurance" in description
 
 
+def test_fallback_run_matches_tool_traces_when_line_item_alias_differs() -> None:
+    text = """EXECUTIVE SUMMARY
+Summary
+
+LINE COMMENTARY
+
+Repairs Maintenance | +$786 (+786.3%) | Budget: $100 | Actual: $886
+Emergency repair completed and approved.
+Sources
+- Gmail - 2024-11-10 - gmail-1 - Emergency repair invoice
+
+INSIGNIFICANT VARIANCES
+"""
+    run = _fallback_run(
+        period_label="February 2026",
+        period_start="2026-02-01T00:00:00Z",
+        period_end="2026-02-28T23:59:59Z",
+        currency_symbol="$",
+        raw_text=text,
+        tool_diagnostics=[],
+        tool_traces=[
+            ToolTrace(
+                tool_name="search_gmail",
+                tool_use_id="toolu_alias",
+                input_payload={"period": "February 2026", "line_item": "Repairs & Maintenance", "search_scope": "narrow"},
+                output_text=json.dumps(
+                    {
+                        "summary_for_model": "Building insurance claim submitted — outcome pending but expense recognised in February.",
+                        "evidence": [
+                            {
+                                "id": "gmail-claim",
+                                "source_type": "gmail",
+                                "timestamp": "2024-11-10",
+                                "snippet": "Building insurance claim submitted — outcome pending but expense recognised in February.",
+                                "ref": "",
+                            }
+                        ],
+                    }
+                ),
+            )
+        ],
+        significant_rows=[
+            {
+                "period": "February 2026",
+                "line_item": "Repairs Maintenance",
+                "budget_usd": 100.0,
+                "actual_usd": 886.0,
+                "variance_usd": 786.0,
+                "variance_pct": 786.3,
+            }
+        ],
+        insignificant_rows=[],
+    )
+    assert "insurance claim" in run.raw_text.lower()
+
+
+def test_fallback_run_flags_certainty_when_evidence_is_partial() -> None:
+    text = """EXECUTIVE SUMMARY
+Summary
+
+LINE COMMENTARY
+
+Legal Fees | +$10 (+10.0%) | Budget: $100 | Actual: $110
+This is certain to reverse next month.
+Sources
+- Gmail - 2024-11-10 - g1 - Thread
+
+INSIGNIFICANT VARIANCES
+"""
+    run = _fallback_run(
+        period_label="November 2024",
+        period_start="2024-11-01T00:00:00Z",
+        period_end="2024-11-30T23:59:59Z",
+        currency_symbol="$",
+        raw_text=text,
+        tool_diagnostics=[],
+        tool_traces=[
+            ToolTrace(
+                tool_name="search_gmail",
+                tool_use_id="toolu_cert",
+                input_payload={"period": "November 2024", "line_item": "Legal Fees", "search_scope": "narrow"},
+                output_text=json.dumps(
+                    {
+                        "summary_for_model": "Outcome pending partner confirmation.",
+                        "evidence": [
+                            {
+                                "id": "g1",
+                                "source_type": "gmail",
+                                "timestamp": "2024-11-10",
+                                "snippet": "Outcome pending partner confirmation.",
+                                "ref": "",
+                            }
+                        ],
+                    }
+                ),
+            )
+        ],
+        significant_rows=[
+            {
+                "period": "November 2024",
+                "line_item": "Legal Fees",
+                "budget_usd": 100.0,
+                "actual_usd": 110.0,
+                "variance_usd": 10.0,
+                "variance_pct": 10.0,
+            }
+        ],
+        insignificant_rows=[],
+    )
+    assert any("Unsupported certainty language" in warning for warning in run.tool_diagnostics)
+
+
 def test_fallback_run_softens_forceful_forward_language() -> None:
     text = """EXECUTIVE SUMMARY
 Finance should consider provisioning for the remaining range.
@@ -632,7 +744,6 @@ INSIGNIFICANT VARIANCES
     assert "potential pipeline recovery" in run.raw_text.lower()
     assert "currently expected to close" in run.raw_text.lower()
 
-
 def test_fallback_run_adds_length_diagnostic_for_verbose_summary() -> None:
     summary = " ".join(["summary"] * 141)
     text = f"""EXECUTIVE SUMMARY
@@ -668,6 +779,42 @@ INSIGNIFICANT VARIANCES
         insignificant_rows=[],
     )
     assert any("Executive summary may be too long" in warning for warning in run.tool_diagnostics)
+
+
+def test_fallback_run_strips_markdown_bold_from_commentary() -> None:
+    text = """EXECUTIVE SUMMARY
+The **period** closed in line with expectations.
+
+LINE COMMENTARY
+
+Revenue | +$20 (+20.0%) | Budget: $100 | Actual: $120
+A **large** renewal drove the beat.
+Sources
+- gmail - 2024-11-10 - gmail-1 - Approval thread
+
+INSIGNIFICANT VARIANCES
+"""
+    run = _fallback_run(
+        period_label="November 2024",
+        period_start="2024-11-01T00:00:00Z",
+        period_end="2024-11-30T23:59:59Z",
+        currency_symbol="$",
+        raw_text=text,
+        tool_diagnostics=[],
+        tool_traces=[],
+        significant_rows=[
+            {
+                "period": "November 2024",
+                "line_item": "Revenue",
+                "budget_usd": 100.0,
+                "actual_usd": 120.0,
+                "variance_usd": 20.0,
+                "variance_pct": 20.0,
+            }
+        ],
+        insignificant_rows=[],
+    )
+    assert "**" not in run.raw_text
 
 
 def test_review_command_saves_state(tmp_path: Path) -> None:

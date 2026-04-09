@@ -44,6 +44,11 @@ Rules:
 - If a revenue miss mixes slipped deals and permanently lost deals, separate recoverable slippage from permanent loss instead of presenting the whole miss as a single recovery story.
 - Do not instruct Finance to provision, reserve, or reforecast unless the evidence explicitly says that action has already been decided.
 - Keep the board-pack register tight: lead with the driver, avoid operational play-by-play unless it changes the conclusion, and keep each line commentary to a few concise sentences before Sources.
+- When evidence is partial, also avoid certain, guaranteed, no doubt, and will close / will complete / will settle unless the tool output explicitly confirms timing.
+- Do not use second-person imperatives to Finance (for example "you should", "finance must") except optionally in a single closing Recommendation sentence framed as a suggestion.
+- Keep each line item to at most three short bullets or two to four sentences before Sources; avoid "Key points:" or similar scaffolding.
+- Write in a board-pack register: lead with the driver and variance, minimize operational play-by-play, and avoid markdown emphasis (**bold**) in body copy.
+- If summary_for_model or evidence snippets contain a concrete fact (dates, amounts, insurance claim, venue credit, USPTO, credits), either reflect it in the line commentary or state explicitly that it is not yet reconciled to the ledger.
 - Render the sources label exactly as Sources and each source row exactly as: - SourceType - Timestamp - EvidenceID - Snippet
 """
 
