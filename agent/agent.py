@@ -129,6 +129,50 @@ def _strip_markdown_emphasis(text: str) -> str:
     return text.replace("**", "")
 
 
+def _compact_board_pack_text(text: str) -> str:
+    if not text.strip():
+        return text
+    compacted = _strip_markdown_emphasis(text).strip()
+    replacements = (
+        (r"\bThe Slack thread confirms\b", "Slack indicates"),
+        (r"\bThe Slack message states\b", "Slack indicates"),
+        (r"\bThe Slack evidence notes\b", "Slack indicates"),
+        (r"\bNo formal email evidence was found; this is sourced from ([^.]+)\.", r"Evidence is limited to \1."),
+        (r"\bNo Slack context was available for this line;", "Slack did not corroborate this line;"),
+        (r"\bFinance should confirm whether ([^.]+)\.", r"It should be confirmed whether \1."),
+        (r"\bFinance may wish to confirm whether ([^.]+)\.", r"It should be confirmed whether \1."),
+        (r"\bFinance should confirm ([^.]+)\.", r"\1 should be confirmed."),
+        (r"\bFinance may wish to confirm ([^.]+)\.", r"\1 should be confirmed."),
+        (r"\bFinance should track ([^.]+)\.", r"\1 should be tracked."),
+        (r"\bFinance should consider ([^.]+)\.", r"\1 should be considered."),
+        (r"\bFinance may wish to confirm\b", "It should be confirmed"),
+        (r"\bFinance should confirm\b", "It should be confirmed"),
+        (r"\bFinance should track\b", "It should be tracked"),
+        (r"\bFinance should consider\b", "Consider"),
+        (r"\bA formal [^.]+ may be warranted\.", ""),
+    )
+    for pattern, replacement in replacements:
+        compacted = re.sub(pattern, replacement, compacted, flags=re.IGNORECASE)
+    if "\n-" not in compacted:
+        sentences = re.split(r"(?<=[.!?])\s+", compacted)
+        kept: list[str] = []
+        drop_patterns = (
+            r"^No evidence of unplanned or unapproved spend was found\.?$",
+            r"^No cost overruns were identified in the period\.?$",
+        )
+        for sentence in sentences:
+            stripped = sentence.strip()
+            if not stripped:
+                continue
+            if any(re.match(pattern, stripped, flags=re.IGNORECASE) for pattern in drop_patterns):
+                continue
+            kept.append(stripped)
+        compacted = " ".join(kept)
+    compacted = re.sub(r"[ \t]{2,}", " ", compacted)
+    compacted = re.sub(r"\n{3,}", "\n\n", compacted)
+    return compacted.strip()
+
+
 def _has_meaningful_sources(sources: list[Evidence]) -> bool:
     return any(
         bool(source.snippet.strip()) and source.source_type not in {"", "source", "malformed_source"}
@@ -223,15 +267,17 @@ def _normalize_output_structure(
             if bool(source.snippet.strip()) and source.source_type not in {"", "source", "malformed_source"}
         ]
         item.sources = meaningful_sources or replacement_sources
-        item.commentary = _strip_markdown_emphasis(_clean_section_text(item.commentary))
+        item.commentary = _compact_board_pack_text(_clean_section_text(item.commentary))
         normalized_items.append(item)
         body = item.final_commentary.lower()
         if "no context found" in body or "tool failed" in body:
             gaps.append(item.header)
 
-    normalized_summary = _strip_markdown_emphasis(_clean_section_text(executive_summary))
+    normalized_summary = _compact_board_pack_text(_clean_section_text(executive_summary))
     normalized_insignificant = [
-        cleaned for cleaned in (_clean_section_text(line) for line in insignificant) if cleaned
+        cleaned
+        for cleaned in (_compact_board_pack_text(_clean_section_text(line)) for line in insignificant)
+        if cleaned
     ]
     normalized_raw_text = _rebuild_raw_text(
         normalized_summary,
@@ -297,6 +343,10 @@ def _has_partial_evidence(trace_text: str) -> bool:
             "provisional",
             "outcome pending",
             "to be confirmed",
+            "signature pending",
+            "re-qualify risk",
+            "subject to matter timing",
+            "on track",
         )
     )
 
@@ -311,7 +361,11 @@ def _soften_confidence_text(text: str, trace_text: str) -> str:
         (r"\bexpected pipeline recovery\b", "potential pipeline recovery"),
         (r"\bexpected to land\b", "currently expected to close"),
         (r"\bexpected to absorb\b", "may support upcoming periods"),
+        (r"\bexpected to repeat\b", "may repeat"),
+        (r"\bis likely to carry\b", "could carry"),
+        (r"\bis expected to run through at least\b", "is currently expected to run through at least"),
         (r"\bfinance should consider provisioning\b", "the remaining exposure should be monitored against the latest forecast"),
+        (r"\bfinance may wish to confirm whether further budget provision is required\b", "the remaining exposure should be monitored against the latest forecast"),
         (r"\brequires provisioning or budget re-forecasting\b", "should be monitored in the latest forecast"),
         (r"\bbudget provision for that range is recommended\b", "that range should be reflected in ongoing forecast review"),
         (r"\bwill recur\b", "is expected to recur"),
@@ -324,6 +378,8 @@ def _soften_confidence_text(text: str, trace_text: str) -> str:
         (r"\bno further spend is expected\b", "no further spend is currently indicated"),
         (r"\bfully explained\b", "well supported"),
         (r"\bfully reconciled\b", "largely reconciled"),
+        (r"\bon track for\b", "currently tracking to"),
+        (r"\bwill all normalise in ([a-z]+)\b", r"is expected to normalize in \1"),
     )
     for pattern, replacement in replacements:
         softened = re.sub(pattern, replacement, softened, flags=re.IGNORECASE)
@@ -380,11 +436,11 @@ def _apply_confidence_and_evidence_enrichment(
 
     diagnostics: list[str] = []
     softening_trace_text = _merged_trace_text_for_softening(tool_traces, line_items)
-    executive_summary = _soften_confidence_text(executive_summary, softening_trace_text)
+    executive_summary = _compact_board_pack_text(_soften_confidence_text(executive_summary, softening_trace_text))
     for item in line_items:
         name = _item_line_item_key(item)
         item_trace_text = _trace_text(traces_by_line_item.get(name, []))
-        item.commentary = _soften_confidence_text(item.commentary, item_trace_text)
+        item.commentary = _compact_board_pack_text(_soften_confidence_text(item.commentary, item_trace_text))
         item.commentary, item_warnings = _enrich_material_detail(
             item.commentary,
             item.line_item_name or item.header.split("|")[0].strip(),
@@ -430,6 +486,25 @@ def _validate_tool_coverage(
             warnings.append(f"Missing evidence detail: {item.header!r} should mention insurance claim")
         if "professional fees" in label_lower and "vantec" in item_trace_text and "vantec" not in body_lower:
             warnings.append(f"Missing evidence detail: {item.header!r} should mention Vantec context")
+        successful_tool_names = {
+            trace.tool_name
+            for trace in traces
+            if (_tool_trace_payload(trace).get("evidence") or [])
+        }
+        if any(
+            token in label_lower
+            for token in (
+                "professional services",
+                "cost of revenue",
+                "contractor",
+                "contractor spend",
+                "project",
+            )
+        ):
+            if len(successful_tool_names) < 2:
+                warnings.append(f"Thin single-source corroboration: {item.header!r}")
+            if len(successful_tool_names) == 1 and len(tool_names) == 1:
+                warnings.append(f"Missing corroborating follow-up: {item.header!r}")
     return warnings
 
 
@@ -504,6 +579,9 @@ def _validate_confidence(
         r"\bwill close\b",
         r"\bwill complete\b",
         r"\bwill settle\b",
+        r"\bon track for\b",
+        r"\blikely to land\b",
+        r"\blikely to carry\b",
     )
     if _has_partial_evidence(combined_trace_text) and any(
         re.search(pattern, executive_summary, flags=re.IGNORECASE) for pattern in strong_patterns
@@ -526,11 +604,11 @@ def _length_review_diagnostics(
 ) -> list[str]:
     warnings: list[str] = []
     summary_word_count = len(executive_summary.split())
-    if summary_word_count > 140:
+    if summary_word_count > 120:
         warnings.append(f"Executive summary may be too long for board-pack style: {summary_word_count} words")
     for item in line_items:
         word_count = len(item.final_commentary.split())
-        if word_count > 110:
+        if word_count > 85:
             warnings.append(f"Line commentary may be too long for board-pack style: {item.header!r}")
     return warnings
 

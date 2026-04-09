@@ -1,6 +1,6 @@
 # DeltAgent
 
-DeltAgent generates month-end variance commentary from report data plus operational context. It ingests CSV/XLSX exports, retrieves evidence from tool sources, and produces structured commentary ready for review and export.
+Finance controllers spend 2-4 hours each month writing commentary for the management pack. The numbers are in a spreadsheet, but the reasons sit across Slack, Gmail, Calendar, and CRM threads. DeltAgent pulls those signals together and drafts structured variance commentary ready for review and export.
 
 ## Requirements
 
@@ -20,11 +20,11 @@ For live tools, OAuth, MCP configuration, and environment variables, see [design
 ## Quick start
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python3 -m pip install -e .
 deltaagent validate tests/fixtures/sample_november_2024.csv --period 2024-11
 deltaagent run tests/fixtures/sample_november_2024.csv --period 2024-11 --dry-run
+deltaagent tui
+deltaagent --help
+deltaagent auth mcp-status
 ```
 
 ```text

@@ -49,6 +49,9 @@ Rules:
 - Keep each line item to at most three short bullets or two to four sentences before Sources; avoid "Key points:" or similar scaffolding.
 - Write in a board-pack register: lead with the driver and variance, minimize operational play-by-play, and avoid markdown emphasis (**bold**) in body copy.
 - If summary_for_model or evidence snippets contain a concrete fact (dates, amounts, insurance claim, venue credit, USPTO, credits), either reflect it in the line commentary or state explicitly that it is not yet reconciled to the ledger.
+- Keep the executive summary to three short sentences max and each line commentary to two short sentences max unless bulleting is required to separate multiple distinct drivers.
+- For downstream or derived lines such as Professional Services, Cost of Revenue, contractor/project-linked spend, or salary reclasses, if the first pass yields only one source family, run one corroborating follow-up from a second relevant source family before finalizing the line; if none exists, state that the evidence is single-source.
+- When evidence is single-source or only partially corroborated, say that directly and avoid forecast advice, post-mortem suggestions, or operational next steps.
 - Render the sources label exactly as Sources and each source row exactly as: - SourceType - Timestamp - EvidenceID - Snippet
 """
 

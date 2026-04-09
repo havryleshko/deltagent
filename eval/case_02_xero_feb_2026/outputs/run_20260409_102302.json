@@ -1,0 +1,277 @@
+{
+  "run_id": "run_20260409_102302",
+  "period_label": "February 2026",
+  "period_start": "2026-02-01T00:00:00Z",
+  "period_end": "2026-02-28T23:59:59Z",
+  "currency_symbol": "\u00a3",
+  "raw_text": "EXECUTIVE SUMMARY\nThe business reported a net favourable variance of -\u00a3379 (-3.6%) against the full-period budget of \u00a310,665, with actual spend of \u00a310,286. Within the significant lines, two cost lines overran materially \u2014 an accelerated marketing campaign and an unplanned emergency HVAC repair \u2014 while Subscriptions recorded a full \u00a31,200 underspend whose cause remains unexplained by available evidence. The net position across significant lines is an overspend of \u00a3253 (+11.0% on those lines), partially absorbed by the Subscriptions saving.\n\nLINE COMMENTARY\n\nAdvertising & Marketing | +\u00a3667 (+66.7%) | Budget: \u00a31,000 | Actual: \u00a31,667\nThe Q2 spring campaign was pulled forward from March into February on agency recommendation to capture a weather-sensitive launch window, with MD sign-off obtained on 1 February. The additional \u00a3667 above budget reflects this timing shift, and a campaign performance report from 20 February confirms the March budget has been reduced to \u00a30 to offset, leaving net full-quarter spend expected to be on plan.\nSources\n- Slack - 2024-11-23T12:15:00Z - slack-advertising_&_marketing-broad - \"moving the Q2 spring campaign launch to this month. Client approval came in early\u2026 Total Feb commitment will be ~\u00a31,600 vs the \u00a31,000 March plan. Approvals from MD signed off.\"\n- Gmail - 2024-11-23T18:15:00Z - gmail-advertising_&_marketing-broad - \"MD approval for Q2 campaign acceleration. Spring campaign moved from March to February at agency recommendation \u2014 weather-sensitive launch window.\"\n- Calendar - 2024-11-23T22:15:00Z - calendar-advertising_&_marketing-broad - \"Spring campaign kick-off moved to 5 February. Agency briefed on 1 February per Slack decision.\"\n- Gmail - 2024-11-23T18:45:00Z - gmail-advertising_&_marketing-narrow - \"February campaign performance report. Spend \u00a31,667. March budget reduced to \u00a30 to offset. Net full-quarter spend on plan.\"\n\nRepairs Maintenance | +\u00a3786 (+786.3%) | Budget: \u00a3100 | Actual: \u00a3886\nAn emergency HVAC failure in the server room on 14 February triggered an unplanned callout from FastAir Engineering, with the invoice totalling \u00a3886.30 inclusive of parts and emergency labour, approved by the CFO on the same day. A building insurance claim has been submitted; the outcome is pending, so any potential recovery is not yet recognised in the ledger and requires confirmation before it can be treated as an offset.\nSources\n- Slack - 2024-11-19T12:15:00Z - slack-repairs_maintenance-broad - \"HVAC unit in server room failed overnight. Building manager called emergency engineer. Quote came in at \u00a3886. CFO approved. Works completed today.\"\n- Gmail - 2024-11-19T18:15:00Z - gmail-repairs_maintenance-broad - \"Invoice from FastAir Engineering \u2014 emergency HVAC repair 14 Feb 2026. \u00a3886.30 inclusive of parts and emergency callout rate. CFO approved same day.\"\n- Gmail - 2024-11-19T18:45:00Z - gmail-repairs_maintenance-narrow - \"Building insurance claim submitted \u2014 outcome pending but expense recognised in February.\"\n\nSubscriptions | -\u00a31,200 (-100.0%) | Budget: \u00a31,200 | Actual: \u00a30\nActual spend was nil against a \u00a31,200 budget, representing a full underspend. No context was found across Slack, Gmail, or any other source to explain whether subscriptions were cancelled, deferred, or simply not yet invoiced. No context found \u2014 recommend review.\nSources\n- Slack - N/A - slack-subscriptions-broad - No evidence returned.\n- Slack - N/A - slack-subscriptions-narrow - No evidence returned.\n- Gmail - N/A - gmail-subscriptions-broad - No evidence returned.\n- Gmail - N/A - gmail-subscriptions-narrow - No evidence returned.\n\nINSIGNIFICANT VARIANCES\nThe following lines each fell below the significance threshold and were not subject to detailed investigation. No commentary is provided, but amounts are listed for completeness.\n- Sales | +\u00a3506 (+8.4%)\n- Purchases | -\u00a3500 (-100.0%)\n- Audit & Accountancy fees | -\u00a33 (-6.1%)\n- Bank Fees | -\u00a315 (-50.0%)\n- Cleaning | -\u00a31 (-0.8%)\n- Entertainment - 0% | -\u00a350 (-100.0%)\n- Entertainment-100% business | +\u00a313 (+0.0%)\n- General Expenses | -\u00a3254 (-211.7%)\n- Light Power Heating | +\u00a313 (+14.9%)\n- Motor Vehicle Expenses | -\u00a371 (-54.6%)\n- Postage Freight Courier | -\u00a350 (-100.0%)\n- Printing Stationery | -\u00a320 (-100.0%)\n- Rent | -\u00a346 (-4.4%)\n- Telephone Internet | -\u00a36 (-13.3%)\n- Travel National | -\u00a3150 (-100.0%)",
+  "executive_summary": "The business reported a net favourable variance of -\u00a3379 (-3.6%) against the full-period budget of \u00a310,665, with actual spend of \u00a310,286. Within the significant lines, two cost lines overran materially \u2014 an accelerated marketing campaign and an unplanned emergency HVAC repair \u2014 while Subscriptions recorded a full \u00a31,200 underspend whose cause remains unexplained by available evidence. The net position across significant lines is an overspend of \u00a3253 (+11.0% on those lines), partially absorbed by the Subscriptions saving.",
+  "line_items": [
+    {
+      "header": "Advertising & Marketing | +\u00a3667 (+66.7%) | Budget: \u00a31,000 | Actual: \u00a31,667",
+      "commentary": "The Q2 spring campaign was pulled forward from March into February on agency recommendation to capture a weather-sensitive launch window, with MD sign-off obtained on 1 February. The additional \u00a3667 above budget reflects this timing shift, and a campaign performance report from 20 February confirms the March budget has been reduced to \u00a30 to offset, leaving net full-quarter spend expected to be on plan.",
+      "sources": [
+        {
+          "id": "slack-advertising_&_marketing-broad",
+          "source_type": "Slack",
+          "timestamp": "2024-11-23T12:15:00Z",
+          "snippet": "\"moving the Q2 spring campaign launch to this month. Client approval came in early\u2026 Total Feb commitment will be ~\u00a31,600 vs the \u00a31,000 March plan. Approvals from MD signed off.\"",
+          "ref": ""
+        },
+        {
+          "id": "gmail-advertising_&_marketing-broad",
+          "source_type": "Gmail",
+          "timestamp": "2024-11-23T18:15:00Z",
+          "snippet": "\"MD approval for Q2 campaign acceleration. Spring campaign moved from March to February at agency recommendation \u2014 weather-sensitive launch window.\"",
+          "ref": ""
+        },
+        {
+          "id": "calendar-advertising_&_marketing-broad",
+          "source_type": "Calendar",
+          "timestamp": "2024-11-23T22:15:00Z",
+          "snippet": "\"Spring campaign kick-off moved to 5 February. Agency briefed on 1 February per Slack decision.\"",
+          "ref": ""
+        },
+        {
+          "id": "gmail-advertising_&_marketing-narrow",
+          "source_type": "Gmail",
+          "timestamp": "2024-11-23T18:45:00Z",
+          "snippet": "\"February campaign performance report. Spend \u00a31,667. March budget reduced to \u00a30 to offset. Net full-quarter spend on plan.\"",
+          "ref": ""
+        }
+      ],
+      "review_status": "pending",
+      "edited_commentary": null,
+      "flagged_reason": null,
+      "line_item_name": "Advertising & Marketing",
+      "budget_usd": 1000.0,
+      "actual_usd": 1666.67,
+      "variance_usd": 666.67,
+      "variance_pct": 66.67
+    },
+    {
+      "header": "Repairs Maintenance | +\u00a3786 (+786.3%) | Budget: \u00a3100 | Actual: \u00a3886",
+      "commentary": "An emergency HVAC failure in the server room on 14 February triggered an unplanned callout from FastAir Engineering, with the invoice totalling \u00a3886.30 inclusive of parts and emergency labour, approved by the CFO on the same day. A building insurance claim has been submitted; the outcome is pending, so any potential recovery is not yet recognised in the ledger and requires confirmation before it can be treated as an offset.",
+      "sources": [
+        {
+          "id": "slack-repairs_maintenance-broad",
+          "source_type": "Slack",
+          "timestamp": "2024-11-19T12:15:00Z",
+          "snippet": "\"HVAC unit in server room failed overnight. Building manager called emergency engineer. Quote came in at \u00a3886. CFO approved. Works completed today.\"",
+          "ref": ""
+        },
+        {
+          "id": "gmail-repairs_maintenance-broad",
+          "source_type": "Gmail",
+          "timestamp": "2024-11-19T18:15:00Z",
+          "snippet": "\"Invoice from FastAir Engineering \u2014 emergency HVAC repair 14 Feb 2026. \u00a3886.30 inclusive of parts and emergency callout rate. CFO approved same day.\"",
+          "ref": ""
+        },
+        {
+          "id": "gmail-repairs_maintenance-narrow",
+          "source_type": "Gmail",
+          "timestamp": "2024-11-19T18:45:00Z",
+          "snippet": "\"Building insurance claim submitted \u2014 outcome pending but expense recognised in February.\"",
+          "ref": ""
+        }
+      ],
+      "review_status": "pending",
+      "edited_commentary": null,
+      "flagged_reason": null,
+      "line_item_name": "Repairs Maintenance",
+      "budget_usd": 100.0,
+      "actual_usd": 886.3,
+      "variance_usd": 786.3,
+      "variance_pct": 786.3
+    },
+    {
+      "header": "Subscriptions | -\u00a31,200 (-100.0%) | Budget: \u00a31,200 | Actual: \u00a30",
+      "commentary": "Actual spend was nil against a \u00a31,200 budget, representing a full underspend. No context was found across Slack, Gmail, or any other source to explain whether subscriptions were cancelled, deferred, or simply not yet invoiced. No context found \u2014 recommend review.",
+      "sources": [
+        {
+          "id": "slack-subscriptions-broad",
+          "source_type": "Slack",
+          "timestamp": "N/A",
+          "snippet": "No evidence returned.",
+          "ref": ""
+        },
+        {
+          "id": "slack-subscriptions-narrow",
+          "source_type": "Slack",
+          "timestamp": "N/A",
+          "snippet": "No evidence returned.",
+          "ref": ""
+        },
+        {
+          "id": "gmail-subscriptions-broad",
+          "source_type": "Gmail",
+          "timestamp": "N/A",
+          "snippet": "No evidence returned.",
+          "ref": ""
+        },
+        {
+          "id": "gmail-subscriptions-narrow",
+          "source_type": "Gmail",
+          "timestamp": "N/A",
+          "snippet": "No evidence returned.",
+          "ref": ""
+        }
+      ],
+      "review_status": "pending",
+      "edited_commentary": null,
+      "flagged_reason": null,
+      "line_item_name": "Subscriptions",
+      "budget_usd": 1200.0,
+      "actual_usd": 0.0,
+      "variance_usd": -1200.0,
+      "variance_pct": -100.0
+    }
+  ],
+  "insignificant": [
+    "The following lines each fell below the significance threshold and were not subject to detailed investigation. No commentary is provided, but amounts are listed for completeness.",
+    "- Sales | +\u00a3506 (+8.4%)",
+    "- Purchases | -\u00a3500 (-100.0%)",
+    "- Audit & Accountancy fees | -\u00a33 (-6.1%)",
+    "- Bank Fees | -\u00a315 (-50.0%)",
+    "- Cleaning | -\u00a31 (-0.8%)",
+    "- Entertainment - 0% | -\u00a350 (-100.0%)",
+    "- Entertainment-100% business | +\u00a313 (+0.0%)",
+    "- General Expenses | -\u00a3254 (-211.7%)",
+    "- Light Power Heating | +\u00a313 (+14.9%)",
+    "- Motor Vehicle Expenses | -\u00a371 (-54.6%)",
+    "- Postage Freight Courier | -\u00a350 (-100.0%)",
+    "- Printing Stationery | -\u00a320 (-100.0%)",
+    "- Rent | -\u00a346 (-4.4%)",
+    "- Telephone Internet | -\u00a36 (-13.3%)",
+    "- Travel National | -\u00a3150 (-100.0%)"
+  ],
+  "gaps": [
+    "Subscriptions | -\u00a31,200 (-100.0%) | Budget: \u00a31,200 | Actual: \u00a30"
+  ],
+  "tool_diagnostics": [
+    "Contradictory no-evidence marker: 'Subscriptions | -\u00a31,200 (-100.0%) | Budget: \u00a31,200 | Actual: \u00a30'"
+  ],
+  "tool_traces": [
+    {
+      "tool_name": "search_slack",
+      "tool_use_id": "toolu_01FQFCGxeFScV3Y45MdPxahz",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Advertising & Marketing",
+        "query": "advertising marketing spend campaign budget February 2026",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_slack\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"marketing-slack-2026-02-03: Campaign team \\u2014 moving the Q2 spring campaign launch to this month. Client approval came in early, let's capitalise. Total Feb commitment will be ~\\u00a31,600 vs the \\u00a31,000 March plan. Approvals from MD signed off.\", \"evidence\": [{\"id\": \"slack-advertising_&_marketing-broad\", \"source_type\": \"slack\", \"timestamp\": \"2024-11-23T12:15:00Z\", \"snippet\": \"marketing-slack-2026-02-03: Campaign team \\u2014 moving the Q2 spring campaign launch to this month. Client approval came in early, let's capitalise. Total Feb commitment will be ~\\u00a31,600 vs the \\u00a31,000 March plan. Approvals from MD signed off.\", \"ref\": \"Advertising & Marketing fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_slack",
+      "tool_use_id": "toolu_01WSvSGNDRiuP6TqxxDPXAog",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Repairs Maintenance",
+        "query": "repairs maintenance spend emergency fix February 2026",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_slack\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"ops-slack-2026-02-14: URGENT \\u2014 HVAC unit in server room failed overnight. Building manager called emergency engineer. Quote came in at \\u00a3886. CFO approved. Works completed today.\", \"evidence\": [{\"id\": \"slack-repairs_maintenance-broad\", \"source_type\": \"slack\", \"timestamp\": \"2024-11-19T12:15:00Z\", \"snippet\": \"ops-slack-2026-02-14: URGENT \\u2014 HVAC unit in server room failed overnight. Building manager called emergency engineer. Quote came in at \\u00a3886. CFO approved. Works completed today.\", \"ref\": \"Repairs Maintenance fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_slack",
+      "tool_use_id": "toolu_01KHCpS8v2YDqWM1irfp9krw",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Subscriptions",
+        "query": "subscriptions cancelled paused renewal February 2026",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_slack\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"No search_slack context found for line item 'Subscriptions' in February 2026.\", \"evidence\": [], \"error\": \"line_item_not_found\"}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_013gUQdwAXR6g7fCYgudjLHU",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Advertising & Marketing",
+        "query": "advertising marketing invoice approval campaign February 2026",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"gmail-2026-02-01-campaign-approval: MD approval for Q2 campaign acceleration. Spring campaign moved from March to February at agency recommendation \\u2014 weather-sensitive launch window. Budget reforecast note attached.\", \"evidence\": [{\"id\": \"gmail-advertising_&_marketing-broad\", \"source_type\": \"gmail\", \"timestamp\": \"2024-11-23T18:15:00Z\", \"snippet\": \"gmail-2026-02-01-campaign-approval: MD approval for Q2 campaign acceleration. Spring campaign moved from March to February at agency recommendation \\u2014 weather-sensitive launch window. Budget reforecast note attached.\", \"ref\": \"Advertising & Marketing fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_01KF9afeb6UYpD27C8VSVxVB",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Repairs Maintenance",
+        "query": "repairs maintenance invoice approval emergency February 2026",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"gmail-2026-02-14-hvac-invoice: Invoice from FastAir Engineering \\u2014 emergency HVAC repair 14 Feb 2026. \\u00a3886.30 inclusive of parts and emergency callout rate. CFO approved same day.\", \"evidence\": [{\"id\": \"gmail-repairs_maintenance-broad\", \"source_type\": \"gmail\", \"timestamp\": \"2024-11-19T18:15:00Z\", \"snippet\": \"gmail-2026-02-14-hvac-invoice: Invoice from FastAir Engineering \\u2014 emergency HVAC repair 14 Feb 2026. \\u00a3886.30 inclusive of parts and emergency callout rate. CFO approved same day.\", \"ref\": \"Repairs Maintenance fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_019rbGRuD8cS9853Pn5iFGP2",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Subscriptions",
+        "query": "subscriptions cancelled paused renewal invoice February 2026",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"No search_gmail context found for line item 'Subscriptions' in February 2026.\", \"evidence\": [], \"error\": \"line_item_not_found\"}"
+    },
+    {
+      "tool_name": "search_calendar",
+      "tool_use_id": "toolu_01UfBu6zK4Ru5T3iTNUD7AX3",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Advertising & Marketing",
+        "query": "campaign launch marketing event February 2026",
+        "search_scope": "broad"
+      },
+      "output_text": "{\"tool_name\": \"search_calendar\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"cal-2026-02-01: Marketing launch meeting \\u2014 Spring campaign kick-off moved to 5 February. Agency briefed on 1 February per Slack decision.\", \"evidence\": [{\"id\": \"calendar-advertising_&_marketing-broad\", \"source_type\": \"calendar\", \"timestamp\": \"2024-11-23T22:15:00Z\", \"snippet\": \"cal-2026-02-01: Marketing launch meeting \\u2014 Spring campaign kick-off moved to 5 February. Agency briefed on 1 February per Slack decision.\", \"ref\": \"Advertising & Marketing fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_01R4htTgXYRcgtcxaUdmqr31",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Repairs Maintenance",
+        "query": "HVAC insurance warranty claim recovery reimbursement FastAir",
+        "search_scope": "narrow"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"gmail-2026-02-14-hvac-approval: CFO email approval for emergency repair. Building insurance claim submitted \\u2014 outcome pending but expense recognised in February.\", \"evidence\": [{\"id\": \"gmail-repairs_maintenance-narrow\", \"source_type\": \"gmail\", \"timestamp\": \"2024-11-19T18:45:00Z\", \"snippet\": \"gmail-2026-02-14-hvac-approval: CFO email approval for emergency repair. Building insurance claim submitted \\u2014 outcome pending but expense recognised in February.\", \"ref\": \"Repairs Maintenance fixture\"}], \"error\": null}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_01VygBbemTmqY5hZ867k44XX",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Subscriptions",
+        "query": "subscription software licence renewal cancellation delayed payment February 2026",
+        "search_scope": "narrow"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"No search_gmail context found for line item 'Subscriptions' in February 2026.\", \"evidence\": [], \"error\": \"line_item_not_found\"}"
+    },
+    {
+      "tool_name": "search_slack",
+      "tool_use_id": "toolu_01PWsncV3R2GJqGaJfdWiBQi",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Subscriptions",
+        "query": "subscription software licence renewal cancelled paused delayed",
+        "search_scope": "narrow"
+      },
+      "output_text": "{\"tool_name\": \"search_slack\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"No search_slack context found for line item 'Subscriptions' in February 2026.\", \"evidence\": [], \"error\": \"line_item_not_found\"}"
+    },
+    {
+      "tool_name": "search_gmail",
+      "tool_use_id": "toolu_01V8ohHZa8Gd3EYW6YwUH7uq",
+      "input_payload": {
+        "period": "February 2026",
+        "line_item": "Advertising & Marketing",
+        "query": "March marketing budget relief reforecast spring campaign pulled forward",
+        "search_scope": "narrow"
+      },
+      "output_text": "{\"tool_name\": \"search_gmail\", \"period\": \"February 2026\", \"date_start\": \"2026-02-01T00:00:00Z\", \"date_end\": \"2026-02-28T23:59:59Z\", \"summary_for_model\": \"gmail-2026-02-20-campaign-report: February campaign performance report. Spend \\u00a31,667. March budget reduced to \\u00a30 to offset. Net full-quarter spend on plan.\", \"evidence\": [{\"id\": \"gmail-advertising_&_marketing-narrow\", \"source_type\": \"gmail\", \"timestamp\": \"2024-11-23T18:45:00Z\", \"snippet\": \"gmail-2026-02-20-campaign-report: February campaign performance report. Spend \\u00a31,667. March budget reduced to \\u00a30 to offset. Net full-quarter spend on plan.\", \"ref\": \"Advertising & Marketing fixture\"}], \"error\": null}"
+    }
+  ]
+}

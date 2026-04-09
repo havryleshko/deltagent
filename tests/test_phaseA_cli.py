@@ -508,12 +508,19 @@ def test_prompt_requires_narrow_gmail_for_one_off_cost_lines() -> None:
     system_prompt = build_system_prompt()
     assert "run one narrow Gmail follow-up before finalizing the line" in system_prompt
     assert "separate recoverable slippage from permanent loss" in system_prompt
+    assert "run one corroborating follow-up from a second relevant source family" in system_prompt
 
 
 def test_search_gmail_description_mentions_broad_and_narrow_context() -> None:
     description = next(tool["description"] for tool in TOOL_DEFINITIONS if tool["name"] == "search_gmail")
     assert "Broad and narrow Gmail searches often surface different messages" in description
     assert "insurance" in description
+    assert "corroborate" in description
+
+
+def test_search_crm_description_mentions_corroboration() -> None:
+    description = next(tool["description"] for tool in TOOL_DEFINITIONS if tool["name"] == "search_crm")
+    assert "corroborate downstream revenue" in description
 
 
 def test_fallback_run_matches_tool_traces_when_line_item_alias_differs() -> None:
@@ -781,6 +788,43 @@ INSIGNIFICANT VARIANCES
     assert any("Executive summary may be too long" in warning for warning in run.tool_diagnostics)
 
 
+def test_fallback_run_adds_length_diagnostic_for_verbose_line() -> None:
+    commentary = " ".join(["detail"] * 86)
+    text = f"""EXECUTIVE SUMMARY
+Summary
+
+LINE COMMENTARY
+
+Revenue | +$20 (+20.0%) | Budget: $100 | Actual: $120
+{commentary}
+Sources
+- gmail - 2024-11-10 - gmail-1 - Approval thread
+
+INSIGNIFICANT VARIANCES
+"""
+    run = _fallback_run(
+        period_label="November 2024",
+        period_start="2024-11-01T00:00:00Z",
+        period_end="2024-11-30T23:59:59Z",
+        currency_symbol="$",
+        raw_text=text,
+        tool_diagnostics=[],
+        tool_traces=[],
+        significant_rows=[
+            {
+                "period": "November 2024",
+                "line_item": "Revenue",
+                "budget_usd": 100.0,
+                "actual_usd": 120.0,
+                "variance_usd": 20.0,
+                "variance_pct": 20.0,
+            }
+        ],
+        insignificant_rows=[],
+    )
+    assert any("Line commentary may be too long" in warning for warning in run.tool_diagnostics)
+
+
 def test_fallback_run_strips_markdown_bold_from_commentary() -> None:
     text = """EXECUTIVE SUMMARY
 The **period** closed in line with expectations.
@@ -815,6 +859,123 @@ INSIGNIFICANT VARIANCES
         insignificant_rows=[],
     )
     assert "**" not in run.raw_text
+
+
+def test_fallback_run_compacts_finance_advice_and_single_source_wording() -> None:
+    text = """EXECUTIVE SUMMARY
+No evidence of unplanned or unapproved spend was found. Finance should confirm whether December returns to plan.
+
+LINE COMMENTARY
+
+Cost of Revenue | -$12,000 (-15.0%) | Budget: $80,000 | Actual: $68,000
+No Slack context was available for this line; the CRM explanation is directionally consistent with the revenue slippage. Finance should confirm whether November returns to plan.
+Sources
+- CRM - 2024-11-15 - crm-1 - Lower onboarding volumes reduced hosting and support costs.
+
+INSIGNIFICANT VARIANCES
+- **Support Contracts** - immaterial.
+"""
+    run = _fallback_run(
+        period_label="October 2024",
+        period_start="2024-10-01T00:00:00Z",
+        period_end="2024-10-31T23:59:59Z",
+        currency_symbol="$",
+        raw_text=text,
+        tool_diagnostics=[],
+        tool_traces=[
+            ToolTrace(
+                tool_name="search_crm",
+                tool_use_id="toolu_cor",
+                input_payload={"period": "October 2024", "line_item": "Cost of Revenue", "search_scope": "broad"},
+                output_text=json.dumps(
+                    {
+                        "summary_for_model": "Lower onboarding volumes reduced hosting and support costs.",
+                        "evidence": [
+                            {
+                                "id": "crm-1",
+                                "source_type": "crm",
+                                "timestamp": "2024-11-15",
+                                "snippet": "Lower onboarding volumes reduced hosting and support costs.",
+                                "ref": "",
+                            }
+                        ],
+                    }
+                ),
+            )
+        ],
+        significant_rows=[
+            {
+                "period": "October 2024",
+                "line_item": "Cost of Revenue",
+                "budget_usd": 80000.0,
+                "actual_usd": 68000.0,
+                "variance_usd": -12000.0,
+                "variance_pct": -15.0,
+            }
+        ],
+        insignificant_rows=[],
+    )
+    assert "No evidence of unplanned or unapproved spend was found." not in run.raw_text
+    assert "Finance should confirm" not in run.raw_text
+    assert "Slack did not corroborate this line" in run.raw_text
+    assert "**" not in run.raw_text
+
+
+def test_fallback_run_flags_thin_single_source_corroboration() -> None:
+    text = """EXECUTIVE SUMMARY
+Summary
+
+LINE COMMENTARY
+
+Cost of Revenue | -$12,000 (-15.0%) | Budget: $80,000 | Actual: $68,000
+Lower onboarding volumes reduced hosting and support costs.
+Sources
+- CRM - 2024-11-15 - crm-1 - Lower onboarding volumes reduced hosting and support costs.
+
+INSIGNIFICANT VARIANCES
+"""
+    run = _fallback_run(
+        period_label="October 2024",
+        period_start="2024-10-01T00:00:00Z",
+        period_end="2024-10-31T23:59:59Z",
+        currency_symbol="$",
+        raw_text=text,
+        tool_diagnostics=[],
+        tool_traces=[
+            ToolTrace(
+                tool_name="search_crm",
+                tool_use_id="toolu_single",
+                input_payload={"period": "October 2024", "line_item": "Cost of Revenue", "search_scope": "broad"},
+                output_text=json.dumps(
+                    {
+                        "summary_for_model": "Lower onboarding volumes reduced hosting and support costs.",
+                        "evidence": [
+                            {
+                                "id": "crm-1",
+                                "source_type": "crm",
+                                "timestamp": "2024-11-15",
+                                "snippet": "Lower onboarding volumes reduced hosting and support costs.",
+                                "ref": "",
+                            }
+                        ],
+                    }
+                ),
+            )
+        ],
+        significant_rows=[
+            {
+                "period": "October 2024",
+                "line_item": "Cost of Revenue",
+                "budget_usd": 80000.0,
+                "actual_usd": 68000.0,
+                "variance_usd": -12000.0,
+                "variance_pct": -15.0,
+            }
+        ],
+        insignificant_rows=[],
+    )
+    assert any("Thin single-source corroboration" in warning for warning in run.tool_diagnostics)
+    assert any("Missing corroborating follow-up" in warning for warning in run.tool_diagnostics)
 
 
 def test_review_command_saves_state(tmp_path: Path) -> None:
