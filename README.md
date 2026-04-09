@@ -46,14 +46,21 @@ Planned tool calls:
 - Professional Fees: search_slack, search_gmail, search_calendar
 ```
 
-## Commands
+## CLI commands
 
-- `deltaagent tui [csv_path]`
-- `deltaagent validate <csv_path> --period <YYYY-MM|Month YYYY>`
-- `deltaagent run <csv_path> --period <...> [--dry-run]`
-- `deltaagent review <runs/run_*.json>`
-- `deltaagent export <runs/run_*.json> --format md|docx`
-- `deltaagent auth status|test|mcp-status|mcp-connect`
+Use `deltaagent --help` for the full command tree, or `deltaagent <command> --help` for one command.
+
+| Command | What it does | Example |
+| --- | --- | --- |
+| `deltaagent tui [csv_path]` | Opens the interactive terminal UI. If `csv_path` is provided, it starts with that report loaded. | `deltaagent tui tests/fixtures/sample_november_2024.csv` |
+| `deltaagent validate <csv_path> [--period <YYYY-MM or Month YYYY>] [--column-map src=dst]` | Checks CSV format and variance rules before running the agent. Use this first to catch data issues early. | `deltaagent validate report.csv --period 2024-11` |
+| `deltaagent run <csv_path> --period <YYYY-MM or Month YYYY> [--dry-run] [--column-map src=dst]` | Runs commentary generation for one period. `--dry-run` shows the execution plan without calling the LLM/tools. | `deltaagent run report.csv --period 2024-11 --dry-run` |
+| `deltaagent review <runs/run_*.json>` | Opens an interactive review flow for a saved run, where you can accept/edit/flag line-item commentary. | `deltaagent review runs/run_20260409_102219.json` |
+| `deltaagent export <runs/run_*.json> [--format md\|docx] [--out-dir <path>]` | Exports a reviewed run to Markdown or DOCX. | `deltaagent export runs/run_20260409_102219.json --format docx --out-dir exports` |
+| `deltaagent auth status` | Checks Google auth status. | `deltaagent auth status` |
+| `deltaagent auth test` | Runs a Google auth connectivity test. | `deltaagent auth test` |
+| `deltaagent auth mcp-status` | Shows configured MCP servers and whether each one is connected. | `deltaagent auth mcp-status` |
+| `deltaagent auth mcp-connect --server <name>` | Connects to one MCP server and stores discovered tools for that server. | `deltaagent auth mcp-connect --server salesforce` |
 
 ## Project layout
 
