@@ -24,3 +24,11 @@ dependencies = [
 
 [project.scripts]
 deltaagent = "cli:main"
+
+[tool.setuptools]
+py-modules = ["cli", "main", "__main__"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["agent*", "auth*", "eval*", "exports*", "mcp_client*", "tools*", "ui*", "utils*"]
+exclude = ["tests*", "Formula*"]
