@@ -28,11 +28,37 @@ def test_cli_validate_success() -> None:
 def test_cli_run_dry_run_prints_plan() -> None:
     result = runner.invoke(
         app,
-        ["run", str(FIXTURE_CSV), "--period", "2024-11", "--dry-run"],
+        ["run", str(FIXTURE_CSV), "--dry-run"],
     )
     assert result.exit_code == 0
     assert "Bounds:" in result.stdout
     assert "Revenue:" in result.stdout
+    assert "Run for real:" in result.stdout
+
+
+def test_cli_run_dry_run_infers_period_without_flag(tmp_path: Path) -> None:
+    report = tmp_path / "budget_variance_2026-03.csv"
+    report.write_text(
+        "Account Name,Period Budget,Period Actual\n"
+        "Marketing,10000,12000\n",
+        encoding="utf-8",
+    )
+    result = runner.invoke(app, ["run", str(report), "--dry-run"])
+    assert result.exit_code == 0
+    assert "Period: March 2026" in result.stdout
+
+
+def test_cli_run_without_period_shows_fix_when_ambiguous(tmp_path: Path) -> None:
+    report = tmp_path / "budget_variance.csv"
+    report.write_text(
+        "Account Name,Period Budget,Period Actual\n"
+        "Marketing,10000,12000\n",
+        encoding="utf-8",
+    )
+    result = runner.invoke(app, ["run", str(report), "--dry-run"])
+    assert result.exit_code == 1
+    assert "Re-run with: deltaagent run" in result.stdout
+    assert "--period 2025-11" in result.stdout
 
 
 def test_parser_extracts_sources_and_gaps() -> None:

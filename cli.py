@@ -74,6 +74,26 @@ def _parse_column_map(items: list[str]) -> dict[str, str]:
     return result
 
 
+def _load_and_validate_report(
+    csv_path: Path,
+    period: str | None,
+    column_map: dict[str, str],
+) -> tuple[
+    list[dict[str, object]],
+    list[dict[str, object]],
+    list[str],
+    str | None,
+]:
+    cfg = load_config()
+    rows, detected_format, load_errors = load_report(csv_path, column_map=column_map, period=period)
+    significant, insignificant, validate_errors = validate_rows(
+        rows,
+        significance_pct_threshold=cfg.significance_pct_threshold,
+        significance_abs_variance_threshold=cfg.significance_abs_variance_threshold,
+    )
+    return significant, insignificant, load_errors + validate_errors, detected_format
+
+
 def _print_validation_summary(
     significant: list[dict[str, object]],
     insignificant: list[dict[str, object]],
@@ -109,6 +129,31 @@ def _validate_period_alignment(
         )
 
 
+def _resolve_run_period_window(
+    csv_path: Path,
+    period: str | None,
+    rows: list[dict[str, object]],
+) -> PeriodWindow:
+    if period is not None:
+        return _resolve_required_period(period)
+
+    labels = sorted(_normalize_periods(rows))
+    if len(labels) == 1:
+        return _resolve_required_period(labels[0])
+    if not labels:
+        typer.echo(
+            f"Could not determine period from {csv_path.name}. "
+            f"Re-run with: deltaagent run {csv_path} --period 2025-11"
+        )
+        raise typer.Exit(code=1)
+
+    typer.echo(
+        f"Found multiple periods in {csv_path.name}: {', '.join(labels)}. "
+        f"Re-run with: deltaagent run {csv_path} --period 2025-11"
+    )
+    raise typer.Exit(code=1)
+
+
 @app.command()
 def tui(
     csv_path: Optional[str] = typer.Argument(default=None, help="Optional CSV path to open")
@@ -124,15 +169,10 @@ def validate(
         default=None, help="Column remapping, e.g. --column-map budget=budget_usd"
     ),
 ) -> None:
-    cfg = load_config()
     col_map = _parse_column_map(column_map or [])
-    rows, detected_format, load_errors = load_report(csv_path, column_map=col_map, period=period)
-    significant, insignificant, validate_errors = validate_rows(
-        rows,
-        significance_pct_threshold=cfg.significance_pct_threshold,
-        significance_abs_variance_threshold=cfg.significance_abs_variance_threshold,
+    significant, insignificant, errors, detected_format = _load_and_validate_report(
+        csv_path, period, col_map
     )
-    errors = load_errors + validate_errors
     all_rows = significant + insignificant
     if period is not None and not errors:
         _validate_period_alignment(all_rows, _resolve_required_period(period))
@@ -143,30 +183,27 @@ def validate(
 @app.command()
 def run(
     csv_path: Path = typer.Argument(..., exists=True, readable=True),
-    period: str = typer.Option(..., help="Reporting period, e.g. 2025-11"),
+    period: Optional[str] = typer.Option(default=None, help="Reporting period, e.g. 2025-11"),
     dry_run: bool = typer.Option(False, "--dry-run", help="Show the plan without executing"),
     column_map: Optional[list[str]] = typer.Option(
         default=None, help="Column remapping, e.g. --column-map budget=budget_usd"
     ),
 ) -> None:
-    period_window = _resolve_required_period(period)
-    cfg = load_config()
     col_map = _parse_column_map(column_map or [])
-    rows, _detected_format, load_errors = load_report(
-        csv_path, column_map=col_map, period=period_window.label
+    significant, insignificant, errors, detected_format = _load_and_validate_report(
+        csv_path, period, col_map
     )
-    significant, insignificant, validate_errors = validate_rows(
-        rows,
-        significance_pct_threshold=cfg.significance_pct_threshold,
-        significance_abs_variance_threshold=cfg.significance_abs_variance_threshold,
-    )
-    errors = load_errors + validate_errors
     all_rows = significant + insignificant
-    _validate_period_alignment(all_rows, period_window)
     if errors:
-        _print_validation_summary(significant, insignificant, errors, detected_format=_detected_format)
+        _print_validation_summary(significant, insignificant, errors, detected_format=detected_format)
+        if period is None and any("Could not determine period" in error for error in errors):
+            typer.echo(f"Re-run with: deltaagent run {csv_path} --period 2025-11")
         raise typer.Exit(code=1)
+    period_window = _resolve_run_period_window(csv_path, period, all_rows)
+    _validate_period_alignment(all_rows, period_window)
+    cfg = load_config()
     if dry_run:
+        typer.echo(f"Detected format: {detected_format}")
         typer.echo(f"Period: {period_window.label}")
         typer.echo(f"Bounds: {period_window.start_iso} -> {period_window.end_iso}")
         typer.echo(f"Significant rows: {len(significant)}")
@@ -178,6 +215,8 @@ def run(
         for row in significant:
             line_item = str(row["line_item"])
             typer.echo(f"- {line_item}: {', '.join(_eligible_tools(line_item))}")
+        typer.echo("")
+        typer.echo(f"Run for real: deltaagent run {csv_path}")
         raise typer.Exit(code=0)
     if not os.environ.get("ANTHROPIC_API_KEY", "").strip():
         typer.echo("Missing ANTHROPIC_API_KEY.")
@@ -207,6 +246,8 @@ def run(
             typer.echo(f"- {item}")
     typer.echo("")
     typer.echo(f"Saved run: {run_path}")
+    typer.echo(f"Next: deltaagent review {run_path}")
+    typer.echo(f"Then: deltaagent export {run_path}")
 
 
 @auth_app.command("status")

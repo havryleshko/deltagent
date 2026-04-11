@@ -15,13 +15,28 @@ source .venv/bin/activate
 python3 -m pip install -e .
 ```
 
+Local Homebrew install:
+
+```bash
+brew install --build-from-source ./Formula/deltaagent.rb
+```
+
+Planned tap install once the formula is published:
+
+```bash
+brew tap havryleshko/tap
+brew install deltaagent
+```
+
 For live tools, OAuth, MCP configuration, and environment variables, see [design.md](design.md).
 
 ## Quick start
 
 ```bash
-deltaagent validate tests/fixtures/sample_november_2024.csv --period 2024-11
-deltaagent run tests/fixtures/sample_november_2024.csv --period 2024-11 --dry-run
+deltaagent run tests/fixtures/sample_november_2024.csv --dry-run
+deltaagent run tests/fixtures/sample_november_2024.csv
+deltaagent review runs/run_*.json
+deltaagent export runs/run_*.json --format docx
 deltaagent tui
 deltaagent --help
 deltaagent auth mcp-status
@@ -35,6 +50,7 @@ CSV validation passed.
 ```
 
 ```text
+Detected format: canonical
 Period: November 2024
 Bounds: 2024-11-01T00:00:00Z -> 2024-11-30T23:59:59Z
 Significant rows: 3
@@ -44,6 +60,8 @@ Planned tool calls:
 - Revenue: search_slack, search_gmail, search_calendar, search_crm
 - Salaries: search_slack, search_gmail, search_calendar
 - Professional Fees: search_slack, search_gmail, search_calendar
+
+Run for real: deltaagent run tests/fixtures/sample_november_2024.csv
 ```
 
 ## CLI commands
@@ -53,14 +71,16 @@ Use `deltaagent --help` for the full command tree, or `deltaagent <command> --he
 | Command | What it does | Example |
 | --- | --- | --- |
 | `deltaagent tui [csv_path]` | Opens the interactive terminal UI. If `csv_path` is provided, it starts with that report loaded. | `deltaagent tui tests/fixtures/sample_november_2024.csv` |
-| `deltaagent validate <csv_path> [--period <YYYY-MM or Month YYYY>] [--column-map src=dst]` | Checks CSV format and variance rules before running the agent. Use this first to catch data issues early. | `deltaagent validate report.csv --period 2024-11` |
-| `deltaagent run <csv_path> --period <YYYY-MM or Month YYYY> [--dry-run] [--column-map src=dst]` | Runs commentary generation for one period. `--dry-run` shows the execution plan without calling the LLM/tools. | `deltaagent run report.csv --period 2024-11 --dry-run` |
+| `deltaagent validate <csv_path> [--period <YYYY-MM or Month YYYY>] [--column-map src=dst]` | Checks whether DeltAgent can read the file and split significant vs insignificant variances. Use this when you want to debug an import. | `deltaagent validate report.csv` |
+| `deltaagent run <csv_path> [--period <YYYY-MM or Month YYYY>] [--dry-run] [--column-map src=dst]` | Main command. It validates the file, infers the period when the file is clear, and runs commentary generation. Add `--period` only if DeltAgent asks for it. | `deltaagent run report.csv --dry-run` |
 | `deltaagent review <runs/run_*.json>` | Opens an interactive review flow for a saved run, where you can accept/edit/flag line-item commentary. | `deltaagent review runs/run_20260409_102219.json` |
 | `deltaagent export <runs/run_*.json> [--format md\|docx] [--out-dir <path>]` | Exports a reviewed run to Markdown or DOCX. | `deltaagent export runs/run_20260409_102219.json --format docx --out-dir exports` |
 | `deltaagent auth status` | Checks Google auth status. | `deltaagent auth status` |
 | `deltaagent auth test` | Runs a Google auth connectivity test. | `deltaagent auth test` |
 | `deltaagent auth mcp-status` | Shows configured MCP servers and whether each one is connected. | `deltaagent auth mcp-status` |
 | `deltaagent auth mcp-connect --server <name>` | Connects to one MCP server and stores discovered tools for that server. | `deltaagent auth mcp-connect --server salesforce` |
+
+`run` is the default path. If the file shape is clear, DeltAgent will infer the period and continue. If the file is ambiguous, it stops and tells you the exact `--period` or `--column-map` fix to rerun with.
 
 ## Project layout
 

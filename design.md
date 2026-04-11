@@ -39,7 +39,7 @@ CSV file with columns:
 
 ### What "significant" means
 
-Default: variance > 10% AND > $1,000 absolute. Configurable via `--threshold` flag.
+Default: variance > 10% AND > $1,000 absolute. Configurable via environment config.
 
 ---
 
@@ -50,12 +50,14 @@ Two entry points — CLI and TUI — both call the same agent core.
 ### CLI (primary)
 
 ```bash
-deltaagent validate report.csv
-deltaagent run report.csv --period 2025-11 --output md
+deltaagent run report.csv
+deltaagent run report.csv --dry-run
 deltaagent review runs/run_20251130_143022.json
 deltaagent export runs/run_20251130_143022.json
 
 ```
+
+`run` is the main path. It should infer the period when the file is clear, and only require `--period` when the file is ambiguous.
 
 ### TUI (interactive wrapper)
 
@@ -313,4 +315,4 @@ DELTAGENT_RUN_LIVE_INTEGRATION_TESTS=
 
 ## What success looks like
 
-User runs `deltaagent run report.csv --period 2025-11`, reviews commentary with `deltaagent review`, and exports with `deltaagent export`. 60 seconds later, a `.docx` file exists — with sources per line — that a Finance Controller could put directly into a board pack with minor edits. That is the whole product.
+User runs `deltaagent run report.csv`, reviews commentary with `deltaagent review`, and exports with `deltaagent export`. 60 seconds later, a `.docx` file exists — with sources per line — that a Finance Controller could put directly into a board pack with minor edits. If the file is ambiguous, the CLI stops and gives the exact rerun fix. That is the whole product.

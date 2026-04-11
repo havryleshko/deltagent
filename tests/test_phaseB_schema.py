@@ -31,6 +31,10 @@ def test_detect_format_unknown():
     assert detect_format(["foo", "bar", "baz"]) == "unknown"
 
 
+def test_detect_format_mapped_csv_aliases():
+    assert detect_format(["Month", "Account Description", "Budget $", "Actuals"]) == "mapped_csv"
+
+
 def test_normalise_rows_canonical_parses_numeric():
     raw = [
         {
@@ -156,6 +160,52 @@ def test_load_report_column_map_override(tmp_path: Path):
     rows, fmt, errors = load_report(f, column_map=col_map)
     assert rows[0]["line_item"] == "Sales"
     assert rows[0]["actual_usd"] == 7500.0
+
+
+def test_load_report_detects_header_row_after_title_rows(tmp_path: Path):
+    f = tmp_path / "March_2026_budget_variance.csv"
+    f.write_text(
+        "Budget Variance Report\n"
+        "March 2026\n"
+        "\n"
+        "Account Description,Budget $,Actuals,Variance %\n"
+        "Revenue,100000,115000,15\n"
+        "Total Revenue,100000,115000,15\n",
+        encoding="utf-8",
+    )
+    rows, fmt, errors = load_report(f)
+    assert fmt == "mapped_csv"
+    assert errors == []
+    assert len(rows) == 1
+    assert rows[0]["line_item"] == "Revenue"
+    assert rows[0]["period"] == "March 2026"
+
+
+def test_load_report_infers_period_from_filename(tmp_path: Path):
+    f = tmp_path / "budget_variance_2026-03.csv"
+    f.write_text(
+        "Account Name,Period Budget,Period Actual\n"
+        "Marketing,10000,12000\n",
+        encoding="utf-8",
+    )
+    rows, fmt, errors = load_report(f)
+    assert fmt == "netsuite"
+    assert errors == []
+    assert rows[0]["period"] == "March 2026"
+
+
+def test_load_report_missing_mapping_returns_guidance(tmp_path: Path):
+    f = tmp_path / "bad.csv"
+    f.write_text(
+        "Department,Owner,Notes\n"
+        "Sales,Alice,review\n",
+        encoding="utf-8",
+    )
+    rows, fmt, errors = load_report(f)
+    assert rows == []
+    assert fmt == "unknown"
+    assert errors
+    assert "could not identify a header row" in errors[0].lower()
 
 
 def test_load_report_missing_file():
