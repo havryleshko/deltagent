@@ -1,0 +1,94 @@
+{
+  "saved_run": "",
+  "workbook": "cedar_facilities_management_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Revenue",
+      "Repairs & Maintenance",
+      "Security Services",
+      "Fuel & Travel"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Revenue",
+      "budget_usd": 510000,
+      "actual_usd": 548200,
+      "variance_usd": 38200,
+      "variance_pct": 7.4902,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "municipal contract expansions activated before the billing cut-off",
+      "expected_driver_keywords": [
+        "contract expansions",
+        "live before month-end",
+        "billing cut-off"
+      ],
+      "allowed_source_families": [
+        "crm",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "crm-revenue-broad",
+        "slack-revenue-narrow"
+      ]
+    },
+    {
+      "line_item": "Repairs & Maintenance",
+      "budget_usd": 118000,
+      "actual_usd": 142900,
+      "variance_usd": 24900,
+      "variance_pct": 21.1017,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "emergency hvac callouts and after-hours repair labor drove the overspend",
+      "expected_driver_keywords": [
+        "emergency hvac",
+        "after-hours repair labor",
+        "cold-weather failures"
+      ],
+      "allowed_source_families": [
+        "gmail"
+      ],
+      "expected_evidence_ids": [
+        "gmail-repairs_&_maintenance-broad",
+        "gmail-repairs_&_maintenance-narrow"
+      ]
+    },
+    {
+      "line_item": "Security Services",
+      "budget_usd": 63000,
+      "actual_usd": 74400,
+      "variance_usd": 11400,
+      "variance_pct": 18.0952,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "extra overnight guard coverage for transition sites increased spend",
+      "expected_driver_keywords": [
+        "overnight guard coverage",
+        "transition sites",
+        "risk review"
+      ],
+      "allowed_source_families": [
+        "slack",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "slack-security_services-broad",
+        "calendar-security_services-broad"
+      ]
+    },
+    {
+      "line_item": "Fuel & Travel",
+      "budget_usd": 21000,
+      "actual_usd": 24750,
+      "variance_usd": 3750,
+      "variance_pct": 17.8571,
+      "significant": true,
+      "supported": false
+    }
+  ]
+}

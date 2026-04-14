@@ -1,0 +1,105 @@
+{
+  "saved_run": "",
+  "workbook": "forge_industrial_components_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Revenue",
+      "Raw Materials",
+      "Repairs & Maintenance",
+      "Security \u2014 Plant"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Revenue",
+      "budget_usd": 780000,
+      "actual_usd": 752400,
+      "variance_usd": -27600,
+      "variance_pct": -3.5385,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "customer acceptance slipped into december and deferred shipment revenue",
+      "expected_driver_keywords": [
+        "delayed acceptance",
+        "slipped to december",
+        "deferring shipment revenue"
+      ],
+      "allowed_source_families": [
+        "crm",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "crm-revenue-broad",
+        "slack-revenue-narrow"
+      ],
+      "mitigation_or_action": "confirm whether December recovered the deferred shipment"
+    },
+    {
+      "line_item": "Raw Materials",
+      "budget_usd": 244000,
+      "actual_usd": 274800,
+      "variance_usd": 30800,
+      "variance_pct": 12.623,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "spot-buy steel at elevated pricing drove raw material inflation",
+      "expected_driver_keywords": [
+        "spot-buy",
+        "elevated pricing",
+        "allocation tightened"
+      ],
+      "allowed_source_families": [
+        "gmail"
+      ],
+      "expected_evidence_ids": [
+        "gmail-raw_materials-broad"
+      ]
+    },
+    {
+      "line_item": "Repairs & Maintenance",
+      "budget_usd": 86000,
+      "actual_usd": 101900,
+      "variance_usd": 15900,
+      "variance_pct": 18.4884,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "emergency press repairs and weekend technician callouts caused the overspend",
+      "expected_driver_keywords": [
+        "emergency press repairs",
+        "weekend technician callout",
+        "service visit"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "gmail-repairs_&_maintenance-broad",
+        "calendar-repairs_&_maintenance-broad"
+      ]
+    },
+    {
+      "line_item": "Security \u2014 Plant",
+      "budget_usd": 39000,
+      "actual_usd": 45400,
+      "variance_usd": 6400,
+      "variance_pct": 16.4103,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "temporary gate coverage after a trespass incident increased security costs",
+      "expected_driver_keywords": [
+        "temporary gate coverage",
+        "trespass incident"
+      ],
+      "allowed_source_families": [
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "slack-security_\u2014_plant-broad"
+      ]
+    }
+  ]
+}

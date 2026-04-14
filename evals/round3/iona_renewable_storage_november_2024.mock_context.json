@@ -1,0 +1,31 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_crm": {
+      "Revenue": {
+        "broad": "CRM notes show one battery project milestone slipped into December after utility review comments extended sign-off."
+      }
+    },
+    "search_gmail": {
+      "Professional Fees": {
+        "broad": "Outside counsel and market advisory invoices were approved for a delayed interconnection filing response."
+      },
+      "Interconnection Studies": {
+        "broad": "Utility consultant change order approved additional modeling iterations for two storage sites."
+      }
+    },
+    "search_slack": {
+      "Revenue": {
+        "narrow": "Project channel confirms milestone sign-off moved to early December after utility questions stayed open."
+      },
+      "Travel & Site Visits": {
+        "broad": "Development lead notes two extra landowner and utility site visits were added during the delay window."
+      }
+    },
+    "search_calendar": {
+      "Interconnection Studies": {
+        "broad": "Utility modeling review held twice in late November after revised scenarios were requested."
+      }
+    }
+  }
+}

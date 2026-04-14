@@ -1,0 +1,72 @@
+[
+  {
+    "slug": "bluebird_biotech_services_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/bluebird_biotech_services_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/bluebird_biotech_services_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/bluebird_biotech_services_november_2024.oracle.json",
+    "run_path": "runs/run_20260414_164700.json"
+  },
+  {
+    "slug": "cedar_facilities_management_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/cedar_facilities_management_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/cedar_facilities_management_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/cedar_facilities_management_november_2024.oracle.json",
+    "run_path": "runs/run_20260414_164740.json"
+  },
+  {
+    "slug": "delta_logistics_network_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/delta_logistics_network_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/delta_logistics_network_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/delta_logistics_network_november_2024.oracle.json",
+    "run_path": "runs/run_20260414_164819.json"
+  },
+  {
+    "slug": "ember_saas_security_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/ember_saas_security_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/ember_saas_security_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/ember_saas_security_november_2024.oracle.json",
+    "run_path": "runs/run_20260414_164857.json"
+  },
+  {
+    "slug": "forge_industrial_components_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/forge_industrial_components_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/forge_industrial_components_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/forge_industrial_components_november_2024.oracle.json",
+    "run_path": "runs/run_20260414_164929.json"
+  },
+  {
+    "slug": "glenhaven_hospitality_group_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/glenhaven_hospitality_group_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/glenhaven_hospitality_group_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/glenhaven_hospitality_group_november_2024.oracle.json",
+    "run_path": "runs/run_20260414_165003.json"
+  },
+  {
+    "slug": "harborline_health_clinics_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/harborline_health_clinics_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/harborline_health_clinics_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/harborline_health_clinics_november_2024.oracle.json",
+    "run_path": "runs/run_20260414_165046.json"
+  },
+  {
+    "slug": "iona_renewable_storage_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/iona_renewable_storage_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/iona_renewable_storage_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/iona_renewable_storage_november_2024.oracle.json",
+    "run_path": "runs/run_20260414_165131.json"
+  },
+  {
+    "slug": "juniper_retail_media_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/juniper_retail_media_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/juniper_retail_media_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/juniper_retail_media_november_2024.oracle.json",
+    "run_path": "runs/run_20260414_165213.json"
+  },
+  {
+    "slug": "keystone_field_operations_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/keystone_field_operations_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/keystone_field_operations_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round2/keystone_field_operations_november_2024.oracle.json",
+    "run_path": "runs/run_20260414_165253.json"
+  }
+]

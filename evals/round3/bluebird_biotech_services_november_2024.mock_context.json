@@ -1,0 +1,33 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_crm": {
+      "Revenue": {
+        "broad": "CRM renewal board shows two enterprise expansions signed in the final week of November worth +32000 versus plan.",
+        "narrow": "Opportunity audit trail shows one December close pulled into November after legal redlines cleared early."
+      }
+    },
+    "search_gmail": {
+      "Salaries": {
+        "broad": "CFO approval email confirms six QA contractors converted to payroll effective 11 November."
+      },
+      "Professional Fees": {
+        "broad": "Invoice chain confirms one-off validation counsel and external quality audit support posted in November.",
+        "narrow": "AP note ties 11800 of spend to remediation work for a delayed customer validation package."
+      }
+    },
+    "search_slack": {
+      "Salaries": {
+        "broad": "People Ops update notes overlap payroll for contractor conversion and one backfill start in the same month."
+      },
+      "Revenue": {
+        "narrow": "Commercial channel confirms expansion paperwork closed before month-end after redlines cleared."
+      }
+    },
+    "search_calendar": {
+      "Professional Fees": {
+        "broad": "Validation readiness review with external counsel and quality advisor scheduled during week three of November."
+      }
+    }
+  }
+}

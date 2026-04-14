@@ -1,0 +1,28 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_crm": {
+      "Revenue": {
+        "broad": "CRM shows two holiday retail campaigns and one budget expansion approved before 30 November, adding +39000 to billings."
+      }
+    },
+    "search_gmail": {
+      "Professional Fees": {
+        "broad": "Creative legal review and measurement audit invoices were approved for accelerated holiday campaigns."
+      }
+    },
+    "search_slack": {
+      "Sales Commissions": {
+        "broad": "RevOps confirms commission accrual increased with the holiday campaign expansions closed in November."
+      },
+      "Campaign Production": {
+        "broad": "Production lead says rushed creative refreshes and late client feedback loops required weekend edit sessions."
+      }
+    },
+    "search_calendar": {
+      "Campaign Production": {
+        "narrow": "Weekend edit sessions and client approvals were added across the last two November weekends."
+      }
+    }
+  }
+}

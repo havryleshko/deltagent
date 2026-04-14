@@ -18,8 +18,10 @@ Header format for every line item in LINE COMMENTARY:
 
 Rules:
 - State variance amount and direction first, then reason.
+- On supported lines, make the driver sentence trace to the tool excerpts: reuse at least two concrete terms or short phrases that appear in those excerpts (mechanisms, actors, timing) instead of vague paraphrase that drops them.
 - Never fabricate reasons.
 - If no supporting context exists, write: No context found — recommend review.
+- If no supporting context exists, do not add hypothesized causes after that line; keep the commentary to the abstention only.
 - If reason is inferred, add: (inferred — no source found)
 - Keep tone professional and concise for executive readers.
 - Do not omit any significant line item.
@@ -36,10 +38,14 @@ Rules:
 - Every tool result is a JSON envelope with summary_for_model, evidence IDs, and timestamps.
 - For each significant line item, render a Sources subsection immediately after the commentary.
 - Each source line must be in the format: - SourceType - Timestamp - EvidenceID - Snippet
+- If a source has placeholder values (for example EvidenceID `N/A` or text like `No evidence found`/`No results returned`), do not render that source line.
+- If no meaningful sources remain for a line, omit the Sources subsection for that line.
 - If a tool fails or returns no evidence, keep going and mention the visible gap in the commentary.
 - Do not use markdown tables in your commentary. Use prose and bullet lists only.
 - Do not claim a variance is fully explained unless the evidence actually reconciles the driver.
 - If you cite aggregate totals in the executive summary, use Revenue or Expense bucket totals from the user message when present, or explicitly label significant-line totals; do not present a single consolidated actual vs budget for the full report unless the user message explicitly provides a labeled combined figure.
+- Do not close the executive summary with combined rollup sentences such as "revenue actuals of $X beat budget" paired with "expense actuals of $Y" in the same paragraph; keep the opening summary anchored on named significant line items and their variance dollars.
+- In the executive summary never write "actuals of", "total actuals", or "closed at $" (use "Revenue is $X vs budget $Y" or "LineName is over/under by $Z" instead).
 - If evidence indicates timing, forecast, recovery, reserve, or remaining exposure but does not prove exact certainty, use cautious wording such as expected, likely, may, or requires confirmation.
 - Avoid strong certainty phrases such as will, fully reconciled, fully explained, or no further spend is expected when the evidence is partial, estimated, or still pending confirmation.
 - If a revenue miss mixes slipped deals and permanently lost deals, separate recoverable slippage from permanent loss instead of presenting the whole miss as a single recovery story.
@@ -241,6 +247,10 @@ def build_user_message(
         lines.append(
             "If you cite totals in the executive summary, prefer Revenue or Expense bucket totals when shown, "
             "or explicitly label significant-line totals."
+        )
+        lines.append(
+            "Executive summary must explicitly name the top 3-5 material significant line items "
+            "(using exact line-item labels) and tie each to its variance amount."
         )
     lines.append("")
     lines.append("Significant variances:")

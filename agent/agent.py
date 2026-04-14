@@ -185,10 +185,26 @@ def _compact_board_pack_text(text: str) -> str:
 
 
 def _has_meaningful_sources(sources: list[Evidence]) -> bool:
-    return any(
-        bool(source.snippet.strip()) and source.source_type not in {"", "source", "malformed_source"}
-        for source in sources
-    )
+    return any(_source_is_meaningful(source) for source in sources)
+
+
+def _source_is_meaningful(source: Evidence) -> bool:
+    source_type = source.source_type.strip().lower()
+    source_id = source.id.strip().lower()
+    timestamp = source.timestamp.strip().lower()
+    snippet = source.snippet.strip().lower()
+    if source_type in {"", "source", "malformed_source"}:
+        return False
+    if not source_id or source_id == "n/a":
+        return False
+    if any(marker in timestamp for marker in ("no evidence found", "n/a")):
+        return False
+    if any(
+        marker in snippet
+        for marker in ("no evidence found", "no results returned", "no context found", "n/a")
+    ):
+        return False
+    return bool(source.snippet.strip())
 
 
 def _title_source_type(value: str) -> str:
@@ -273,12 +289,11 @@ def _normalize_output_structure(
     for item in line_items:
         name = _item_line_item_key(item)
         replacement_sources = _evidence_from_tool_traces(traces_by_line_item.get(name, []))
-        meaningful_sources = [
-            source for source in item.sources
-            if bool(source.snippet.strip()) and source.source_type not in {"", "source", "malformed_source"}
-        ]
+        meaningful_sources = [source for source in item.sources if _source_is_meaningful(source)]
         item.sources = meaningful_sources or replacement_sources
         item.commentary = _compact_board_pack_text(_clean_section_text(item.commentary))
+        if not _has_meaningful_sources(item.sources):
+            item.commentary = _enforce_no_context_abstention(item.commentary)
         normalized_items.append(item)
         body = item.final_commentary.lower()
         if "no context found" in body or "tool failed" in body:
@@ -296,6 +311,16 @@ def _normalize_output_structure(
         normalized_insignificant,
     )
     return normalized_summary, normalized_items, normalized_insignificant, gaps, normalized_raw_text
+
+
+def _enforce_no_context_abstention(commentary: str) -> str:
+    text = commentary.strip()
+    if not text:
+        return "No context found — recommend review."
+    lower = text.lower()
+    if "no context found" in lower or "no supporting context" in lower or "no evidence" in lower:
+        return "No context found — recommend review."
+    return text
 
 
 def _trace_text(traces: list[ToolTrace]) -> str:

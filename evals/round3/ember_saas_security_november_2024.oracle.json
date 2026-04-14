@@ -1,0 +1,106 @@
+{
+  "saved_run": "",
+  "workbook": "ember_saas_security_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Revenue",
+      "Cloud Hosting",
+      "Professional Fees",
+      "Sales Commissions"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Revenue",
+      "budget_usd": 560000,
+      "actual_usd": 603400,
+      "variance_usd": 43400,
+      "variance_pct": 7.75,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "an enterprise win and a mid-market upsell closed before month-end",
+      "expected_driver_keywords": [
+        "enterprise win",
+        "upsell",
+        "signed before month-end"
+      ],
+      "allowed_source_families": [
+        "crm",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "crm-revenue-broad",
+        "slack-revenue-narrow"
+      ]
+    },
+    {
+      "line_item": "Cloud Hosting",
+      "budget_usd": 94000,
+      "actual_usd": 112500,
+      "variance_usd": 18500,
+      "variance_pct": 19.6809,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "accelerated migration compute and duplicate staging environment drove cloud overage",
+      "expected_driver_keywords": [
+        "accelerated customer data migration",
+        "duplicate staging environment",
+        "migration cutover"
+      ],
+      "allowed_source_families": [
+        "gmail"
+      ],
+      "expected_evidence_ids": [
+        "gmail-cloud_hosting-broad",
+        "gmail-cloud_hosting-narrow"
+      ]
+    },
+    {
+      "line_item": "Professional Fees",
+      "budget_usd": 18000,
+      "actual_usd": 31200,
+      "variance_usd": 13200,
+      "variance_pct": 73.3333,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "external incident-response counsel and privacy review spend caused the spike",
+      "expected_driver_keywords": [
+        "incident-response counsel",
+        "privacy review",
+        "customer escalation"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "gmail-professional_fees-broad",
+        "calendar-professional_fees-broad"
+      ]
+    },
+    {
+      "line_item": "Sales Commissions",
+      "budget_usd": 52000,
+      "actual_usd": 61150,
+      "variance_usd": 9150,
+      "variance_pct": 17.5962,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "commission accrual rose with the enterprise win and upsell bookings",
+      "expected_driver_keywords": [
+        "commission accrual",
+        "enterprise win",
+        "upsell bookings"
+      ],
+      "allowed_source_families": [
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "slack-sales_commissions-broad"
+      ]
+    }
+  ]
+}

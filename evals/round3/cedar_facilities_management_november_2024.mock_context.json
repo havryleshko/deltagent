@@ -1,0 +1,29 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_crm": {
+      "Revenue": {
+        "broad": "CRM pipeline shows two municipal contract expansions activated in November adding +27000 to monthly billing."
+      }
+    },
+    "search_gmail": {
+      "Repairs & Maintenance": {
+        "broad": "Vendor invoice batch covers emergency HVAC callouts across three managed sites after cold-weather failures.",
+        "narrow": "Operations director approved 9600 of after-hours repair labor for priority sites."
+      }
+    },
+    "search_slack": {
+      "Security Services": {
+        "broad": "Regional ops channel notes extra overnight guard coverage added for two vacant transition sites."
+      },
+      "Revenue": {
+        "narrow": "Account team confirms municipal add-on scope went live before month-end billing cut-off."
+      }
+    },
+    "search_calendar": {
+      "Security Services": {
+        "broad": "Transition-site risk review scheduled weekly through late November with vendor security lead."
+      }
+    }
+  }
+}

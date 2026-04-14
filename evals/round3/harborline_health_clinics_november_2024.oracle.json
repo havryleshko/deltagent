@@ -1,0 +1,104 @@
+{
+  "saved_run": "",
+  "workbook": "harborline_health_clinics_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Patient Service Revenue",
+      "Contract Labor \u2014 Clinical",
+      "Medical Supplies",
+      "Medical Compliance & Audit"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Patient Service Revenue",
+      "budget_usd": 620000,
+      "actual_usd": 671500,
+      "variance_usd": 51500,
+      "variance_pct": 8.3065,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "reopened surgeon schedules increased ortho procedure volume",
+      "expected_driver_keywords": [
+        "surgeon schedules reopened",
+        "procedure volume above plan",
+        "expanded procedure slots"
+      ],
+      "allowed_source_families": [
+        "crm",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "crm-patient_service_revenue-broad",
+        "slack-patient_service_revenue-narrow"
+      ]
+    },
+    {
+      "line_item": "Contract Labor \u2014 Clinical",
+      "budget_usd": 134000,
+      "actual_usd": 156900,
+      "variance_usd": 22900,
+      "variance_pct": 17.0896,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "locum nursing coverage was added for the reopened procedure days",
+      "expected_driver_keywords": [
+        "agency staffing summary",
+        "locum nursing coverage",
+        "reopened procedure days"
+      ],
+      "allowed_source_families": [
+        "gmail"
+      ],
+      "expected_evidence_ids": [
+        "gmail-contract_labor_\u2014_clinical-broad"
+      ]
+    },
+    {
+      "line_item": "Medical Supplies",
+      "budget_usd": 97000,
+      "actual_usd": 109300,
+      "variance_usd": 12300,
+      "variance_pct": 12.6804,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "higher implant and procedure kit usage drove supply spend",
+      "expected_driver_keywords": [
+        "implant",
+        "procedure kit usage",
+        "reopened ortho schedule"
+      ],
+      "allowed_source_families": [
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "slack-medical_supplies-broad"
+      ]
+    },
+    {
+      "line_item": "Medical Compliance & Audit",
+      "budget_usd": 18000,
+      "actual_usd": 24600,
+      "variance_usd": 6600,
+      "variance_pct": 36.6667,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "an unplanned payer documentation audit triggered outside compliance review spend",
+      "expected_driver_keywords": [
+        "unplanned payer documentation audit",
+        "external compliance review"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "gmail-medical_compliance_&_audit-broad",
+        "calendar-medical_compliance_&_audit-broad"
+      ]
+    }
+  ]
+}

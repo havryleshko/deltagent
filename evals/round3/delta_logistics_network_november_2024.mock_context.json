@@ -1,0 +1,31 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_crm": {
+      "Revenue": {
+        "broad": "CRM account notes confirm a consumer electronics surge order and one regional contract expansion added +41000 to November revenue."
+      }
+    },
+    "search_gmail": {
+      "Professional Fees": {
+        "broad": "Outside customs counsel invoice posted in November for urgent port compliance dispute support."
+      },
+      "Warehouse Labor": {
+        "broad": "Staffing vendor summary shows overtime coverage and temporary dock labor added during two peak weeks."
+      }
+    },
+    "search_slack": {
+      "Warehouse Labor": {
+        "narrow": "Ops channel says inbound surge required Saturday shifts across both hubs for two weekends."
+      },
+      "Revenue": {
+        "narrow": "Sales thread confirms surge order shipped before Thanksgiving and billed in November."
+      }
+    },
+    "search_calendar": {
+      "Professional Fees": {
+        "broad": "Port compliance dispute review with customs counsel held mid-November."
+      }
+    }
+  }
+}

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -219,6 +220,17 @@ def _score_line(item: ParsedLineItem | None, oracle_line: dict[str, Any]) -> Ora
     )
 
 
+def _summary_sentence_parts(text: str) -> list[str]:
+    return [
+        part.strip()
+        for part in re.split(
+            r"(?<![0-9])(?<!vs)(?<!\))\.(?:\s+|$)",
+            text.strip(),
+        )
+        if part.strip()
+    ]
+
+
 def _summary_usefulness(agent_run: AgentRun, oracle: dict[str, Any]) -> float:
     summary = _normalize(agent_run.executive_summary)
     expectations = oracle.get("summary_expectations", {})
@@ -228,7 +240,8 @@ def _summary_usefulness(agent_run: AgentRun, oracle: dict[str, Any]) -> float:
         if must_surface
         else 0.0
     )
-    concise = 1.0 if 1 <= len([part for part in agent_run.executive_summary.split(".") if part.strip()]) <= 4 else 0.5
+    sentence_parts = _summary_sentence_parts(agent_run.executive_summary.strip())
+    concise = 1.0 if 1 <= len(sentence_parts) <= 4 else 0.5
     mixed_total_ok = 1.0
     if expectations.get("forbid_mixed_total_story"):
         if any(pattern in summary for pattern in _MIXED_TOTAL_PATTERNS):
@@ -268,7 +281,7 @@ def score_agent_run(agent_run: AgentRun, oracle: dict[str, Any]) -> dict[str, An
     unsupported_line_precision = (
         sum(1 for line in unsupported_results if line.abstained_cleanly) / len(unsupported_results)
         if unsupported_results
-        else 0.0
+        else 1.0
     )
     evidence_citation_quality = (
         sum(1 for line in supported_results if line.evidence_match and not line.placeholder_sources) / len(supported_results)
@@ -348,7 +361,9 @@ def _report_line(result: dict[str, Any]) -> str:
     )
 
 
-def render_markdown_report(results: list[dict[str, Any]]) -> str:
+def render_markdown_report(
+    results: list[dict[str, Any]], *, title: str = "Oracle Baseline Round 1"
+) -> str:
     average = round(sum(result["score_100"] for result in results) / len(results), 2) if results else 0.0
     worst = sorted(results, key=lambda item: item["score_100"])[:3]
     body = "\n".join(_report_line(result) for result in results)
@@ -356,7 +371,7 @@ def render_markdown_report(results: list[dict[str, Any]]) -> str:
         f"- `{item['workbook']}`: `{item['score_100']}/100`" for item in worst
     )
     return (
-        "# Oracle Baseline Round 1\n\n"
+        f"# {title}\n\n"
         f"- Seeded workbooks: `{len(results)}`\n"
         f"- Average score: `{average}/100`\n\n"
         "## Worst performers\n\n"
@@ -372,6 +387,12 @@ def score_oracle_dir(oracle_dir: Path) -> list[dict[str, Any]]:
         for path in sorted(oracle_dir.glob("*.json"))
         if path.name != "manifest.json"
     ]
+
+
+def score_oracle_run_pair(oracle_path: Path, run_path: Path) -> dict[str, Any]:
+    oracle = _load_json(oracle_path)
+    agent_run = AgentRun.from_dict(_load_json(run_path))
+    return score_agent_run(agent_run, oracle)
 
 
 if __name__ == "__main__":

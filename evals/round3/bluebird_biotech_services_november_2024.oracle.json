@@ -1,0 +1,100 @@
+{
+  "saved_run": "",
+  "workbook": "bluebird_biotech_services_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Revenue",
+      "Salaries",
+      "Professional Fees",
+      "Cold Chain Logistics"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Revenue",
+      "budget_usd": 420000,
+      "actual_usd": 468500,
+      "variance_usd": 48500,
+      "variance_pct": 11.5476,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "enterprise expansions and one pulled-forward deal lifted November revenue",
+      "expected_driver_keywords": [
+        "enterprise expansions",
+        "pulled into November",
+        "redlines",
+        "month-end"
+      ],
+      "allowed_source_families": [
+        "crm",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "crm-revenue-broad",
+        "crm-revenue-narrow",
+        "slack-revenue-narrow"
+      ],
+      "mitigation_or_action": "check whether December pipeline is lighter after the pull-forward",
+      "forward_risk": "December pipeline may soften after the accelerated close"
+    },
+    {
+      "line_item": "Salaries",
+      "budget_usd": 182000,
+      "actual_usd": 201500,
+      "variance_usd": 19500,
+      "variance_pct": 10.7143,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "contractor conversions and backfill overlap increased payroll",
+      "expected_driver_keywords": [
+        "converted to payroll",
+        "overlap payroll",
+        "backfill start"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "gmail-salaries-broad",
+        "slack-salaries-broad"
+      ]
+    },
+    {
+      "line_item": "Professional Fees",
+      "budget_usd": 26000,
+      "actual_usd": 41800,
+      "variance_usd": 15800,
+      "variance_pct": 60.7692,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "one-off validation counsel and quality audit support drove the overspend",
+      "expected_driver_keywords": [
+        "validation counsel",
+        "quality audit",
+        "remediation work"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "gmail-professional_fees-broad",
+        "gmail-professional_fees-narrow",
+        "calendar-professional_fees-broad"
+      ]
+    },
+    {
+      "line_item": "Cold Chain Logistics",
+      "budget_usd": 54000,
+      "actual_usd": 64400,
+      "variance_usd": 10400,
+      "variance_pct": 19.2593,
+      "significant": true,
+      "supported": false
+    }
+  ]
+}
