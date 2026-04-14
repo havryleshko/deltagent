@@ -1,0 +1,101 @@
+{
+  "saved_run": "/Users/ohavryleshko/Documents/GitHub/deltagent/runs/run_20260413_182912.json",
+  "workbook": "harbor_health_ops_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Revenue",
+      "Salaries",
+      "Professional Fees",
+      "Medical Compliance & Audit"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Revenue",
+      "budget_usd": 255000,
+      "actual_usd": 286200,
+      "variance_usd": 31200,
+      "variance_pct": 12.2352941176,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "pulled-forward deal closings and upsell bookings",
+      "expected_driver_keywords": [
+        "pulled forward",
+        "closed won",
+        "upsell orders",
+        "billing ledger"
+      ],
+      "allowed_source_families": [
+        "crm",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "crm-revenue-broad",
+        "crm-revenue-narrow",
+        "slack-revenue-narrow"
+      ],
+      "mitigation_or_action": "confirm the unreconciled remainder against the billing ledger"
+    },
+    {
+      "line_item": "Salaries",
+      "budget_usd": 98000,
+      "actual_usd": 111500,
+      "variance_usd": 13500,
+      "variance_pct": 13.7755102041,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "contractor conversion and overlap week increased payroll",
+      "expected_driver_keywords": [
+        "contractor conversion",
+        "backfilled headcount",
+        "overlap week",
+        "earlier than expected"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "gmail-salaries-broad",
+        "slack-salaries-broad"
+      ]
+    },
+    {
+      "line_item": "Professional Fees",
+      "budget_usd": 9000,
+      "actual_usd": 17600,
+      "variance_usd": 8600,
+      "variance_pct": 95.5555555556,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "external counsel engaged for urgent contract remediation work",
+      "expected_driver_keywords": [
+        "external counsel",
+        "contract remediation",
+        "advisory invoice batch",
+        "one-off engagement"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "gmail-professional_fees-broad",
+        "slack-professional_fees-broad",
+        "gmail-professional_fees-narrow"
+      ]
+    },
+    {
+      "line_item": "Medical Compliance & Audit",
+      "budget_usd": 6500,
+      "actual_usd": 9100,
+      "variance_usd": 2600,
+      "variance_pct": 40.0,
+      "significant": true,
+      "supported": false
+    }
+  ]
+}

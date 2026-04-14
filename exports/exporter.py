@@ -82,7 +82,7 @@ def write_docx(commentary: str, dest_path: Path) -> None:
 def export_from_run(agent_run: AgentRun, format: str, out_dir: Path) -> Path:
     out_dir = Path(out_dir)
     rendered = render_run_markdown(agent_run)
-    ext = format.lstrip(".").lower()
+    ext = format.strip().lower().rstrip(".").lstrip(".")
     dest = out_dir / build_export_basename(agent_run.period_label, ext)
     if ext == "md":
         write_markdown(rendered, dest)

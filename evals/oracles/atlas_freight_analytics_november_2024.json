@@ -1,0 +1,110 @@
+{
+  "saved_run": "/Users/ohavryleshko/Documents/GitHub/deltagent/runs/run_20260413_182731.json",
+  "workbook": "atlas_freight_analytics_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Revenue",
+      "Salaries",
+      "Professional Fees",
+      "Freight & Packaging"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Revenue",
+      "budget_usd": 380000,
+      "actual_usd": 427500,
+      "variance_usd": 47500,
+      "variance_pct": 12.5,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "pulled-forward deal closures and enterprise expansion",
+      "expected_driver_keywords": [
+        "pulled forward",
+        "closed won",
+        "enterprise expansion",
+        "timing-driven"
+      ],
+      "allowed_source_families": [
+        "crm",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "crm-revenue-broad",
+        "crm-revenue-narrow",
+        "slack-revenue-broad"
+      ],
+      "forward_risk": "accelerated December revenue may reduce next month's pipeline",
+      "mitigation_or_action": "confirm the unreconciled uplift against billing detail"
+    },
+    {
+      "line_item": "Freight & Packaging",
+      "budget_usd": 46000,
+      "actual_usd": 53400,
+      "variance_usd": 7400,
+      "variance_pct": 16.0869565217,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Salaries",
+      "budget_usd": 155000,
+      "actual_usd": 171000,
+      "variance_usd": 16000,
+      "variance_pct": 10.3225806452,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "contractor conversion and overlap week increased payroll",
+      "expected_driver_keywords": [
+        "contractor conversion",
+        "backfilled payroll",
+        "overlap week",
+        "planned replacement"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "gmail-salaries-broad",
+        "slack-salaries-broad"
+      ]
+    },
+    {
+      "line_item": "Fuel & Travel",
+      "budget_usd": 17000,
+      "actual_usd": 18850,
+      "variance_usd": 1850,
+      "variance_pct": 10.8823529412,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Professional Fees",
+      "budget_usd": 10000,
+      "actual_usd": 19600,
+      "variance_usd": 9600,
+      "variance_pct": 96.0,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "one-off legal and compliance advisory spend",
+      "expected_driver_keywords": [
+        "one-off",
+        "legal",
+        "compliance advisory",
+        "invoice batch"
+      ],
+      "allowed_source_families": [
+        "gmail"
+      ],
+      "expected_evidence_ids": [
+        "gmail-professional_fees-broad",
+        "gmail-professional_fees-narrow"
+      ],
+      "mitigation_or_action": "confirm the full nature of the engagement"
+    }
+  ]
+}

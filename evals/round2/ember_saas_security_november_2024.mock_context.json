@@ -1,0 +1,32 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_crm": {
+      "Revenue": {
+        "broad": "CRM shows one multi-year enterprise win and one mid-market upsell closing in the final week of November."
+      }
+    },
+    "search_gmail": {
+      "Cloud Hosting": {
+        "broad": "AWS invoice summary shows temporary compute spike from an accelerated customer data migration and staging overlap.",
+        "narrow": "FinOps note says duplicate staging environment ran for nine days during migration cutover."
+      },
+      "Professional Fees": {
+        "broad": "External incident-response counsel and privacy review invoices were approved after a customer escalation."
+      }
+    },
+    "search_slack": {
+      "Sales Commissions": {
+        "broad": "RevOps confirms commission accrual increased with the enterprise win and mid-market expansion booked in November."
+      },
+      "Revenue": {
+        "narrow": "Deal desk thread confirms enterprise win was signed before month-end and commissions were accrued in the same month."
+      }
+    },
+    "search_calendar": {
+      "Professional Fees": {
+        "broad": "Privacy escalation review with outside counsel held on 19 November."
+      }
+    }
+  }
+}

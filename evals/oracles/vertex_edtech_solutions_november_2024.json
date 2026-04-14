@@ -1,0 +1,151 @@
+{
+  "saved_run": "/Users/ohavryleshko/Documents/GitHub/deltagent/runs/run_20260414_151331.json",
+  "workbook": "vertex_edtech_solutions_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Equipment Leases — Laptop",
+      "AV & Conference Rooms",
+      "Merchant & FX Fees"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": false
+  },
+  "lines": [
+    {
+      "line_item": "Content Licensing Revenue",
+      "budget_usd": 51100,
+      "actual_usd": 57050,
+      "variance_usd": 5950,
+      "variance_pct": 11.6438356164,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Dev Tools & CI",
+      "budget_usd": 85100,
+      "actual_usd": 93950,
+      "variance_usd": 8850,
+      "variance_pct": 10.3995299647,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "HQ Rent",
+      "budget_usd": 211600,
+      "actual_usd": 236450,
+      "variance_usd": 24850,
+      "variance_pct": 11.7438563327,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Repairs & Maintenance",
+      "budget_usd": 92800,
+      "actual_usd": 102100,
+      "variance_usd": 9300,
+      "variance_pct": 10.0215517241,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Field Marketing Events",
+      "budget_usd": 57200,
+      "actual_usd": 63900,
+      "variance_usd": 6700,
+      "variance_pct": 11.7132867133,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Travel & Entertainment",
+      "budget_usd": 50500,
+      "actual_usd": 56650,
+      "variance_usd": 6150,
+      "variance_pct": 12.1782178218,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Merchant & FX Fees",
+      "budget_usd": 407000,
+      "actual_usd": 451550,
+      "variance_usd": 44550,
+      "variance_pct": 10.9459459459,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Bad Debt — AR",
+      "budget_usd": 39800,
+      "actual_usd": 44650,
+      "variance_usd": 4850,
+      "variance_pct": 12.1859296482,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Contractors — Curriculum",
+      "budget_usd": 149200,
+      "actual_usd": 164650,
+      "variance_usd": 15450,
+      "variance_pct": 10.355227882,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Learning Science Research Grants",
+      "budget_usd": 122600,
+      "actual_usd": 135050,
+      "variance_usd": 12450,
+      "variance_pct": 10.1549755302,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "CRM & Marketing Automation",
+      "budget_usd": 416500,
+      "actual_usd": 458350,
+      "variance_usd": 41850,
+      "variance_pct": 10.0480192077,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "AV & Conference Rooms",
+      "budget_usd": 483900,
+      "actual_usd": 537500,
+      "variance_usd": 53600,
+      "variance_pct": 11.0766687332,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Print & Swag",
+      "budget_usd": 124300,
+      "actual_usd": 140100,
+      "variance_usd": 15800,
+      "variance_pct": 12.7111826227,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Relocation — New Hire",
+      "budget_usd": 419100,
+      "actual_usd": 463800,
+      "variance_usd": 44700,
+      "variance_pct": 10.6657122405,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Equipment Leases — Laptop",
+      "budget_usd": 634800,
+      "actual_usd": 704650,
+      "variance_usd": 69850,
+      "variance_pct": 11.0034656585,
+      "significant": true,
+      "supported": false
+    }
+  ]
+}

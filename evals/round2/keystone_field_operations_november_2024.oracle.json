@@ -1,0 +1,105 @@
+{
+  "saved_run": "",
+  "workbook": "keystone_field_operations_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Revenue",
+      "Contract Labor",
+      "Fuel",
+      "Equipment Leases"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Revenue",
+      "budget_usd": 720000,
+      "actual_usd": 758400,
+      "variance_usd": 38400,
+      "variance_pct": 5.3333,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "storm-response deployment and utility scope expansion lifted november billing",
+      "expected_driver_keywords": [
+        "storm-response deployment",
+        "utility maintenance expansion",
+        "billed inside november"
+      ],
+      "allowed_source_families": [
+        "crm",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "crm-revenue-broad",
+        "slack-revenue-narrow"
+      ]
+    },
+    {
+      "line_item": "Contract Labor",
+      "budget_usd": 164000,
+      "actual_usd": 188600,
+      "variance_usd": 24600,
+      "variance_pct": 15.0,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "incremental crews mobilized for storm work drove contract labor higher",
+      "expected_driver_keywords": [
+        "incremental crews",
+        "storm-response deployment",
+        "crew mobilization"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "gmail-contract_labor-broad",
+        "calendar-contract_labor-broad"
+      ]
+    },
+    {
+      "line_item": "Fuel",
+      "budget_usd": 101000,
+      "actual_usd": 116900,
+      "variance_usd": 15900,
+      "variance_pct": 15.7426,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "higher fleet hours and generator runtime increased fuel usage",
+      "expected_driver_keywords": [
+        "higher fleet hours",
+        "generator runtime",
+        "storm-response work"
+      ],
+      "allowed_source_families": [
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "slack-fuel-broad"
+      ]
+    },
+    {
+      "line_item": "Equipment Leases",
+      "budget_usd": 58000,
+      "actual_usd": 66100,
+      "variance_usd": 8100,
+      "variance_pct": 13.9655,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "two additional generators mobilized under a lease amendment increased lease cost",
+      "expected_driver_keywords": [
+        "lease amendment invoice",
+        "additional generators",
+        "expanded utility scope"
+      ],
+      "allowed_source_families": [
+        "gmail"
+      ],
+      "expected_evidence_ids": [
+        "gmail-equipment_leases-broad"
+      ]
+    }
+  ]
+}

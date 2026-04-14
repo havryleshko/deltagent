@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from typing import Any
 
 
@@ -38,7 +39,7 @@ Rules:
 - If a tool fails or returns no evidence, keep going and mention the visible gap in the commentary.
 - Do not use markdown tables in your commentary. Use prose and bullet lists only.
 - Do not claim a variance is fully explained unless the evidence actually reconciles the driver.
-- If you cite aggregate totals in the executive summary, either use the Full report totals from the user message exactly or explicitly label them as significant-line totals.
+- If you cite aggregate totals in the executive summary, use Revenue or Expense bucket totals from the user message when present, or explicitly label significant-line totals; do not present a single consolidated actual vs budget for the full report unless the user message explicitly provides a labeled combined figure.
 - If evidence indicates timing, forecast, recovery, reserve, or remaining exposure but does not prove exact certainty, use cautious wording such as expected, likely, may, or requires confirmation.
 - Avoid strong certainty phrases such as will, fully reconciled, fully explained, or no further spend is expected when the evidence is partial, estimated, or still pending confirmation.
 - If a revenue miss mixes slipped deals and permanently lost deals, separate recoverable slippage from permanent loss instead of presenting the whole miss as a single recovery story.
@@ -73,6 +74,127 @@ def _rollup_rows(rows: list[dict[str, Any]]) -> tuple[float, float, float, float
     return budget, actual, variance, variance_pct
 
 
+_REVENUE_FORCE = frozenset({"subscription revenue"})
+_EXPENSE_FORCE = frozenset({"sales & marketing programs", "marketing programs"})
+
+_EXPENSE_TAG_TOKENS = (
+    "salary",
+    "salaries",
+    "payroll",
+    "fee",
+    "fees",
+    "rent",
+    "marketing",
+    "software",
+    "subscription",
+    "facility",
+    "facilities",
+    "travel",
+    "fuel",
+    "legal",
+    "professional",
+    "compliance",
+    "audit",
+    "hosting",
+    "infrastructure",
+    "contractor",
+    "maintenance",
+    "repair",
+    "packaging",
+    "freight",
+    "merchant",
+    "clinical",
+    "cogs",
+)
+
+
+def _normalize_line_label(line_item: str) -> str:
+    return line_item.lower().strip()
+
+
+def _is_revenue_line_item(line_item: str) -> bool:
+    n = _normalize_line_label(line_item)
+    if not n:
+        return False
+    if n in _EXPENSE_FORCE:
+        return False
+    if n in _REVENUE_FORCE:
+        return True
+    if "cost of revenue" in n or "cost of sales" in n or re.search(r"\bcogs\b", n):
+        return False
+    if re.search(r"\bsales\b", n) and "marketing" in n:
+        return False
+    if re.search(r"\brevenue\b", n):
+        return True
+    if re.search(r"\bsales\b", n):
+        return True
+    return False
+
+
+def _tag_expense_signal(line_item: str) -> bool:
+    n = _normalize_line_label(line_item)
+    if _is_revenue_line_item(line_item):
+        return False
+    return any(tok in n for tok in _EXPENSE_TAG_TOKENS)
+
+
+def _tag_revenue_signal(line_item: str) -> bool:
+    n = _normalize_line_label(line_item)
+    if "cost of revenue" in n or "cost of sales" in n or re.search(r"\bcogs\b", n):
+        return False
+    if re.search(r"\bsales\b", n) and "marketing" in n:
+        return False
+    if re.search(r"\brevenue\b", n):
+        return True
+    if re.search(r"\bsales\b", n):
+        return True
+    return n in _REVENUE_FORCE
+
+
+def _split_revenue_expense_rows(
+    rows: list[dict[str, Any]],
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    revenue: list[dict[str, Any]] = []
+    expense: list[dict[str, Any]] = []
+    for row in rows:
+        name = str(row.get("line_item", "") or "")
+        if _is_revenue_line_item(name):
+            revenue.append(row)
+        else:
+            expense.append(row)
+    return revenue, expense
+
+
+def _rollup_split_unreliable(all_rows: list[dict[str, Any]]) -> bool:
+    revenue_rows, expense_rows = _split_revenue_expense_rows(all_rows)
+    if not revenue_rows:
+        return True
+    names = [str(r.get("line_item", "") or "") for r in all_rows]
+    tag_rev = any(_tag_revenue_signal(nm) for nm in names)
+    tag_exp = any(_tag_expense_signal(nm) for nm in names)
+    if tag_rev and tag_exp:
+        if not expense_rows or not revenue_rows:
+            return True
+    return False
+
+
+def _append_bucket_totals(
+    lines: list[str],
+    label: str,
+    rows: list[dict[str, Any]],
+    currency_symbol: str,
+) -> None:
+    if not rows:
+        return
+    b, a, v, vp = _rollup_rows(rows)
+    lines.append(
+        f"{label} "
+        f"Budget: {_format_money(b, currency_symbol)} | "
+        f"Actual: {_format_money(a, currency_symbol)} | "
+        f"Variance: {_format_money(v, currency_symbol)} ({vp:+.1f}%)"
+    )
+
+
 def build_user_message(
     significant_rows: list[dict[str, Any]],
     insignificant_rows: list[dict[str, Any]],
@@ -89,13 +211,25 @@ def build_user_message(
     if period_start and period_end:
         lines.append(f"Hard date bounds: {period_start} to {period_end}")
     if all_rows:
-        full_budget, full_actual, full_variance, full_variance_pct = _rollup_rows(all_rows)
-        lines.append(
-            "Full report totals: "
-            f"Budget: {_format_money(full_budget, currency_symbol)} | "
-            f"Actual: {_format_money(full_actual, currency_symbol)} | "
-            f"Variance: {_format_money(full_variance, currency_symbol)} ({full_variance_pct:+.1f}%)"
-        )
+        revenue_rows, expense_rows = _split_revenue_expense_rows(all_rows)
+        if _rollup_split_unreliable(all_rows):
+            lines.append(
+                "Do not state a single consolidated actual vs budget for the full report; "
+                "refer to significant lines and the bucket totals below only if present."
+            )
+        else:
+            _append_bucket_totals(
+                lines,
+                "Revenue (reported lines) totals:",
+                revenue_rows,
+                currency_symbol,
+            )
+            _append_bucket_totals(
+                lines,
+                "Expense (reported lines) totals:",
+                expense_rows,
+                currency_symbol,
+            )
     if significant_rows:
         sig_budget, sig_actual, sig_variance, sig_variance_pct = _rollup_rows(significant_rows)
         lines.append(
@@ -105,7 +239,8 @@ def build_user_message(
             f"Variance: {_format_money(sig_variance, currency_symbol)} ({sig_variance_pct:+.1f}%)"
         )
         lines.append(
-            "If you cite totals in the executive summary, use Full report totals unless you explicitly label them as significant-line totals."
+            "If you cite totals in the executive summary, prefer Revenue or Expense bucket totals when shown, "
+            "or explicitly label significant-line totals."
         )
     lines.append("")
     lines.append("Significant variances:")

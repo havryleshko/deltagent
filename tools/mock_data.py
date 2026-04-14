@@ -32,6 +32,25 @@ def _normalize(value: str) -> str:
     return value.strip().lower()
 
 
+_LINE_ITEM_ALIASES: dict[str, str] = {
+    "marketing programs": "Professional Fees",
+    "sales & marketing programs": "Professional Fees",
+    "merchant fees": "Professional Fees",
+    "freight & packaging": "Office & Facilities",
+    "fuel & travel": "Office & Facilities",
+    "clinical systems hosting": "Software & Subscriptions",
+    "medical compliance & audit": "Professional Fees",
+    "repairs & maintenance": "Office & Facilities",
+    "contractors": "Salaries",
+    "hosting & infrastructure": "Software & Subscriptions",
+}
+
+
+def _resolve_line_item_alias(line_item: str) -> str:
+    key = _normalize(line_item)
+    return _LINE_ITEM_ALIASES.get(key, line_item)
+
+
 def load_context(fixture_path: Path | None = None) -> dict[str, Any]:
     path = fixture_path or _effective_fixture_path()
     with path.open("r", encoding="utf-8") as file:
@@ -93,7 +112,8 @@ def lookup_context(
             error="period_not_found",
         )
     tool_payload = fixture.get("tool_responses", {}).get(tool_name, {})
-    line_payload = tool_payload.get(line_item)
+    lookup_name = _resolve_line_item_alias(line_item)
+    line_payload = tool_payload.get(lookup_name)
     if not line_payload:
         return envelope_to_text(
             tool_name=tool_name,

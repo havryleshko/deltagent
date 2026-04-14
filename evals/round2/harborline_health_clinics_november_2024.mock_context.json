@@ -1,0 +1,31 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_crm": {
+      "Patient Service Revenue": {
+        "broad": "Referral dashboard shows ortho procedure volume above plan after two surgeon schedules reopened in November."
+      }
+    },
+    "search_gmail": {
+      "Medical Compliance & Audit": {
+        "broad": "External compliance review invoice approved following an unplanned payer documentation audit."
+      },
+      "Contract Labor \u2014 Clinical": {
+        "broad": "Agency staffing summary shows locum nursing coverage added for reopened procedure days."
+      }
+    },
+    "search_slack": {
+      "Patient Service Revenue": {
+        "narrow": "Clinic ops confirms expanded procedure slots reopened after provider leave ended."
+      },
+      "Medical Supplies": {
+        "broad": "Clinical lead notes higher implant and procedure kit usage during the reopened ortho schedule."
+      }
+    },
+    "search_calendar": {
+      "Medical Compliance & Audit": {
+        "broad": "Payer documentation audit follow-up scheduled with external compliance team during week four."
+      }
+    }
+  }
+}

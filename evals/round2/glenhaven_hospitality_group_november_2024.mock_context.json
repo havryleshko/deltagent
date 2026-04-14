@@ -1,0 +1,28 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_crm": {
+      "Room Revenue": {
+        "broad": "Group booking report shows one wedding block and one corporate retreat added 220 room nights above plan in November."
+      }
+    },
+    "search_gmail": {
+      "Property Insurance": {
+        "broad": "Broker renewal summary confirms higher property premium after updated coastal catastrophe modeling."
+      }
+    },
+    "search_slack": {
+      "Food & Beverage Revenue": {
+        "broad": "F&B channel says banquet package upgrades and add-on beverage minimums lifted event revenue during two weekends."
+      },
+      "Kitchen Payroll": {
+        "broad": "Chef scheduling update notes overtime and agency prep cooks added for peak banquet weekends."
+      }
+    },
+    "search_calendar": {
+      "Food & Beverage Revenue": {
+        "narrow": "Events calendar shows two expanded wedding receptions and one corporate banquet during the final two weekends."
+      }
+    }
+  }
+}

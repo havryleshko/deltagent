@@ -1,0 +1,106 @@
+{
+  "saved_run": "",
+  "workbook": "iona_renewable_storage_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Revenue",
+      "Professional Fees",
+      "Interconnection Studies",
+      "Travel & Site Visits"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Revenue",
+      "budget_usd": 470000,
+      "actual_usd": 448200,
+      "variance_usd": -21800,
+      "variance_pct": -4.6383,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "project milestone sign-off slipped into december after utility review delays",
+      "expected_driver_keywords": [
+        "milestone slipped into december",
+        "utility review comments",
+        "sign-off moved"
+      ],
+      "allowed_source_families": [
+        "crm",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "crm-revenue-broad",
+        "slack-revenue-narrow"
+      ],
+      "mitigation_or_action": "track whether December recognizes the delayed milestone"
+    },
+    {
+      "line_item": "Professional Fees",
+      "budget_usd": 21000,
+      "actual_usd": 36850,
+      "variance_usd": 15850,
+      "variance_pct": 75.4762,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "outside counsel and market advisory support increased during the delayed filing response",
+      "expected_driver_keywords": [
+        "outside counsel",
+        "market advisory",
+        "delayed interconnection filing"
+      ],
+      "allowed_source_families": [
+        "gmail"
+      ],
+      "expected_evidence_ids": [
+        "gmail-professional_fees-broad"
+      ]
+    },
+    {
+      "line_item": "Interconnection Studies",
+      "budget_usd": 54000,
+      "actual_usd": 67700,
+      "variance_usd": 13700,
+      "variance_pct": 25.3704,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "additional modeling iterations for two sites drove the change order",
+      "expected_driver_keywords": [
+        "change order",
+        "additional modeling iterations",
+        "two storage sites"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "gmail-interconnection_studies-broad",
+        "calendar-interconnection_studies-broad"
+      ]
+    },
+    {
+      "line_item": "Travel & Site Visits",
+      "budget_usd": 15000,
+      "actual_usd": 19200,
+      "variance_usd": 4200,
+      "variance_pct": 28.0,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "extra landowner and utility site visits during the delay period increased travel",
+      "expected_driver_keywords": [
+        "extra landowner",
+        "utility site visits",
+        "delay window"
+      ],
+      "allowed_source_families": [
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "slack-travel_&_site_visits-broad"
+      ]
+    }
+  ]
+}

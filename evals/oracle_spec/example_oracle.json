@@ -1,0 +1,78 @@
+{
+  "workbook": "aurora_hospitality_holdings_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Property Rent — Managed",
+      "Charitable & Community",
+      "Property Insurance"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Food & Beverage Revenue",
+      "budget_usd": 45400,
+      "actual_usd": 50800,
+      "variance_usd": 5400,
+      "variance_pct": 11.9,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "higher-than-budgeted F&B volume from event/catering activity",
+      "expected_driver_keywords": [
+        "event",
+        "catering",
+        "volume",
+        "outlet activity"
+      ],
+      "allowed_source_families": [
+        "slack",
+        "gmail",
+        "calendar",
+        "crm"
+      ],
+      "expected_evidence_ids": [
+        "slack-aurora-017",
+        "gmail-aurora-004"
+      ],
+      "forward_risk": "may not recur if event activity was one-off",
+      "mitigation_or_action": "confirm whether uplift was recurring or timing-related"
+    },
+    {
+      "line_item": "Property Insurance",
+      "budget_usd": 143800,
+      "actual_usd": 159200,
+      "variance_usd": 15400,
+      "variance_pct": 10.7,
+      "significant": true,
+      "supported": false
+    }
+  ],
+  "evidence": [
+    {
+      "id": "gmail-aurora-004",
+      "source_family": "gmail",
+      "line_item": "Food & Beverage Revenue",
+      "date": "2024-11-08",
+      "snippet": "Banquet client increased headcount; catering package expanded",
+      "driver_tags": [
+        "event",
+        "catering",
+        "volume"
+      ]
+    },
+    {
+      "id": "slack-aurora-017",
+      "source_family": "slack",
+      "line_item": "Food & Beverage Revenue",
+      "date": "2024-11-08",
+      "snippet": "Weekend banquet expanded from 120 to 180 covers",
+      "driver_tags": [
+        "banquet",
+        "volume",
+        "event"
+      ]
+    }
+  ]
+}

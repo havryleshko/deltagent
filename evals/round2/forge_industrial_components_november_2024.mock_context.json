@@ -1,0 +1,31 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_crm": {
+      "Revenue": {
+        "broad": "CRM notes show one customer delayed acceptance into December, reducing November shipment recognition by 24000."
+      }
+    },
+    "search_gmail": {
+      "Raw Materials": {
+        "broad": "Steel supplier notice confirms a spot-buy at elevated pricing after mill allocation tightened mid-month."
+      },
+      "Repairs & Maintenance": {
+        "broad": "Maintenance invoice packet shows emergency press repairs and weekend technician callout charges."
+      }
+    },
+    "search_slack": {
+      "Security \u2014 Plant": {
+        "broad": "Plant ops channel notes temporary gate coverage added after a weekend trespass incident."
+      },
+      "Revenue": {
+        "narrow": "Sales ops confirms customer acceptance paperwork slipped to 2 December, deferring shipment revenue."
+      }
+    },
+    "search_calendar": {
+      "Repairs & Maintenance": {
+        "broad": "Emergency vendor service visit logged for primary press line during week two of November."
+      }
+    }
+  }
+}

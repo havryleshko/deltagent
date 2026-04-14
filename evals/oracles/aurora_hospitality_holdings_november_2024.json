@@ -1,0 +1,88 @@
+{
+  "saved_run": "/Users/ohavryleshko/Documents/GitHub/deltagent/runs/run_20260414_151049.json",
+  "workbook": "aurora_hospitality_holdings_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Property Rent — Managed",
+      "Charitable & Community",
+      "Property Insurance"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": false
+  },
+  "lines": [
+    {
+      "line_item": "Food & Beverage Revenue",
+      "budget_usd": 45400,
+      "actual_usd": 50800,
+      "variance_usd": 5400,
+      "variance_pct": 11.8942731278,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Cost of Sales — F&B",
+      "budget_usd": 75200,
+      "actual_usd": 84150,
+      "variance_usd": 8950,
+      "variance_pct": 11.9015957447,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Kitchen & F&B Payroll",
+      "budget_usd": 46400,
+      "actual_usd": 52300,
+      "variance_usd": 5900,
+      "variance_pct": 12.7155172414,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Property Rent — Managed",
+      "budget_usd": 187500,
+      "actual_usd": 209900,
+      "variance_usd": 22400,
+      "variance_pct": 11.9466666667,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "General Liability",
+      "budget_usd": 30700,
+      "actual_usd": 33850,
+      "variance_usd": 3150,
+      "variance_pct": 10.2605863192,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Property Insurance",
+      "budget_usd": 143800,
+      "actual_usd": 159200,
+      "variance_usd": 15400,
+      "variance_pct": 10.7093184979,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Landscaping",
+      "budget_usd": 131100,
+      "actual_usd": 145050,
+      "variance_usd": 13950,
+      "variance_pct": 10.6407322654,
+      "significant": true,
+      "supported": false
+    },
+    {
+      "line_item": "Charitable & Community",
+      "budget_usd": 213800,
+      "actual_usd": 239050,
+      "variance_usd": 25250,
+      "variance_pct": 11.8101028999,
+      "significant": true,
+      "supported": false
+    }
+  ]
+}

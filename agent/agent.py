@@ -77,6 +77,17 @@ def _new_run_id() -> str:
     return datetime.now(timezone.utc).strftime("run_%Y%m%d_%H%M%S")
 
 
+def _dedupe_preserve_order(items: list[str]) -> list[str]:
+    seen: set[str] = set()
+    out: list[str] = []
+    for item in items:
+        if item in seen:
+            continue
+        seen.add(item)
+        out.append(item)
+    return out
+
+
 def _gaps_from_diagnostics(diagnostics: list[str]) -> list[str]:
     gaps: list[str] = []
     for entry in diagnostics:
@@ -514,17 +525,29 @@ def _validate_executive_summary(
     significant_rows: list[dict[str, Any]],
     insignificant_rows: list[dict[str, Any]],
 ) -> list[str]:
+    warnings: list[str] = []
     if not executive_summary.strip():
-        return []
+        return warnings
+    all_rows = list(significant_rows) + list(insignificant_rows)
+    summary_lower = executive_summary.lower()
+    if len(all_rows) >= 2:
+        combined_budget, combined_actual, _, _ = _rollup_rows(all_rows)
+        allowed_naive_labels = ("sum of all lines", "mixed revenue and expense")
+        if not any(label in summary_lower for label in allowed_naive_labels):
+            fmt_b = _format_money(combined_budget, currency_symbol)
+            fmt_a = _format_money(combined_actual, currency_symbol)
+            if fmt_b in executive_summary and fmt_a in executive_summary:
+                warnings.append(
+                    "Executive summary appears to cite naive sum-of-all-lines totals; not a P&L net figure."
+                )
     if not significant_rows or not insignificant_rows:
-        return []
+        return warnings
 
     full_budget, full_actual, _, _ = _rollup_rows(significant_rows + insignificant_rows)
     sig_budget, sig_actual, _, _ = _rollup_rows(significant_rows)
-    summary_lower = executive_summary.lower()
 
     if any(label in summary_lower for label in ("significant line", "significant-line", "significant variances")):
-        return []
+        return warnings
 
     uses_sig_totals = (
         _format_money(sig_budget, currency_symbol) in executive_summary
@@ -535,8 +558,8 @@ def _validate_executive_summary(
         and _format_money(full_actual, currency_symbol) in executive_summary
     )
     if uses_sig_totals and not uses_full_totals:
-        return ["Executive summary appears to use significant-line totals as full totals."]
-    return []
+        warnings.append("Executive summary appears to use significant-line totals as full totals.")
+    return warnings
 
 
 def _validate_line_item_consistency(line_items: list[Any]) -> list[str]:
@@ -668,7 +691,7 @@ def _fallback_run(
     line_item_warnings = _validate_line_item_consistency(line_items)
     confidence_warnings = _validate_confidence(executive_summary, line_items, tool_traces)
     length_warnings = _length_review_diagnostics(executive_summary, line_items)
-    all_diagnostics = (
+    all_diagnostics = _dedupe_preserve_order(
         list(tool_diagnostics)
         + enrichment_warnings
         + source_warnings
@@ -824,5 +847,7 @@ async def run_agent(
                 error_message = _tool_result_error(content) if isinstance(content, str) else None
                 if error_message:
                     name = _block_value(tool_call, "name", "unknown")
-                    tool_diagnostics.append(f"{name}: {error_message}")
+                    entry = f"{name}: {error_message}"
+                    if not tool_diagnostics or tool_diagnostics[-1] != entry:
+                        tool_diagnostics.append(entry)
         messages.append({"role": "user", "content": tool_results})

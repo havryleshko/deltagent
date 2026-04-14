@@ -56,9 +56,13 @@ def test_prompt_contract_sections_present():
     assert "LINE COMMENTARY" in system_prompt
     assert "INSIGNIFICANT VARIANCES" in system_prompt
     assert "No context found — recommend review" in system_prompt
-    assert "Full report totals" in system_prompt
+    assert "bucket totals" in system_prompt.lower()
     assert "Professional Fees" in user_message
-    assert "Full report totals:" in user_message
+    assert "Full report totals" not in user_message
+    assert (
+        "Revenue (reported lines) totals:" in user_message
+        or "Do not state a single consolidated" in user_message
+    )
 
 
 @pytest.mark.asyncio

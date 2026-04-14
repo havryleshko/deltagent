@@ -1,0 +1,95 @@
+{
+  "saved_run": "",
+  "workbook": "delta_logistics_network_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Revenue",
+      "Warehouse Labor",
+      "Professional Fees",
+      "Fleet Repairs"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Revenue",
+      "budget_usd": 690000,
+      "actual_usd": 748500,
+      "variance_usd": 58500,
+      "variance_pct": 8.4783,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "a surge order and regional expansion lifted november revenue",
+      "expected_driver_keywords": [
+        "surge order",
+        "regional expansion",
+        "billed in november"
+      ],
+      "allowed_source_families": [
+        "crm",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "crm-revenue-broad",
+        "slack-revenue-narrow"
+      ]
+    },
+    {
+      "line_item": "Warehouse Labor",
+      "budget_usd": 155000,
+      "actual_usd": 176400,
+      "variance_usd": 21400,
+      "variance_pct": 13.8065,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "peak-week overtime and temporary dock labor drove warehouse payroll over budget",
+      "expected_driver_keywords": [
+        "overtime coverage",
+        "temporary dock labor",
+        "saturday shifts",
+        "peak weeks"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "gmail-warehouse_labor-broad",
+        "slack-warehouse_labor-narrow"
+      ]
+    },
+    {
+      "line_item": "Professional Fees",
+      "budget_usd": 14000,
+      "actual_usd": 26300,
+      "variance_usd": 12300,
+      "variance_pct": 87.8571,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "urgent port compliance dispute support from customs counsel caused the spike",
+      "expected_driver_keywords": [
+        "customs counsel",
+        "port compliance dispute"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "gmail-professional_fees-broad",
+        "calendar-professional_fees-broad"
+      ]
+    },
+    {
+      "line_item": "Fleet Repairs",
+      "budget_usd": 82000,
+      "actual_usd": 96350,
+      "variance_usd": 14350,
+      "variance_pct": 17.5,
+      "significant": true,
+      "supported": false
+    }
+  ]
+}

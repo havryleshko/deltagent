@@ -1,0 +1,31 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_crm": {
+      "Revenue": {
+        "broad": "CRM confirms one storm-response deployment and one utility maintenance expansion billed before month-end."
+      }
+    },
+    "search_gmail": {
+      "Contract Labor": {
+        "broad": "Field staffing vendor summary shows incremental crews mobilized for the storm-response deployment."
+      },
+      "Equipment Leases": {
+        "broad": "Lease amendment invoice covers two additional generators mobilized for the expanded utility scope."
+      }
+    },
+    "search_slack": {
+      "Fuel": {
+        "broad": "Ops channel notes higher fleet hours and generator runtime during storm-response work."
+      },
+      "Revenue": {
+        "narrow": "Commercial lead confirms both storm and utility scope were approved and billed inside November."
+      }
+    },
+    "search_calendar": {
+      "Contract Labor": {
+        "broad": "Crew mobilization calls scheduled daily for the first 10 days of the storm-response deployment."
+      }
+    }
+  }
+}

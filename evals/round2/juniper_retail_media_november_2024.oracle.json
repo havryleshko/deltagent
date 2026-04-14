@@ -1,0 +1,102 @@
+{
+  "saved_run": "",
+  "workbook": "juniper_retail_media_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Revenue",
+      "Sales Commissions",
+      "Professional Fees",
+      "Campaign Production"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Revenue",
+      "budget_usd": 430000,
+      "actual_usd": 486700,
+      "variance_usd": 56700,
+      "variance_pct": 13.186,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "holiday campaign wins and a budget expansion lifted november billings",
+      "expected_driver_keywords": [
+        "holiday retail campaigns",
+        "budget expansion",
+        "adding to billings"
+      ],
+      "allowed_source_families": [
+        "crm"
+      ],
+      "expected_evidence_ids": [
+        "crm-revenue-broad"
+      ]
+    },
+    {
+      "line_item": "Sales Commissions",
+      "budget_usd": 44000,
+      "actual_usd": 54850,
+      "variance_usd": 10850,
+      "variance_pct": 24.6591,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "commission accrual rose with november holiday campaign expansions",
+      "expected_driver_keywords": [
+        "commission accrual",
+        "holiday campaign expansions"
+      ],
+      "allowed_source_families": [
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "slack-sales_commissions-broad"
+      ]
+    },
+    {
+      "line_item": "Professional Fees",
+      "budget_usd": 17000,
+      "actual_usd": 26100,
+      "variance_usd": 9100,
+      "variance_pct": 53.5294,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "creative legal review and measurement audit support drove the overage",
+      "expected_driver_keywords": [
+        "creative legal review",
+        "measurement audit",
+        "accelerated holiday campaigns"
+      ],
+      "allowed_source_families": [
+        "gmail"
+      ],
+      "expected_evidence_ids": [
+        "gmail-professional_fees-broad"
+      ]
+    },
+    {
+      "line_item": "Campaign Production",
+      "budget_usd": 59000,
+      "actual_usd": 68400,
+      "variance_usd": 9400,
+      "variance_pct": 15.9322,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "rushed creative refreshes and weekend edit sessions increased production costs",
+      "expected_driver_keywords": [
+        "rushed creative refreshes",
+        "weekend edit sessions",
+        "late client feedback"
+      ],
+      "allowed_source_families": [
+        "slack",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "slack-campaign_production-broad",
+        "calendar-campaign_production-narrow"
+      ]
+    }
+  ]
+}

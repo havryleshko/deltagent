@@ -13,7 +13,7 @@ def test_build_user_message_currency_symbol_gbp():
     text = build_user_message(significant, insignificant, currency_symbol="£")
     assert "£" in text
     assert "$" not in text
-    assert "Full report totals:" in text
+    assert "Full report totals" not in text
     assert "Significant-line totals:" in text
 
 

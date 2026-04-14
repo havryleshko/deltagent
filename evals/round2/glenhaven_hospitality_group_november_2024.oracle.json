@@ -1,0 +1,103 @@
+{
+  "saved_run": "",
+  "workbook": "glenhaven_hospitality_group_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Room Revenue",
+      "Food & Beverage Revenue",
+      "Kitchen Payroll",
+      "Property Insurance"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Room Revenue",
+      "budget_usd": 390000,
+      "actual_usd": 421500,
+      "variance_usd": 31500,
+      "variance_pct": 8.0769,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "a wedding block and corporate retreat lifted room nights above plan",
+      "expected_driver_keywords": [
+        "wedding block",
+        "corporate retreat",
+        "room nights"
+      ],
+      "allowed_source_families": [
+        "crm"
+      ],
+      "expected_evidence_ids": [
+        "crm-room_revenue-broad"
+      ]
+    },
+    {
+      "line_item": "Food & Beverage Revenue",
+      "budget_usd": 74000,
+      "actual_usd": 85100,
+      "variance_usd": 11100,
+      "variance_pct": 15.0,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "banquet package upgrades and beverage minimums lifted event revenue",
+      "expected_driver_keywords": [
+        "banquet package upgrades",
+        "beverage minimums",
+        "expanded receptions"
+      ],
+      "allowed_source_families": [
+        "slack",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "slack-food_&_beverage_revenue-broad",
+        "calendar-food_&_beverage_revenue-narrow"
+      ]
+    },
+    {
+      "line_item": "Kitchen Payroll",
+      "budget_usd": 48000,
+      "actual_usd": 55750,
+      "variance_usd": 7750,
+      "variance_pct": 16.1458,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "overtime and agency prep cooks for banquet weekends increased payroll",
+      "expected_driver_keywords": [
+        "overtime",
+        "agency prep cooks",
+        "banquet weekends"
+      ],
+      "allowed_source_families": [
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "slack-kitchen_payroll-broad"
+      ]
+    },
+    {
+      "line_item": "Property Insurance",
+      "budget_usd": 31000,
+      "actual_usd": 35300,
+      "variance_usd": 4300,
+      "variance_pct": 13.871,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "broker renewal increased premiums after revised catastrophe modeling",
+      "expected_driver_keywords": [
+        "broker renewal",
+        "coastal catastrophe modeling",
+        "higher property premium"
+      ],
+      "allowed_source_families": [
+        "gmail"
+      ],
+      "expected_evidence_ids": [
+        "gmail-property_insurance-broad"
+      ]
+    }
+  ]
+}

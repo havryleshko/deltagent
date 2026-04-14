@@ -1,0 +1,66 @@
+{
+  "period": "November 2024",
+  "bundle_count": 10,
+  "bundles": [
+    {
+      "slug": "bluebird_biotech_services_november_2024",
+      "xlsx": "bluebird_biotech_services_november_2024.xlsx",
+      "mock_context": "bluebird_biotech_services_november_2024.mock_context.json",
+      "oracle": "bluebird_biotech_services_november_2024.oracle.json"
+    },
+    {
+      "slug": "cedar_facilities_management_november_2024",
+      "xlsx": "cedar_facilities_management_november_2024.xlsx",
+      "mock_context": "cedar_facilities_management_november_2024.mock_context.json",
+      "oracle": "cedar_facilities_management_november_2024.oracle.json"
+    },
+    {
+      "slug": "delta_logistics_network_november_2024",
+      "xlsx": "delta_logistics_network_november_2024.xlsx",
+      "mock_context": "delta_logistics_network_november_2024.mock_context.json",
+      "oracle": "delta_logistics_network_november_2024.oracle.json"
+    },
+    {
+      "slug": "ember_saas_security_november_2024",
+      "xlsx": "ember_saas_security_november_2024.xlsx",
+      "mock_context": "ember_saas_security_november_2024.mock_context.json",
+      "oracle": "ember_saas_security_november_2024.oracle.json"
+    },
+    {
+      "slug": "forge_industrial_components_november_2024",
+      "xlsx": "forge_industrial_components_november_2024.xlsx",
+      "mock_context": "forge_industrial_components_november_2024.mock_context.json",
+      "oracle": "forge_industrial_components_november_2024.oracle.json"
+    },
+    {
+      "slug": "glenhaven_hospitality_group_november_2024",
+      "xlsx": "glenhaven_hospitality_group_november_2024.xlsx",
+      "mock_context": "glenhaven_hospitality_group_november_2024.mock_context.json",
+      "oracle": "glenhaven_hospitality_group_november_2024.oracle.json"
+    },
+    {
+      "slug": "harborline_health_clinics_november_2024",
+      "xlsx": "harborline_health_clinics_november_2024.xlsx",
+      "mock_context": "harborline_health_clinics_november_2024.mock_context.json",
+      "oracle": "harborline_health_clinics_november_2024.oracle.json"
+    },
+    {
+      "slug": "iona_renewable_storage_november_2024",
+      "xlsx": "iona_renewable_storage_november_2024.xlsx",
+      "mock_context": "iona_renewable_storage_november_2024.mock_context.json",
+      "oracle": "iona_renewable_storage_november_2024.oracle.json"
+    },
+    {
+      "slug": "juniper_retail_media_november_2024",
+      "xlsx": "juniper_retail_media_november_2024.xlsx",
+      "mock_context": "juniper_retail_media_november_2024.mock_context.json",
+      "oracle": "juniper_retail_media_november_2024.oracle.json"
+    },
+    {
+      "slug": "keystone_field_operations_november_2024",
+      "xlsx": "keystone_field_operations_november_2024.xlsx",
+      "mock_context": "keystone_field_operations_november_2024.mock_context.json",
+      "oracle": "keystone_field_operations_november_2024.oracle.json"
+    }
+  ]
+}
