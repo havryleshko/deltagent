@@ -1,0 +1,28 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_crm": {
+      "Revenue": {
+        "broad": "CRM notes show district expansion seats and one multi-campus add-on booked in the last week of November."
+      }
+    },
+    "search_gmail": {
+      "Cloud Hosting": {
+        "broad": "Hosting invoice summary shows peak load from expanded seat provisioning and duplicated onboarding environments."
+      }
+    },
+    "search_slack": {
+      "Customer Support Payroll": {
+        "broad": "Support lead says weekend onboarding coverage and temporary chat staffing were added for the district expansion wave."
+      },
+      "Print & Swag": {
+        "broad": "Field marketing thread confirms unplanned launch kits were shipped to all new campus champions."
+      }
+    },
+    "search_calendar": {
+      "Customer Support Payroll": {
+        "narrow": "Onboarding command-center shifts were scheduled across two weekends after the district expansion closed."
+      }
+    }
+  }
+}

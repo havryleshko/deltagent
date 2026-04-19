@@ -1,0 +1,93 @@
+{
+  "saved_run": "",
+  "workbook": "riverside_logistics_lastmile_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Delivery Labor",
+      "Fuel Surcharges",
+      "Vehicle Leases",
+      "Sortation Equipment"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Delivery Labor",
+      "budget_usd": 218000,
+      "actual_usd": 246800,
+      "variance_usd": 28800,
+      "variance_pct": 13.211,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "peak sunday routes and temp sorter coverage for black friday week increased payroll",
+      "expected_driver_keywords": [
+        "peak sunday routes",
+        "temp sorter",
+        "black friday week"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "gmail-delivery_labor-broad",
+        "slack-delivery_labor-narrow"
+      ]
+    },
+    {
+      "line_item": "Fuel Surcharges",
+      "budget_usd": 96000,
+      "actual_usd": 112300,
+      "variance_usd": 16300,
+      "variance_pct": 16.9792,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "diesel index movement and applied surcharge tables raised fuel surcharges",
+      "expected_driver_keywords": [
+        "diesel index",
+        "surcharge tables",
+        "subcontractor routes"
+      ],
+      "allowed_source_families": [
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "slack-fuel_surcharges-broad"
+      ]
+    },
+    {
+      "line_item": "Vehicle Leases",
+      "budget_usd": 78000,
+      "actual_usd": 82100,
+      "variance_usd": 4100,
+      "variance_pct": 5.2564,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "three sprinter leases started early for the holiday surge lane",
+      "expected_driver_keywords": [
+        "sprinter leases",
+        "holiday surge lane",
+        "fleet"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "gmail-vehicle_leases-broad",
+        "calendar-vehicle_leases-broad"
+      ]
+    },
+    {
+      "line_item": "Sortation Equipment",
+      "budget_usd": 44000,
+      "actual_usd": 51900,
+      "variance_usd": 7900,
+      "variance_pct": 17.9545,
+      "significant": true,
+      "supported": false
+    }
+  ]
+}

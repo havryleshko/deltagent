@@ -1,0 +1,95 @@
+{
+  "saved_run": "",
+  "workbook": "vantage_cyber_defense_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "MRR Revenue",
+      "SOC Staffing",
+      "Threat Intel Feeds",
+      "Incident Response Retainer"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "MRR Revenue",
+      "budget_usd": 540000,
+      "actual_usd": 578200,
+      "variance_usd": 38200,
+      "variance_pct": 7.0741,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "three enterprise mssp expansions effective in november lifted mrr",
+      "expected_driver_keywords": [
+        "enterprise mssp expansions",
+        "november",
+        "renewal schedule"
+      ],
+      "allowed_source_families": [
+        "crm",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "crm-mrr_revenue-broad",
+        "slack-mrr_revenue-narrow"
+      ]
+    },
+    {
+      "line_item": "SOC Staffing",
+      "budget_usd": 198000,
+      "actual_usd": 215400,
+      "variance_usd": 17400,
+      "variance_pct": 8.7879,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "weekend analyst overlap during a red-team exercise increased soc payroll",
+      "expected_driver_keywords": [
+        "weekend analyst overlap",
+        "red-team exercise",
+        "shift overlap"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "gmail-soc_staffing-broad",
+        "slack-soc_staffing-narrow"
+      ]
+    },
+    {
+      "line_item": "Threat Intel Feeds",
+      "budget_usd": 46000,
+      "actual_usd": 54800,
+      "variance_usd": 8800,
+      "variance_pct": 19.1304,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "upgraded threat feed bundle after a regulator inquiry template change increased cost",
+      "expected_driver_keywords": [
+        "upgraded threat feed bundle",
+        "regulator inquiry",
+        "vendor"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "gmail-threat_intel_feeds-broad",
+        "calendar-threat_intel_feeds-broad"
+      ]
+    },
+    {
+      "line_item": "Incident Response Retainer",
+      "budget_usd": 32000,
+      "actual_usd": 34800,
+      "variance_usd": 2800,
+      "variance_pct": 8.75,
+      "significant": true,
+      "supported": false
+    }
+  ]
+}

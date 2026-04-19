@@ -1,0 +1,26 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_gmail": {
+      "Fresh Catch COGS": {
+        "broad": "Supplier notice confirms spot pricing on salmon and halibut rose after a coastal storm delayed landings."
+      },
+      "Inbound Freight": {
+        "broad": "Freight forwarder invoice batch shows emergency airfreight for two delayed reefers."
+      }
+    },
+    "search_slack": {
+      "Cold Storage Utilities": {
+        "broad": "Ops channel notes compressor runtime increased while holding extra inventory through the holiday pre-buy."
+      },
+      "Fresh Catch COGS": {
+        "narrow": "Procurement thread ties the spot buy to a short landing week and higher auction clears."
+      }
+    },
+    "search_calendar": {
+      "Inbound Freight": {
+        "broad": "Logistics review with the forwarder was held mid-November after reefer delays."
+      }
+    }
+  }
+}

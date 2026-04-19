@@ -1,0 +1,103 @@
+{
+  "saved_run": "",
+  "workbook": "lumen_education_platform_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Revenue",
+      "Customer Support Payroll",
+      "Cloud Hosting",
+      "Print & Swag"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Revenue",
+      "budget_usd": 510000,
+      "actual_usd": 542600,
+      "variance_usd": 32600,
+      "variance_pct": 6.3922,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "district expansion seats and a multi-campus add-on lifted november revenue",
+      "expected_driver_keywords": [
+        "district expansion seats",
+        "multi-campus add-on",
+        "last week of november"
+      ],
+      "allowed_source_families": [
+        "crm"
+      ],
+      "expected_evidence_ids": [
+        "crm-revenue-broad"
+      ]
+    },
+    {
+      "line_item": "Customer Support Payroll",
+      "budget_usd": 98000,
+      "actual_usd": 112900,
+      "variance_usd": 14900,
+      "variance_pct": 15.2041,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "weekend onboarding coverage and temporary chat staffing increased payroll",
+      "expected_driver_keywords": [
+        "weekend onboarding coverage",
+        "temporary chat staffing",
+        "command-center shifts"
+      ],
+      "allowed_source_families": [
+        "slack",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "slack-customer_support_payroll-broad",
+        "calendar-customer_support_payroll-narrow"
+      ]
+    },
+    {
+      "line_item": "Cloud Hosting",
+      "budget_usd": 76000,
+      "actual_usd": 87300,
+      "variance_usd": 11300,
+      "variance_pct": 14.8684,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "expanded seat provisioning and duplicated onboarding environments increased hosting cost",
+      "expected_driver_keywords": [
+        "expanded seat provisioning",
+        "duplicated onboarding environments",
+        "peak load"
+      ],
+      "allowed_source_families": [
+        "gmail"
+      ],
+      "expected_evidence_ids": [
+        "gmail-cloud_hosting-broad"
+      ]
+    },
+    {
+      "line_item": "Print & Swag",
+      "budget_usd": 19000,
+      "actual_usd": 26750,
+      "variance_usd": 7750,
+      "variance_pct": 40.7895,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "unplanned launch kits for new campus champions caused the overage",
+      "expected_driver_keywords": [
+        "launch kits",
+        "new campus champions",
+        "shipped"
+      ],
+      "allowed_source_families": [
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "slack-print_&_swag-broad"
+      ]
+    }
+  ]
+}

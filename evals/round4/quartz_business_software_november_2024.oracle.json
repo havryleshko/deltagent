@@ -1,0 +1,105 @@
+{
+  "saved_run": "",
+  "workbook": "quartz_business_software_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Revenue",
+      "R&D Payroll",
+      "Data Center Costs",
+      "Sales Commissions"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Revenue",
+      "budget_usd": 620000,
+      "actual_usd": 668900,
+      "variance_usd": 48900,
+      "variance_pct": 7.8871,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "platform upsell wave and a healthcare vertical win lifted november billings",
+      "expected_driver_keywords": [
+        "platform upsell",
+        "healthcare vertical",
+        "november billings"
+      ],
+      "allowed_source_families": [
+        "crm",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "crm-revenue-broad",
+        "slack-revenue-narrow"
+      ]
+    },
+    {
+      "line_item": "R&D Payroll",
+      "budget_usd": 176000,
+      "actual_usd": 192400,
+      "variance_usd": 16400,
+      "variance_pct": 9.3182,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "contractor-to-fte conversions for backend teams increased payroll",
+      "expected_driver_keywords": [
+        "contractor-to-fte",
+        "backend teams",
+        "mid-november"
+      ],
+      "allowed_source_families": [
+        "gmail"
+      ],
+      "expected_evidence_ids": [
+        "gmail-r&d_payroll-broad"
+      ]
+    },
+    {
+      "line_item": "Data Center Costs",
+      "budget_usd": 98000,
+      "actual_usd": 114600,
+      "variance_usd": 16600,
+      "variance_pct": 16.9388,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "power draw spike during a zero-downtime cluster migration increased colo costs",
+      "expected_driver_keywords": [
+        "power draw spike",
+        "cluster migration",
+        "colo"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "gmail-data_center_costs-broad",
+        "calendar-data_center_costs-broad"
+      ]
+    },
+    {
+      "line_item": "Sales Commissions",
+      "budget_usd": 71000,
+      "actual_usd": 84300,
+      "variance_usd": 13300,
+      "variance_pct": 18.7324,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "commission accruals increased with the healthcare win and upsell bookings",
+      "expected_driver_keywords": [
+        "commission accruals",
+        "healthcare win",
+        "upsell"
+      ],
+      "allowed_source_families": [
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "slack-sales_commissions-broad"
+      ]
+    }
+  ]
+}

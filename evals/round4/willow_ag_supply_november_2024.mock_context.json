@@ -1,0 +1,26 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_gmail": {
+      "Grain Purchases": {
+        "broad": "Co-op bulletin confirms basis rally and deferred contract pricing closed higher in mid-November."
+      },
+      "Equipment Rental": {
+        "broad": "Rental invoice packet shows extra combine headers for a wet harvest window."
+      }
+    },
+    "search_slack": {
+      "Agronomy Services": {
+        "broad": "Agronomy desk notes soil sampling rush and late-season nutrient applications before freeze."
+      },
+      "Grain Purchases": {
+        "narrow": "Trading desk confirms deferred contracts priced into the november position."
+      }
+    },
+    "search_calendar": {
+      "Equipment Rental": {
+        "broad": "Field ops scheduled equipment swaps daily during the wet harvest stretch."
+      }
+    }
+  }
+}

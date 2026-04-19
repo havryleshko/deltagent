@@ -1,0 +1,94 @@
+{
+  "saved_run": "",
+  "workbook": "tundra_retail_operations_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Store Payroll",
+      "Inventory Shrink",
+      "Rent",
+      "Store Supplies"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Store Payroll",
+      "budget_usd": 410000,
+      "actual_usd": 438600,
+      "variance_usd": 28600,
+      "variance_pct": 6.9756,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "holiday temp hiring and overlap with returning students increased payroll",
+      "expected_driver_keywords": [
+        "temp hiring",
+        "returning students",
+        "overlap shifts"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "gmail-store_payroll-broad",
+        "slack-store_payroll-narrow"
+      ]
+    },
+    {
+      "line_item": "Inventory Shrink",
+      "budget_usd": 28000,
+      "actual_usd": 41200,
+      "variance_usd": 13200,
+      "variance_pct": 47.1429,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "high-theft sku resets and miscounts during remerch drove shrink higher",
+      "expected_driver_keywords": [
+        "high-theft sku",
+        "miscounts",
+        "remerch",
+        "loss prevention"
+      ],
+      "allowed_source_families": [
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "slack-inventory_shrink-broad"
+      ]
+    },
+    {
+      "line_item": "Rent",
+      "budget_usd": 196000,
+      "actual_usd": 201400,
+      "variance_usd": 5400,
+      "variance_pct": 2.7551,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "cam true-up for two anchor locations billed in november increased rent",
+      "expected_driver_keywords": [
+        "cam true-up",
+        "anchor locations",
+        "landlord"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "gmail-rent-broad",
+        "calendar-rent-broad"
+      ]
+    },
+    {
+      "line_item": "Store Supplies",
+      "budget_usd": 19000,
+      "actual_usd": 24600,
+      "variance_usd": 5600,
+      "variance_pct": 29.4737,
+      "significant": true,
+      "supported": false
+    }
+  ]
+}

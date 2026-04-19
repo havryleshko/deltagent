@@ -1,0 +1,95 @@
+{
+  "saved_run": "",
+  "workbook": "zenith_broadcast_network_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Ad Revenue",
+      "Program Production",
+      "Tower Lease Costs",
+      "Content Royalties"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Ad Revenue",
+      "budget_usd": 710000,
+      "actual_usd": 748900,
+      "variance_usd": 38900,
+      "variance_pct": 5.4789,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "political flight added november spot revenue in the scatter market",
+      "expected_driver_keywords": [
+        "political flight",
+        "spot revenue",
+        "scatter market"
+      ],
+      "allowed_source_families": [
+        "crm",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "crm-ad_revenue-broad",
+        "slack-ad_revenue-narrow"
+      ]
+    },
+    {
+      "line_item": "Program Production",
+      "budget_usd": 134000,
+      "actual_usd": 156200,
+      "variance_usd": 22200,
+      "variance_pct": 16.5672,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "unplanned overtime for election-night coverage and satellite uplinks increased production cost",
+      "expected_driver_keywords": [
+        "election-night coverage",
+        "satellite uplinks",
+        "overtime"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "gmail-program_production-broad",
+        "slack-program_production-narrow"
+      ]
+    },
+    {
+      "line_item": "Tower Lease Costs",
+      "budget_usd": 88000,
+      "actual_usd": 92300,
+      "variance_usd": 4300,
+      "variance_pct": 4.8864,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "cpi step-up on two tower agreements effective november 1 increased lease expense",
+      "expected_driver_keywords": [
+        "cpi step-up",
+        "tower agreements",
+        "november 1"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "gmail-tower_lease_costs-broad",
+        "calendar-tower_lease_costs-broad"
+      ]
+    },
+    {
+      "line_item": "Content Royalties",
+      "budget_usd": 52000,
+      "actual_usd": 61100,
+      "variance_usd": 9100,
+      "variance_pct": 17.5,
+      "significant": true,
+      "supported": false
+    }
+  ]
+}

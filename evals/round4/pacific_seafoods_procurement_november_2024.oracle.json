@@ -1,0 +1,94 @@
+{
+  "saved_run": "",
+  "workbook": "pacific_seafoods_procurement_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Fresh Catch COGS",
+      "Inbound Freight",
+      "Cold Storage Utilities",
+      "Packaging Supplies"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Fresh Catch COGS",
+      "budget_usd": 410000,
+      "actual_usd": 451200,
+      "variance_usd": 41200,
+      "variance_pct": 10.0488,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "spot pricing on salmon and halibut rose after storm-delayed landings",
+      "expected_driver_keywords": [
+        "spot pricing",
+        "salmon and halibut",
+        "delayed landings",
+        "auction"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "gmail-fresh_catch_cogs-broad",
+        "slack-fresh_catch_cogs-narrow"
+      ]
+    },
+    {
+      "line_item": "Inbound Freight",
+      "budget_usd": 88000,
+      "actual_usd": 102400,
+      "variance_usd": 14400,
+      "variance_pct": 16.3636,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "emergency airfreight for delayed reefers increased inbound freight",
+      "expected_driver_keywords": [
+        "emergency airfreight",
+        "delayed reefers",
+        "forwarder"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "gmail-inbound_freight-broad",
+        "calendar-inbound_freight-broad"
+      ]
+    },
+    {
+      "line_item": "Cold Storage Utilities",
+      "budget_usd": 72000,
+      "actual_usd": 83400,
+      "variance_usd": 11400,
+      "variance_pct": 15.8333,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "higher compressor runtime holding extra holiday pre-buy inventory lifted power spend",
+      "expected_driver_keywords": [
+        "compressor runtime",
+        "extra inventory",
+        "holiday pre-buy"
+      ],
+      "allowed_source_families": [
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "slack-cold_storage_utilities-broad"
+      ]
+    },
+    {
+      "line_item": "Packaging Supplies",
+      "budget_usd": 34000,
+      "actual_usd": 38800,
+      "variance_usd": 4800,
+      "variance_pct": 14.1176,
+      "significant": true,
+      "supported": false
+    }
+  ]
+}

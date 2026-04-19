@@ -1,0 +1,31 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_crm": {
+      "Revenue": {
+        "broad": "CRM shows a platform upsell wave and one healthcare vertical win adding +36000 in November billings."
+      }
+    },
+    "search_gmail": {
+      "Data Center Costs": {
+        "broad": "Colo invoice summary shows power draw spike during a zero-downtime cluster migration weekend."
+      },
+      "R&D Payroll": {
+        "broad": "HR confirms contractor-to-FTE conversions for two backend teams effective mid-November."
+      }
+    },
+    "search_slack": {
+      "Sales Commissions": {
+        "broad": "RevOps says commission accruals rose with the healthcare win and upsell wave booked in November."
+      },
+      "Revenue": {
+        "narrow": "Deal desk confirms healthcare contract signatures landed before month-end."
+      }
+    },
+    "search_calendar": {
+      "Data Center Costs": {
+        "broad": "Migration cutover window scheduled overnight Saturday in mid-November."
+      }
+    }
+  }
+}

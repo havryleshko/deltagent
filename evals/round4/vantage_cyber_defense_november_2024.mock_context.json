@@ -1,0 +1,31 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_crm": {
+      "MRR Revenue": {
+        "broad": "CRM renewal schedule shows three enterprise MSSP expansions effective in November."
+      }
+    },
+    "search_gmail": {
+      "Threat Intel Feeds": {
+        "broad": "Vendor notice confirms upgraded threat feed bundle after a regulator inquiry template change."
+      },
+      "SOC Staffing": {
+        "broad": "Staffing memo approves weekend analyst overlap during a red-team exercise window."
+      }
+    },
+    "search_slack": {
+      "SOC Staffing": {
+        "narrow": "SOC lead confirms shift overlap covered the red-team exercise weekend."
+      },
+      "MRR Revenue": {
+        "narrow": "Customer success confirms MSSP expansions were activated on schedule."
+      }
+    },
+    "search_calendar": {
+      "Threat Intel Feeds": {
+        "broad": "Vendor enablement session for the upgraded feed bundle held mid-November."
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_crm": {
+      "Revenue": {
+        "broad": "CRM renewal board shows two issuer programs expanded interchange share in November worth +28000 versus plan.",
+        "narrow": "Deal desk confirms one enterprise issuer bundle closed a week early after risk sign-off."
+      }
+    },
+    "search_gmail": {
+      "Card Network Fees": {
+        "broad": "Network interchange statement shows elevated cross-border ticket volume in the Thanksgiving travel window."
+      },
+      "Fraud Operations": {
+        "broad": "Ops inbox confirms temporary analyst surge staffing for a coordinated chargeback spike."
+      }
+    },
+    "search_slack": {
+      "Revenue": {
+        "narrow": "Commercial thread confirms issuer bundle paperwork finished before November close."
+      }
+    },
+    "search_calendar": {
+      "Fraud Operations": {
+        "broad": "Fraud war-room blocks were scheduled nightly for the second week of November."
+      }
+    }
+  }
+}

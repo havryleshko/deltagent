@@ -1,0 +1,26 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_gmail": {
+      "Store Payroll": {
+        "broad": "Payroll approval email confirms holiday season temp hiring and overlap with returning students."
+      },
+      "Rent": {
+        "broad": "Landlord notice shows CAM true-up billed in November for two anchor locations."
+      }
+    },
+    "search_slack": {
+      "Inventory Shrink": {
+        "broad": "Loss prevention thread ties november spike to high-theft SKU resets and miscounts during remerch."
+      },
+      "Store Payroll": {
+        "narrow": "Store ops confirms overlap shifts for the Black Friday weekend schedule."
+      }
+    },
+    "search_calendar": {
+      "Rent": {
+        "broad": "Lease admin review for CAM true-up scheduled the week before Thanksgiving."
+      }
+    }
+  }
+}

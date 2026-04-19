@@ -1,0 +1,94 @@
+{
+  "saved_run": "",
+  "workbook": "willow_ag_supply_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Grain Purchases",
+      "Agronomy Services",
+      "Equipment Rental",
+      "Seasonal Fuel"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Grain Purchases",
+      "budget_usd": 520000,
+      "actual_usd": 561400,
+      "variance_usd": 41400,
+      "variance_pct": 7.9615,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "basis rally and deferred contract pricing closed higher mid-month",
+      "expected_driver_keywords": [
+        "basis rally",
+        "deferred contract",
+        "mid-november",
+        "co-op"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "gmail-grain_purchases-broad",
+        "slack-grain_purchases-narrow"
+      ]
+    },
+    {
+      "line_item": "Agronomy Services",
+      "budget_usd": 76000,
+      "actual_usd": 88200,
+      "variance_usd": 12200,
+      "variance_pct": 16.0526,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "soil sampling rush and late-season nutrient applications increased agronomy spend",
+      "expected_driver_keywords": [
+        "soil sampling rush",
+        "nutrient applications",
+        "before freeze"
+      ],
+      "allowed_source_families": [
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "slack-agronomy_services-broad"
+      ]
+    },
+    {
+      "line_item": "Equipment Rental",
+      "budget_usd": 94000,
+      "actual_usd": 108900,
+      "variance_usd": 14900,
+      "variance_pct": 15.8511,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "extra combine headers for a wet harvest window drove rental cost",
+      "expected_driver_keywords": [
+        "combine headers",
+        "wet harvest",
+        "rental invoice"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "gmail-equipment_rental-broad",
+        "calendar-equipment_rental-broad"
+      ]
+    },
+    {
+      "line_item": "Seasonal Fuel",
+      "budget_usd": 118000,
+      "actual_usd": 129600,
+      "variance_usd": 11600,
+      "variance_pct": 9.8305,
+      "significant": true,
+      "supported": false
+    }
+  ]
+}

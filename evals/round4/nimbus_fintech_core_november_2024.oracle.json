@@ -1,0 +1,95 @@
+{
+  "saved_run": "",
+  "workbook": "nimbus_fintech_core_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Revenue",
+      "Card Network Fees",
+      "Fraud Operations",
+      "Engineering Contractors"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Revenue",
+      "budget_usd": 890000,
+      "actual_usd": 934500,
+      "variance_usd": 44500,
+      "variance_pct": 5.0,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "issuer program expansions and an accelerated enterprise bundle lifted november revenue",
+      "expected_driver_keywords": [
+        "issuer programs",
+        "interchange share",
+        "enterprise issuer bundle",
+        "november"
+      ],
+      "allowed_source_families": [
+        "crm",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "crm-revenue-broad",
+        "crm-revenue-narrow",
+        "slack-revenue-narrow"
+      ]
+    },
+    {
+      "line_item": "Card Network Fees",
+      "budget_usd": 124000,
+      "actual_usd": 148200,
+      "variance_usd": 24200,
+      "variance_pct": 19.5161,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "elevated cross-border ticket volume in late november increased network fees",
+      "expected_driver_keywords": [
+        "cross-border",
+        "ticket volume",
+        "thanksgiving travel"
+      ],
+      "allowed_source_families": [
+        "gmail"
+      ],
+      "expected_evidence_ids": [
+        "gmail-card_network_fees-broad"
+      ]
+    },
+    {
+      "line_item": "Fraud Operations",
+      "budget_usd": 56000,
+      "actual_usd": 67800,
+      "variance_usd": 11800,
+      "variance_pct": 21.0714,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "temporary analyst surge staffing during a chargeback spike drove overtime",
+      "expected_driver_keywords": [
+        "analyst surge",
+        "chargeback spike",
+        "war-room"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "gmail-fraud_operations-broad",
+        "calendar-fraud_operations-broad"
+      ]
+    },
+    {
+      "line_item": "Engineering Contractors",
+      "budget_usd": 142000,
+      "actual_usd": 158900,
+      "variance_usd": 16900,
+      "variance_pct": 11.9014,
+      "significant": true,
+      "supported": false
+    }
+  ]
+}

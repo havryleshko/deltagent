@@ -1,0 +1,93 @@
+{
+  "saved_run": "",
+  "workbook": "summit_clinical_trials_november_2024.xlsx",
+  "period": "November 2024",
+  "summary_expectations": {
+    "must_surface_lines": [
+      "Site Payments",
+      "Patient Stipends",
+      "Monitoring Fees",
+      "Central Lab Services"
+    ],
+    "max_opening_drivers": 5,
+    "forbid_mixed_total_story": true
+  },
+  "lines": [
+    {
+      "line_item": "Site Payments",
+      "budget_usd": 280000,
+      "actual_usd": 312500,
+      "variance_usd": 32500,
+      "variance_pct": 11.6071,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "accelerated enrollment pulled two site milestone payments into november",
+      "expected_driver_keywords": [
+        "milestone payments",
+        "accelerated enrollment",
+        "sites"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "gmail-site_payments-broad",
+        "slack-site_payments-narrow"
+      ]
+    },
+    {
+      "line_item": "Patient Stipends",
+      "budget_usd": 42000,
+      "actual_usd": 48900,
+      "variance_usd": 6900,
+      "variance_pct": 16.4286,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "expanded weekend visit windows increased stipend volume",
+      "expected_driver_keywords": [
+        "weekend visit windows",
+        "stipend volume",
+        "study coordinator"
+      ],
+      "allowed_source_families": [
+        "slack"
+      ],
+      "expected_evidence_ids": [
+        "slack-patient_stipends-broad"
+      ]
+    },
+    {
+      "line_item": "Monitoring Fees",
+      "budget_usd": 67000,
+      "actual_usd": 75800,
+      "variance_usd": 8800,
+      "variance_pct": 13.1343,
+      "significant": true,
+      "supported": true,
+      "expected_driver": "extra monitoring visits after a data query backlog increased fees",
+      "expected_driver_keywords": [
+        "extra monitoring visits",
+        "data query backlog",
+        "cro"
+      ],
+      "allowed_source_families": [
+        "gmail",
+        "calendar"
+      ],
+      "expected_evidence_ids": [
+        "gmail-monitoring_fees-broad",
+        "calendar-monitoring_fees-broad"
+      ]
+    },
+    {
+      "line_item": "Central Lab Services",
+      "budget_usd": 91000,
+      "actual_usd": 98800,
+      "variance_usd": 7800,
+      "variance_pct": 8.5714,
+      "significant": true,
+      "supported": false
+    }
+  ]
+}

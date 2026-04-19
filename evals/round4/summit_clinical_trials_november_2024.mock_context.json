@@ -1,0 +1,26 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_gmail": {
+      "Site Payments": {
+        "broad": "CTA inbox shows two sites invoiced milestone payments earlier after accelerated enrollment."
+      },
+      "Monitoring Fees": {
+        "broad": "CRO email approves extra monitoring visits after a data query backlog opened mid-month."
+      }
+    },
+    "search_slack": {
+      "Patient Stipends": {
+        "broad": "Study coordinator channel notes higher stipend volume when weekend visit windows expanded."
+      },
+      "Site Payments": {
+        "narrow": "Clinical ops confirms milestone triggers aligned with the enrollment acceleration."
+      }
+    },
+    "search_calendar": {
+      "Monitoring Fees": {
+        "broad": "Monitoring visit blocks were added on the calendar for week three of November."
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "period": "November 2024",
+  "bundle_count": 10,
+  "bundles": [
+    {
+      "slug": "lumen_education_platform_november_2024",
+      "xlsx": "lumen_education_platform_november_2024.xlsx",
+      "mock_context": "lumen_education_platform_november_2024.mock_context.json",
+      "oracle": "lumen_education_platform_november_2024.oracle.json"
+    },
+    {
+      "slug": "nimbus_fintech_core_november_2024",
+      "xlsx": "nimbus_fintech_core_november_2024.xlsx",
+      "mock_context": "nimbus_fintech_core_november_2024.mock_context.json",
+      "oracle": "nimbus_fintech_core_november_2024.oracle.json"
+    },
+    {
+      "slug": "pacific_seafoods_procurement_november_2024",
+      "xlsx": "pacific_seafoods_procurement_november_2024.xlsx",
+      "mock_context": "pacific_seafoods_procurement_november_2024.mock_context.json",
+      "oracle": "pacific_seafoods_procurement_november_2024.oracle.json"
+    },
+    {
+      "slug": "quartz_business_software_november_2024",
+      "xlsx": "quartz_business_software_november_2024.xlsx",
+      "mock_context": "quartz_business_software_november_2024.mock_context.json",
+      "oracle": "quartz_business_software_november_2024.oracle.json"
+    },
+    {
+      "slug": "riverside_logistics_lastmile_november_2024",
+      "xlsx": "riverside_logistics_lastmile_november_2024.xlsx",
+      "mock_context": "riverside_logistics_lastmile_november_2024.mock_context.json",
+      "oracle": "riverside_logistics_lastmile_november_2024.oracle.json"
+    },
+    {
+      "slug": "summit_clinical_trials_november_2024",
+      "xlsx": "summit_clinical_trials_november_2024.xlsx",
+      "mock_context": "summit_clinical_trials_november_2024.mock_context.json",
+      "oracle": "summit_clinical_trials_november_2024.oracle.json"
+    },
+    {
+      "slug": "tundra_retail_operations_november_2024",
+      "xlsx": "tundra_retail_operations_november_2024.xlsx",
+      "mock_context": "tundra_retail_operations_november_2024.mock_context.json",
+      "oracle": "tundra_retail_operations_november_2024.oracle.json"
+    },
+    {
+      "slug": "vantage_cyber_defense_november_2024",
+      "xlsx": "vantage_cyber_defense_november_2024.xlsx",
+      "mock_context": "vantage_cyber_defense_november_2024.mock_context.json",
+      "oracle": "vantage_cyber_defense_november_2024.oracle.json"
+    },
+    {
+      "slug": "willow_ag_supply_november_2024",
+      "xlsx": "willow_ag_supply_november_2024.xlsx",
+      "mock_context": "willow_ag_supply_november_2024.mock_context.json",
+      "oracle": "willow_ag_supply_november_2024.oracle.json"
+    },
+    {
+      "slug": "zenith_broadcast_network_november_2024",
+      "xlsx": "zenith_broadcast_network_november_2024.xlsx",
+      "mock_context": "zenith_broadcast_network_november_2024.mock_context.json",
+      "oracle": "zenith_broadcast_network_november_2024.oracle.json"
+    }
+  ]
+}

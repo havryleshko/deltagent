@@ -1,0 +1,72 @@
+[
+  {
+    "slug": "lumen_education_platform_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/lumen_education_platform_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/lumen_education_platform_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/lumen_education_platform_november_2024.oracle.json",
+    "run_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/runs/run_20260414_192017.json"
+  },
+  {
+    "slug": "nimbus_fintech_core_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/nimbus_fintech_core_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/nimbus_fintech_core_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/nimbus_fintech_core_november_2024.oracle.json",
+    "run_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/runs/run_20260414_192101.json"
+  },
+  {
+    "slug": "pacific_seafoods_procurement_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/pacific_seafoods_procurement_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/pacific_seafoods_procurement_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/pacific_seafoods_procurement_november_2024.oracle.json",
+    "run_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/runs/run_20260414_192144.json"
+  },
+  {
+    "slug": "quartz_business_software_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/quartz_business_software_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/quartz_business_software_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/quartz_business_software_november_2024.oracle.json",
+    "run_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/runs/run_20260414_192236.json"
+  },
+  {
+    "slug": "riverside_logistics_lastmile_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/riverside_logistics_lastmile_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/riverside_logistics_lastmile_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/riverside_logistics_lastmile_november_2024.oracle.json",
+    "run_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/runs/run_20260414_192312.json"
+  },
+  {
+    "slug": "summit_clinical_trials_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/summit_clinical_trials_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/summit_clinical_trials_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/summit_clinical_trials_november_2024.oracle.json",
+    "run_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/runs/run_20260414_192354.json"
+  },
+  {
+    "slug": "tundra_retail_operations_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/tundra_retail_operations_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/tundra_retail_operations_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/tundra_retail_operations_november_2024.oracle.json",
+    "run_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/runs/run_20260414_192430.json"
+  },
+  {
+    "slug": "vantage_cyber_defense_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/vantage_cyber_defense_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/vantage_cyber_defense_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/vantage_cyber_defense_november_2024.oracle.json",
+    "run_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/runs/run_20260414_192511.json"
+  },
+  {
+    "slug": "willow_ag_supply_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/willow_ag_supply_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/willow_ag_supply_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/willow_ag_supply_november_2024.oracle.json",
+    "run_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/runs/run_20260414_192559.json"
+  },
+  {
+    "slug": "zenith_broadcast_network_november_2024",
+    "workbook_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/zenith_broadcast_network_november_2024.xlsx",
+    "mock_context_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/zenith_broadcast_network_november_2024.mock_context.json",
+    "oracle_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/evals/round4/zenith_broadcast_network_november_2024.oracle.json",
+    "run_path": "/Users/ohavryleshko/Documents/GitHub/deltagent/runs/run_20260414_192636.json"
+  }
+]

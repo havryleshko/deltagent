@@ -1,0 +1,31 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_crm": {
+      "Ad Revenue": {
+        "broad": "CRM scatter market report shows political flight added +31000 in November spot revenue."
+      }
+    },
+    "search_gmail": {
+      "Program Production": {
+        "broad": "Production finance confirms unplanned overtime for election-night coverage and satellite uplinks."
+      },
+      "Tower Lease Costs": {
+        "broad": "Lease operations email notes CPI step-up on two tower agreements effective November 1."
+      }
+    },
+    "search_slack": {
+      "Program Production": {
+        "narrow": "Control room thread confirms extended cutdown sessions after the debate replay package."
+      },
+      "Ad Revenue": {
+        "narrow": "Sales ops confirms political flight booked into november spot logs."
+      }
+    },
+    "search_calendar": {
+      "Tower Lease Costs": {
+        "broad": "Lease admin review for CPI step-up held the first week of November."
+      }
+    }
+  }
+}

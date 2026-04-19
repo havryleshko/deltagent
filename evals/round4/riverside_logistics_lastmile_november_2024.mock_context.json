@@ -1,0 +1,26 @@
+{
+  "period": "November 2024",
+  "tool_responses": {
+    "search_gmail": {
+      "Delivery Labor": {
+        "broad": "Staffing vendor summary shows peak Sunday routes and temp sorter coverage for Black Friday week."
+      },
+      "Vehicle Leases": {
+        "broad": "Fleet email confirms three sprinter leases started early to cover the holiday surge lane."
+      }
+    },
+    "search_slack": {
+      "Fuel Surcharges": {
+        "broad": "Ops notes diesel index moved up and surcharge tables were applied to subcontractor routes."
+      },
+      "Delivery Labor": {
+        "narrow": "Dispatch channel confirms Sunday overtime blocks added for the final November weekend."
+      }
+    },
+    "search_calendar": {
+      "Vehicle Leases": {
+        "broad": "Fleet onboarding calendar shows back-to-back vehicle readiness reviews before Black Friday."
+      }
+    }
+  }
+}
